@@ -1,0 +1,87 @@
+Version:1.00.000
+          |   |
+       major minor
+
+
+
+-------------------------Version :1.00.001(minor)-------------------------
+
+project is uploaded to the gitHUB with all the envirnment setup properly
+setup envirnment.
+wamp(local testing).
+nodejs(npm) compiler.
+composer(Laravel).
+Vue(CLI).
+chrome browser(with all the necessary dev toools)
+Visualcode(editor).
+Microsoft xd (design) svgs.
+0.0.0webhost for remote testing.
+
+
+
+
+1)npm installation 
+$npm install
+$npm run watch(while working)
+that is basically a compiler that compiles all the project files
+on the run ,,,,
+2)Bootstrap (html scss) Design. 
+3)Laravel (Backend).
+$composer create-project laravel/laravel KheRi
+4)Vue (Frontend).
+5)MySQL(Database).
+connecting the mySQL database to our project for localhost testing 
+using wamp
+name:KheRidb
+-------------------------Version :1.00.002(minor)-------------------------        
+Enabling the laravel authentication
+migrating our database
+string error formySQL default string length
+masterpage/Admin page
+using Bootstrap
+-----------------------Version :1.00.003(minor)----------------------------
+debugging/customizarion of admin panel
+-----------------------Version :1.00.004(minor)----------------------------
+Setting up fontawesome (icons) and adminlte 3 (bootstrap admin dashboard)
+-----------------------Version :1.00.005(minor)----------------------------
+customizing the admin panel using custom css files and bootstrap
+using hard coded images for now
+customizing the adminpanel to our neeeds...
+-----------------------Version :1.00.006(minor)----------------------------
+using vue router
+and setting it up 
+taking all the steps so that we can use vue router
+installing
+configuring
+usage
+-----------------------Version :1.00.007(minor)----------------------------
+using vform for form submittion
+installing and using laravel API resource routes
+setting up the user controller laraavel
+-----------------------Version :1.00.008(minor)----------------------------
+customizing our user mgrations tables acc to our neeeds
+checking the requests to our user controller
+XHR resquests using devtools...
+-----------------------Version :1.01.000(major)----------------------------
+upgrading our laravel to 5.7
+learn how to upgrade framework
+vue comes built in with this version of the framework laravell thats why i picket
+this version 
+configuring and installing and customizinf all the necessary files and pakages
+
+
+
+dev toools
+XHR
+npm 
+virtualhost
+php
+wamp
+vue-router
+middleware
+csrf tokken
+history mode vue
+app APP_KEY 
+optimization
+
+
