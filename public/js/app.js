@@ -38978,7 +38978,7 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "modal fade",
+        staticClass: "modal fade ",
         attrs: {
           id: "add",
           tabindex: "-1",
@@ -38995,7 +38995,7 @@ var render = function() {
             attrs: { role: "document" }
           },
           [
-            _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-content bg-dark" }, [
               _vm._m(1),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
@@ -39010,7 +39010,7 @@ var render = function() {
                     }
                   },
                   [
-                    _c("i", { staticClass: "fas fa-file-signature" }),
+                    _c("i", { staticClass: "fas fa-file-signature green" }),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -39050,7 +39050,7 @@ var render = function() {
                       1
                     ),
                     _vm._v(" "),
-                    _c("i", { staticClass: "fas fa-envelope" }),
+                    _c("i", { staticClass: "fas fa-envelope blue" }),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -39090,7 +39090,7 @@ var render = function() {
                       1
                     ),
                     _vm._v(" "),
-                    _c("i", { staticClass: "fas fa-book" }),
+                    _c("i", { staticClass: "fas fa-book orange" }),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -39130,7 +39130,7 @@ var render = function() {
                       1
                     ),
                     _vm._v(" "),
-                    _c("i", { staticClass: "fas fa-list" }),
+                    _c("i", { staticClass: "fas fa-list yellow" }),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -39182,11 +39182,11 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("option", { attrs: { value: "user" } }, [
-                              _vm._v("Standard User")
+                              _vm._v("user")
                             ]),
                             _vm._v(" "),
                             _c("option", { attrs: { value: "author" } }, [
-                              _vm._v("Author")
+                              _vm._v("Vendor")
                             ])
                           ]
                         ),
@@ -39198,7 +39198,7 @@ var render = function() {
                       1
                     ),
                     _vm._v(" "),
-                    _c("i", { staticClass: "fas fa-lock" }),
+                    _c("i", { staticClass: "fas fa-lock red" }),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -39263,11 +39263,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row mt-5" }, [
       _c("div", { staticClass: "col-md-12" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _c("h3", { staticClass: "card-title" }, [
-              _vm._v("Responsive Hover Table")
-            ]),
+        _c("div", { staticClass: "card bg-dark" }, [
+          _c("div", { staticClass: "card-header " }, [
+            _c("h3", { staticClass: "card-title " }, [_vm._v("Panel")]),
             _vm._v(" "),
             _c("div", { staticClass: "card-tools" }, [
               _c(
@@ -39286,9 +39284,9 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "card-body table-responsive p-0" }, [
-          _c("table", { staticClass: "table table-hover" }, [
+          _c("table", { staticClass: "table table-hover bg-dark" }, [
             _c("thead", [
-              _c("tr", [
+              _c("tr", { staticClass: "bg-success" }, [
                 _c("th", [_vm._v("ID")]),
                 _vm._v(" "),
                 _c("th", [_vm._v("Name")]),
@@ -39336,7 +39334,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
-      _c("h5", { staticClass: "modal-title", attrs: { id: "add" } }, [
+      _c("h5", { staticClass: "modal-title ", attrs: { id: "add" } }, [
         _vm._v("Add User")
       ]),
       _vm._v(" "),

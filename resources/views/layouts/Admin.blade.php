@@ -24,18 +24,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="wrapper" id="app">
 
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light bg-dark">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="/home" class="nav-link">Home</a>
+                    <a href="/home" class="nav-link bg-success">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
+                    <a href="/home" class="nav-link bg-success">Home</a>
                 </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="/home" class="nav-link bg-success">Home</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="/home" class="nav-link bg-success">Home</a>
+                </li>
+                
             </ul>
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
@@ -186,11 +193,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <footer class="main-footer">
             <!-- To the right -->
             <div class="float-right d-none d-sm-inline">
-                Anything you want
+                
             </div>
             <!-- Default to the left -->
-            <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
-            reserved.
+            <strong>
+                
         </footer>
     </div>
     <!-- ./wrapper -->

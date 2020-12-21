@@ -3,9 +3,9 @@
     <!--Table-->
     <div class="row mt-5">
       <div class="col-md-12">
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">Responsive Hover Table</h3>
+        <div class="card bg-dark">
+          <div class="card-header ">
+            <h3 class="card-title ">Panel</h3>
 
             <div class="card-tools">
               <button
@@ -20,9 +20,9 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body table-responsive p-0">
-          <table class="table table-hover">
+          <table class="table table-hover bg-dark">
             <thead>
-              <tr>
+              <tr class="bg-success">
                 <th>ID</th>
                 <th>Name</th>
                 <th>email</th>
@@ -59,7 +59,7 @@
     <!-- Modal -->
     <!-- Modal -->
     <div
-      class="modal fade"
+      class="modal fade "
       id="add"
       tabindex="-1"
       role="dialog"
@@ -67,9 +67,9 @@
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
+        <div class="modal-content bg-dark">
           <div class="modal-header">
-            <h5 class="modal-title" id="add">Add User</h5>
+            <h5 class="modal-title " id="add">Add User</h5>
             <button
               type="button"
               class="close bg-danger"
@@ -83,7 +83,7 @@
           <div class="modal-body">
             <!-------------------------Form---------------------->
             <form @submit.prevent="create">
-              <i class="fas fa-file-signature"></i>
+              <i class="fas fa-file-signature green"></i>
               <div class="form-group">
                 <input
                   v-model="form.name"
@@ -95,7 +95,7 @@
                 />
                 <has-error :form="form" field="name"></has-error>
               </div>
-              <i class="fas fa-envelope"></i>
+              <i class="fas fa-envelope blue"></i>
               <div class="form-group">
                 <input
                   v-model="form.email"
@@ -107,7 +107,7 @@
                 />
                 <has-error :form="form" field="email"></has-error>
               </div>
-              <i class="fas fa-book"></i>
+              <i class="fas fa-book orange"></i>
               <div class="form-group">
                 <textarea
                   v-model="form.bio"
@@ -119,7 +119,7 @@
                 ></textarea>
                 <has-error :form="form" field="bio"></has-error>
               </div>
-              <i class="fas fa-list"></i>
+              <i class="fas fa-list yellow"></i>
               <div class="form-group">
                 <select
                   name="type"
@@ -130,12 +130,12 @@
                 >
                   <option value="">Select User Role</option>
                   <option value="admin">Admin</option>
-                  <option value="user">Standard User</option>
-                  <option value="author">Author</option>
+                  <option value="user">user</option>
+                  <option value="author">Vendor</option>
                 </select>
                 <has-error :form="form" field="type"></has-error>
               </div>
-              <i class="fas fa-lock"></i>
+              <i class="fas fa-lock red"></i>
               <div class="form-group inline">
                 <input
                   v-model="form.password"
@@ -192,4 +192,6 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+
+</style>

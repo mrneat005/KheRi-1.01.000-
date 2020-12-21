@@ -29,6 +29,17 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+//Server validation
+//we can also use axios and classes custon for this
+$this->validate($request,[
+    'name' => 'required|string|max:60',
+    'email' => 'required|string|max:191|unique:users',
+    'password' => 'required|string|min:6|max:60',
+    'bio' => 'string|max:191',
+
+]);
+
+
         //
         //return ['message'=>'I have your data and i am store'];
         return User::create([
