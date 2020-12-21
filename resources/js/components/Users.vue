@@ -129,9 +129,9 @@
                   :class="{ 'is-invalid': form.errors.has('type') }"
                 >
                   <option value="">Select User Role</option>
-                  <option value="admin">Admin</option>
+                  <option value="admin">admin</option>
                   <option value="user">user</option>
-                  <option value="author">Vendor</option>
+                  <option value="author">vendor</option>
                 </select>
                 <has-error :form="form" field="type"></has-error>
               </div>
@@ -188,16 +188,42 @@ export default {
   },
   methods: {
     create() {
-      console.log("executed");
-      this.form.post("api/user");
+      this.$Progress.start()
+      this.form.post("api/user")
+      this.loadUsers()
+      this.$Progress.finish()
+
+if (this.form.type=='user') {
+        Toast.fire({
+  icon: 'success',
+  title: 'User '+this.form.name+' created successfully'})
+}
+if (this.form.type=='admin') {
+        Toast.fire({
+  icon: 'success',
+  title: 'Admin '+this.form.name+' created successfully'})
+} else {
+      Toast.fire({
+  icon: 'success',
+  title: 'Vendor '+this.form.name+' created successfully'})
+}
+
+//This will close the alert
+$(add).modal('hide');
+  
+
     },
     loadUsers()
     {
-      axios.get("api/user").then(({data}) => (this.users = data.data));
+      this.$Progress.start()
+      axios.get("api/user").then(({data}) => (this.users = data.data)).catch(function (error) {
+    // handle error
+    this.$Progress.fail()
+  });
+      this.$Progress.finish()
       //axios.get("api/user").then(({data}) => (this.users = data.data));
       //doing data.data because it depends on how we get data formated
       //see  XHR response
-
     },
     diplayTime()
     {
