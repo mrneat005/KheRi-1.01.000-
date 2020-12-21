@@ -5,7 +5,7 @@
       <div class="col-md-12">
         <div class="card bg-dark">
           <div class="card-header ">
-            <h3 class="card-title ">Panel</h3>
+            <h3 class="card-title ">Panel </h3>
 
             <div class="card-tools">
               <button
@@ -20,7 +20,7 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body table-responsive p-0">
-          <table class="table table-hover bg-dark">
+          <table class="table table-hover bg-dark table-striped">
             <thead>
               <tr class="bg-success">
                 <th>ID</th>
@@ -34,9 +34,10 @@
             <tbody>
               <tr v-for="user in users" :key=user.id>
                 <td>{{user.id}}</td>
-                <td>{{user.name}}</td>
-                <td>{{user.type}}</td>
-                <td>not Approved</td>
+                <td>{{user.name | upperCaseFirst}}</td>
+                <td>{{user.type | lowerCaseAll}}</td>
+                <td>no Approved</td>
+                <!--<td>{{user.created_at | simpleDate }}</td>-->
                 <td>
                   <a href="#">
                     <i class="fas fa-edit fa-lg green"></i>
@@ -172,6 +173,7 @@ export default {
   },
   data() {
     return {
+      time:'',
       users:{},
       form: new Form({
         id: "",
@@ -197,6 +199,13 @@ export default {
       //see  XHR response
 
     },
+    diplayTime()
+    {
+      var time = new Date();
+      time.toLocaleTimeString();
+      this.time = time;
+
+    }
   },
 };
 </script>

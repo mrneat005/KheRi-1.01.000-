@@ -94,5 +94,9 @@ server validation
 Displaying users data 
 (fetching all the data about users)
 using loop in vue v-for
------------------------Version :1.01.003(minor)---------------------------- 
+-----------------------Version :1.01.004(minor)---------------------------- 
+implementing global filters for vue to sustomize text data accordingly
+also implementing and installing which is a open sorce time and date formmating liabrary
+-----------------------Version :1.01.004(minor)---------------------------- 
+
 

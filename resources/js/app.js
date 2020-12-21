@@ -15,6 +15,7 @@ Vue.component(AlertError.name, AlertError)
 //vue Router
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import moment from 'moment';
 
 Vue.use(VueRouter)
 
@@ -30,7 +31,26 @@ const routes = [
     routes // short for `routes: routes`
     ,mode:'history'
   })
+//this will take the text and capatalize its first letter
+  Vue.filter('upperCaseFirst',function name(text) {
+    return text.charAt(0).toUpperCase() + text.slice(1)
+  });
+//All
+  Vue.filter('upperCaseAll',function name(text) {
+    
+    return text.toUpperCase()
+  });
 
+  //Lower case all
+  Vue.filter('lowerCaseAll',function name(text) {
+    
+    return text.toLowerCase()
+  });
+  //date filter and formatting
+  Vue.filter('simpleDate',function name(date) {
+    //moment().format('MMMM Do YYYY, h:mm:ss a');
+    return moment().format('ll');
+  })
 
 
 
