@@ -68,7 +68,7 @@
     >
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content bg-dark">
-          <div class="modal-header">
+          <div class="modal-header bg-success">
             <h5 class="modal-title " id="add">Add User</h5>
             <button
               type="button"

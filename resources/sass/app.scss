@@ -10,3 +10,8 @@ $fa-font-path:        "../webfonts";
 @import '~admin-lte/dist/css/adminlte.css';
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
+
+.router-link-exact-active{
+    background-color: green !important;
+    color: white !important;
+}

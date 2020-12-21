@@ -64608,7 +64608,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
+    return _c("div", { staticClass: "modal-header bg-success" }, [
       _c("h5", { staticClass: "modal-title ", attrs: { id: "add" } }, [
         _vm._v("Add User")
       ]),
