@@ -18,6 +18,12 @@ class UserController extends Controller
     {
         //
         //return ['message'=>'I have your data and i am index'];
+
+return User::latest()->paginate(10);
+//return User::all()->paginate(10);
+
+
+
         
     }
 

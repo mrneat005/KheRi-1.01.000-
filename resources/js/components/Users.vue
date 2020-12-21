@@ -25,19 +25,18 @@
               <tr class="bg-success">
                 <th>ID</th>
                 <th>Name</th>
-                <th>email</th>
-                <th>Date</th>
                 <th>type</th>
-                <th>Modify</th>
+                <th>status</th>
+                <th>Modify</th>              
+                              
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>183</td>
-                <td>John Doe</td>
-                <td>11-7-2014</td>
-                <td>user</td>
-                <td></td>
+              <tr v-for="user in users" :key=user.id>
+                <td>{{user.id}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.type}}</td>
+                <td>not Approved</td>
                 <td>
                   <a href="#">
                     <i class="fas fa-edit fa-lg green"></i>
@@ -168,11 +167,12 @@
 
 <script>
 export default {
-  mounted() {
-    console.log("Component mounted.");
+  created() {
+    this.loadUsers();
   },
   data() {
     return {
+      users:{},
       form: new Form({
         id: "",
         name: "",
@@ -188,6 +188,14 @@ export default {
     create() {
       console.log("executed");
       this.form.post("api/user");
+    },
+    loadUsers()
+    {
+      axios.get("api/user").then(({data}) => (this.users = data.data));
+      //axios.get("api/user").then(({data}) => (this.users = data.data));
+      //doing data.data because it depends on how we get data formated
+      //see  XHR response
+
     },
   },
 };

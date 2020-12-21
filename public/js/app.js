@@ -2191,13 +2191,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    console.log("Component mounted.");
+  created: function created() {
+    this.loadUsers();
   },
   data: function data() {
     return {
+      users: {},
       form: new Form({
         id: "",
         name: "",
@@ -2213,6 +2213,16 @@ __webpack_require__.r(__webpack_exports__);
     create: function create() {
       console.log("executed");
       this.form.post("api/user");
+    },
+    loadUsers: function loadUsers() {
+      var _this = this;
+
+      axios.get("api/user").then(function (_ref) {
+        var data = _ref.data;
+        return _this.users = data.data;
+      }); //axios.get("api/user").then(({data}) => (this.users = data.data));
+      //doing data.data because it depends on how we get data formated
+      //see  XHR response
     }
   }
 });
@@ -38973,7 +38983,35 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _vm._m(0),
+    _c("div", { staticClass: "row mt-5" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body table-responsive p-0" }, [
+          _c("table", { staticClass: "table table-hover bg-dark" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.users, function(user) {
+                return _c("tr", { key: user.id }, [
+                  _c("td", [_vm._v(_vm._s(user.id))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(user.name))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(user.type))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v("not Approved")]),
+                  _vm._v(" "),
+                  _vm._m(2, true)
+                ])
+              }),
+              0
+            )
+          ])
+        ])
+      ])
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -38996,7 +39034,7 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content bg-dark" }, [
-              _vm._m(1),
+              _vm._m(3),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c(
@@ -39245,7 +39283,7 @@ var render = function() {
                       1
                     ),
                     _vm._v(" "),
-                    _vm._m(2)
+                    _vm._m(4)
                   ]
                 )
               ])
@@ -39261,71 +39299,55 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mt-5" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("div", { staticClass: "card bg-dark" }, [
-          _c("div", { staticClass: "card-header " }, [
-            _c("h3", { staticClass: "card-title " }, [_vm._v("Panel")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-tools" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-success",
-                  attrs: { "data-toggle": "modal", "data-target": "#add" }
-                },
-                [
-                  _vm._v("\n              Add new"),
-                  _c("i", { staticClass: "fas fa-user-plus fw" })
-                ]
-              )
-            ])
-          ])
-        ]),
+    return _c("div", { staticClass: "card bg-dark" }, [
+      _c("div", { staticClass: "card-header " }, [
+        _c("h3", { staticClass: "card-title " }, [_vm._v("Panel")]),
         _vm._v(" "),
-        _c("div", { staticClass: "card-body table-responsive p-0" }, [
-          _c("table", { staticClass: "table table-hover bg-dark" }, [
-            _c("thead", [
-              _c("tr", { staticClass: "bg-success" }, [
-                _c("th", [_vm._v("ID")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Name")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("email")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Date")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("type")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Modify")])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("tbody", [
-              _c("tr", [
-                _c("td", [_vm._v("183")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("John Doe")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("11-7-2014")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("user")]),
-                _vm._v(" "),
-                _c("td"),
-                _vm._v(" "),
-                _c("td", [
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "fas fa-edit fa-lg green" })
-                  ]),
-                  _vm._v("\n                /\n                "),
-                  _c("a", { attrs: { href: "#" } }, [
-                    _c("i", { staticClass: "fas fa-trash red fa-lg" })
-                  ])
-                ])
-              ])
-            ])
-          ])
+        _c("div", { staticClass: "card-tools" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-success",
+              attrs: { "data-toggle": "modal", "data-target": "#add" }
+            },
+            [
+              _vm._v("\n              Add new"),
+              _c("i", { staticClass: "fas fa-user-plus fw" })
+            ]
+          )
         ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", { staticClass: "bg-success" }, [
+        _c("th", [_vm._v("ID")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("type")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("status")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Modify")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("i", { staticClass: "fas fa-edit fa-lg green" })
+      ]),
+      _vm._v("\n                /\n                "),
+      _c("a", { attrs: { href: "#" } }, [
+        _c("i", { staticClass: "fas fa-trash red fa-lg" })
       ])
     ])
   },
