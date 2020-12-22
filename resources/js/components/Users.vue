@@ -10,8 +10,7 @@
             <div class="card-tools">
               <button
                 class="btn btn-success"
-                data-toggle="modal"
-                data-target="#add"
+                @click="createModal"
               >
                 Add new<i class="fas fa-user-plus fw"></i>
               </button>
@@ -38,7 +37,7 @@
                 <td>no Approved</td>
                 <!--<td>{{user.created_at | simpleDate }}</td>-->
                 <td>
-                  <a href="#" @click="updateUser(user.id)">
+                  <a href="#" @click="updateUser(user)">
                     <i class="fas fa-edit fa-lg green"></i>
                   </a>
                   /
@@ -72,9 +71,7 @@
             <button
               type="button"
               class="close bg-danger"
-              style="border-radius: 60%"
-              data-dismiss="modal"
-              aria-label="Close"
+              @click="closeModal"
             >
               <span aria-hidden="true">&times;</span>
             </button>
@@ -190,6 +187,12 @@ export default {
     };
   },
   methods: {
+    closeModal(){
+    $(add).modal("hide");
+  },   
+   createModal(){
+    $(add).modal("show");
+  },
     deleteUser(id) {
       Swal.fire({
         title: "Are you sure?",
@@ -220,8 +223,16 @@ export default {
 
         
       });
-    },updateUser(id) {
-      Swal.fire({
+    },updateUser(user) {
+
+      this.form.fill(user);
+      $(add).modal("show");
+      
+      
+      
+      
+      
+      /*Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
         icon: "warning",
@@ -237,7 +248,7 @@ export default {
             "success"
           );
         }
-      });
+      });*/
     },
     create() {
       this.$Progress.start();

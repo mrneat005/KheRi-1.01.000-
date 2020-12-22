@@ -2192,9 +2192,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
     this.loadUsers();
@@ -2215,6 +2212,12 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    closeModal: function closeModal() {
+      $(add).modal("hide");
+    },
+    createModal: function createModal() {
+      $(add).modal("show");
+    },
     deleteUser: function deleteUser(id) {
       var _this = this;
 
@@ -2233,20 +2236,26 @@ __webpack_require__.r(__webpack_exports__);
         })["catch"](function () {});
       });
     },
-    updateUser: function updateUser(id) {
-      Swal.fire({
+    updateUser: function updateUser(user) {
+      this.form.fill(user);
+      $(add).modal("show");
+      /*Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, update it!"
-      }).then(function (result) {
+        confirmButtonText: "Yes, update it!",
+      }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire("update!", "Your file " + id + " has been updated.", "success");
+          Swal.fire(
+            "update!",
+            "Your file " + id + " has been updated.",
+            "success"
+          );
         }
-      });
+      });*/
     },
     create: function create() {
       var _this2 = this;
@@ -64291,14 +64300,32 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row mt-5" }, [
       _c("div", { staticClass: "col-md-12" }, [
-        _vm._m(0),
+        _c("div", { staticClass: "card bg-dark" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _c("h3", { staticClass: "card-title" }, [_vm._v("Panel")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-tools" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-success",
+                  on: { click: _vm.createModal }
+                },
+                [
+                  _vm._v("\n              Add new"),
+                  _c("i", { staticClass: "fas fa-user-plus fw" })
+                ]
+              )
+            ])
+          ])
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "card-body table-responsive p-0" }, [
           _c(
             "table",
             { staticClass: "table table-hover bg-dark table-striped" },
             [
-              _vm._m(1),
+              _vm._m(0),
               _vm._v(" "),
               _c(
                 "tbody",
@@ -64323,7 +64350,7 @@ var render = function() {
                           attrs: { href: "#" },
                           on: {
                             click: function($event) {
-                              return _vm.updateUser(user.id)
+                              return _vm.updateUser(user)
                             }
                           }
                         },
@@ -64374,7 +64401,25 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content bg-dark" }, [
-              _vm._m(2),
+              _c("div", { staticClass: "modal-header bg-success" }, [
+                _c("h5", { staticClass: "modal-title", attrs: { id: "add" } }, [
+                  _vm._v("Add User")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "close bg-danger",
+                    attrs: { type: "button" },
+                    on: { click: _vm.closeModal }
+                  },
+                  [
+                    _c("span", { attrs: { "aria-hidden": "true" } }, [
+                      _vm._v("×")
+                    ])
+                  ]
+                )
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c(
@@ -64623,7 +64668,7 @@ var render = function() {
                       1
                     ),
                     _vm._v(" "),
-                    _vm._m(3)
+                    _vm._m(1)
                   ]
                 )
               ])
@@ -64635,30 +64680,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card bg-dark" }, [
-      _c("div", { staticClass: "card-header" }, [
-        _c("h3", { staticClass: "card-title" }, [_vm._v("Panel")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-tools" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-success",
-              attrs: { "data-toggle": "modal", "data-target": "#add" }
-            },
-            [
-              _vm._v("\n              Add new"),
-              _c("i", { staticClass: "fas fa-user-plus fw" })
-            ]
-          )
-        ])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -64675,30 +64696,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Modify")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header bg-success" }, [
-      _c("h5", { staticClass: "modal-title", attrs: { id: "add" } }, [
-        _vm._v("Add User")
-      ]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close bg-danger",
-          staticStyle: { "border-radius": "60%" },
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
     ])
   },
   function() {
