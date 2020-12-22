@@ -31248,7 +31248,7 @@ a.text-muted:hover {
 }
 
 .green {
-  color: #38c172;
+  color: #28a745;
 }
 
 .teal {
@@ -48269,7 +48269,7 @@ readers do not read off random characters that represent icons */
 }
 
 .router-link-exact-active {
-  background-color: green !important;
+  background-color: #28a745 !important;
   color: white !important;
 }
 

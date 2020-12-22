@@ -190,6 +190,7 @@ export default {
     create() {
       this.$Progress.start()
       this.form.post("api/user")
+      
       this.loadUsers()
       this.$Progress.finish()
 
@@ -224,6 +225,8 @@ $(add).modal('hide');
       //axios.get("api/user").then(({data}) => (this.users = data.data));
       //doing data.data because it depends on how we get data formated
       //see  XHR response
+      setInterval(()=>this.loadUsers(),10000);
+      //setInterval(()=>this.displayTime(),1000);
     },
     diplayTime()
     {

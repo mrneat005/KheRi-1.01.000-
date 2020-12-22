@@ -2254,6 +2254,10 @@ __webpack_require__.r(__webpack_exports__);
       this.$Progress.finish(); //axios.get("api/user").then(({data}) => (this.users = data.data));
       //doing data.data because it depends on how we get data formated
       //see  XHR response
+
+      setInterval(function () {
+        return _this.loadUsers();
+      }, 10000); //setInterval(()=>this.displayTime(),1000);
     },
     diplayTime: function diplayTime() {
       var time = new Date();

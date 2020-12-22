@@ -100,6 +100,8 @@ also implementing and installing which is a open sorce time and date formmating 
 -----------------------Version :1.01.005(minor)---------------------------- 
 alerts
 -----------------------Version :1.01.006(minor)---------------------------- 
-login and reg forms custom
-
+login and reg forms customization
+-----------------------Version :1.01.007(minor)---------------------------- 
+ajax request every 10 second so that if the dat is changed in the server will
+reflected on the app
 
