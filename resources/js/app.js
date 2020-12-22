@@ -18,6 +18,10 @@ import VueRouter from 'vue-router'
 import moment from 'moment';
 import VueProgressBar from 'vue-progressbar'
 import Swal from 'sweetalert2'
+window.Swal = Swal;
+let Fire = new Vue();
+window.Fire = Fire;
+//shorter way window.Fire = new Vue();
 //sweet toast
 const Toast = Swal.mixin({
   toast: true,

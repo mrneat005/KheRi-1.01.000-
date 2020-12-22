@@ -89,6 +89,10 @@ $this->validate($request,[
      */
     public function destroy($id)
     {
-        //
+        //finding user id  
+       $user= User::findOrFail($id);
+        //now deleting this user
+       $user->delete();
+
     }
 }

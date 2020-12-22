@@ -4,8 +4,8 @@
     <div class="row mt-5">
       <div class="col-md-12">
         <div class="card bg-dark">
-          <div class="card-header ">
-            <h3 class="card-title ">Panel </h3>
+          <div class="card-header">
+            <h3 class="card-title">Panel</h3>
 
             <div class="card-tools">
               <button
@@ -27,23 +27,22 @@
                 <th>Name</th>
                 <th>type</th>
                 <th>status</th>
-                <th>Modify</th>              
-                              
+                <th>Modify</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="user in users" :key=user.id>
-                <td>{{user.id}}</td>
-                <td>{{user.name | upperCaseFirst}}</td>
-                <td>{{user.type | lowerCaseAll}}</td>
+              <tr v-for="user in users" :key="user.id">
+                <td>{{ user.id }}</td>
+                <td>{{ user.name | upperCaseFirst }}</td>
+                <td>{{ user.type | lowerCaseAll }}</td>
                 <td>no Approved</td>
                 <!--<td>{{user.created_at | simpleDate }}</td>-->
                 <td>
-                  <a href="#">
+                  <a href="#" @click="updateUser(user.id)">
                     <i class="fas fa-edit fa-lg green"></i>
                   </a>
                   /
-                  <a href="#">
+                  <a href="#" @click="deleteUser(user.id)">
                     <i class="fas fa-trash red fa-lg"> </i>
                   </a>
                 </td>
@@ -59,7 +58,7 @@
     <!-- Modal -->
     <!-- Modal -->
     <div
-      class="modal fade "
+      class="modal fade"
       id="add"
       tabindex="-1"
       role="dialog"
@@ -69,7 +68,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content bg-dark">
           <div class="modal-header bg-success">
-            <h5 class="modal-title " id="add">Add User</h5>
+            <h5 class="modal-title" id="add">Add User</h5>
             <button
               type="button"
               class="close bg-danger"
@@ -150,10 +149,14 @@
                 <has-error :form="form" field="password"></has-error>
               </div>
               <div class="container">
-                          <button type="button" class="btn btn-danger" data-dismiss="modal">
-              Close
-            </button>
-            <button type="submit" class="btn btn-success">Create</button>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="submit" class="btn btn-success">Create</button>
               </div>
             </form>
             <!--/Form-->
@@ -173,8 +176,8 @@ export default {
   },
   data() {
     return {
-      time:'',
-      users:{},
+      time: "",
+      users: {},
       form: new Form({
         id: "",
         name: "",
@@ -187,57 +190,128 @@ export default {
     };
   },
   methods: {
-    create() {
-      this.$Progress.start()
-      this.form.post("api/user")
-      
-      this.loadUsers()
-      this.$Progress.finish()
+    deleteUser(id) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
 
-if (this.form.type=='user') {
-        Toast.fire({
-  icon: 'success',
-  title: 'User '+this.form.name+' created successfully'})
-}
-if (this.form.type=='admin') {
-        Toast.fire({
-  icon: 'success',
-  title: 'Admin '+this.form.name+' created successfully'})
-} else {
-      Toast.fire({
-  icon: 'success',
-  title: 'Vendor '+this.form.name+' created successfully'})
-}
 
-//This will close the alert
-$(add).modal('hide');
-  
 
+      this.form.delete('api/user/'+id)
+      .then(()=>{
+            Fire.$emit("userDeleted");
+            Swal.fire(
+            "Deleted!",
+            "Your file " + id + " has been deleted.",
+            "success"
+          );
+
+      })
+      .catch(()=>{
+
+      });
+          
+
+        
+      });
+    },updateUser(id) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, update it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            "update!",
+            "Your file " + id + " has been updated.",
+            "success"
+          );
+        }
+      });
     },
-    loadUsers()
-    {
-      this.$Progress.start()
-      axios.get("api/user").then(({data}) => (this.users = data.data)).catch(function (error) {
-    // handle error
-    this.$Progress.fail()
-  });
-      this.$Progress.finish()
+    create() {
+      this.$Progress.start();
+      this.form
+        .post("api/user")
+        .then(() => {
+          //this.loadUsers()
+          //using custom events
+
+          Fire.$emit("userCreated");
+          if (this.form.type == "user") {
+            Toast.fire({
+              icon: "success",
+              title: "User " + this.form.name + " created successfully",
+            });
+          }
+          if (this.form.type == "admin") {
+            Toast.fire({
+              icon: "success",
+              title: "Admin " + this.form.name + " created successfully",
+            });
+          }
+          if (this.form.type == "vendor") {
+            Toast.fire({
+              icon: "success",
+              title: "Vendor " + this.form.name + " created successfully",
+            });
+          } else {
+            Toast.fire({
+              icon: "success",
+              title: "User " + this.form.name + " created successfully",
+            });
+          }
+          this.$Progress.finish();
+          //This will close the modal
+          $(add).modal("hide");
+        })
+        .catch(() => {
+          this.$Progress.fail();
+        });
+    },
+    loadUsers() {
+      this.$Progress.start();
+      axios
+        .get("api/user")
+        .then(({ data }) => {
+          this.users = data.data;
+        })
+        .catch(function (error) {
+          // handle error
+          this.$Progress.fail();
+        });
+      this.$Progress.finish();
+      Fire.$on("userCreated", () => {
+        this.loadUsers();
+      });
+            Fire.$on("userDeleted", () => {
+        this.loadUsers();
+      });
       //axios.get("api/user").then(({data}) => (this.users = data.data));
       //doing data.data because it depends on how we get data formated
       //see  XHR response
-      setInterval(()=>this.loadUsers(),10000);
+      //performence
+      //setInterval(() => this.loadUsers(), 15000);
+      //refreshs data after every 15 seconds
       //setInterval(()=>this.displayTime(),1000);
     },
-    diplayTime()
-    {
+    diplayTime() {
       var time = new Date();
       time.toLocaleTimeString();
       this.time = time;
-
-    }
+    },
   },
 };
 </script>
 <style>
-
 </style>

@@ -104,4 +104,13 @@ login and reg forms customization
 -----------------------Version :1.01.007(minor)---------------------------- 
 ajax request every 10 second so that if the dat is changed in the server will
 reflected on the app
+-----------------------Version :1.01.008(minor)---------------------------- 
+
+component communication
+using custom events
+updated the user data on creation of user
+asyn and await in javascrpt they are also 
+
+-----------------------Version :1.01.009(minor)---------------------------- 
+
 

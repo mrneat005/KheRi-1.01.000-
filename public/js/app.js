@@ -2192,13 +2192,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
     this.loadUsers();
   },
   data: function data() {
     return {
-      time: '',
+      time: "",
       users: {},
       form: new Form({
         id: "",
@@ -2212,52 +2215,106 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    deleteUser: function deleteUser(id) {
+      var _this = this;
+
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        _this.form["delete"]('api/user/' + id).then(function () {
+          Fire.$emit("userDeleted");
+          Swal.fire("Deleted!", "Your file " + id + " has been deleted.", "success");
+        })["catch"](function () {});
+      });
+    },
+    updateUser: function updateUser(id) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, update it!"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          Swal.fire("update!", "Your file " + id + " has been updated.", "success");
+        }
+      });
+    },
     create: function create() {
+      var _this2 = this;
+
       this.$Progress.start();
-      this.form.post("api/user");
-      this.loadUsers();
-      this.$Progress.finish();
+      this.form.post("api/user").then(function () {
+        //this.loadUsers()
+        //using custom events
+        Fire.$emit("userCreated");
 
-      if (this.form.type == 'user') {
-        Toast.fire({
-          icon: 'success',
-          title: 'User ' + this.form.name + ' created successfully'
-        });
-      }
+        if (_this2.form.type == "user") {
+          Toast.fire({
+            icon: "success",
+            title: "User " + _this2.form.name + " created successfully"
+          });
+        }
 
-      if (this.form.type == 'admin') {
-        Toast.fire({
-          icon: 'success',
-          title: 'Admin ' + this.form.name + ' created successfully'
-        });
-      } else {
-        Toast.fire({
-          icon: 'success',
-          title: 'Vendor ' + this.form.name + ' created successfully'
-        });
-      } //This will close the alert
+        if (_this2.form.type == "admin") {
+          Toast.fire({
+            icon: "success",
+            title: "Admin " + _this2.form.name + " created successfully"
+          });
+        }
+
+        if (_this2.form.type == "vendor") {
+          Toast.fire({
+            icon: "success",
+            title: "Vendor " + _this2.form.name + " created successfully"
+          });
+        } else {
+          Toast.fire({
+            icon: "success",
+            title: "User " + _this2.form.name + " created successfully"
+          });
+        }
+
+        _this2.$Progress.finish(); //This will close the modal
 
 
-      $(add).modal('hide');
+        $(add).modal("hide");
+      })["catch"](function () {
+        _this2.$Progress.fail();
+      });
     },
     loadUsers: function loadUsers() {
-      var _this = this;
+      var _this3 = this;
 
       this.$Progress.start();
       axios.get("api/user").then(function (_ref) {
         var data = _ref.data;
-        return _this.users = data.data;
+        _this3.users = data.data;
       })["catch"](function (error) {
         // handle error
         this.$Progress.fail();
       });
-      this.$Progress.finish(); //axios.get("api/user").then(({data}) => (this.users = data.data));
+      this.$Progress.finish();
+      Fire.$on("userCreated", function () {
+        _this3.loadUsers();
+      });
+      Fire.$on("userDeleted", function () {
+        _this3.loadUsers();
+      }); //axios.get("api/user").then(({data}) => (this.users = data.data));
       //doing data.data because it depends on how we get data formated
       //see  XHR response
-
-      setInterval(function () {
-        return _this.loadUsers();
-      }, 10000); //setInterval(()=>this.displayTime(),1000);
+      //performence
+      //setInterval(() => this.loadUsers(), 15000);
+      //refreshs data after every 15 seconds
+      //setInterval(()=>this.displayTime(),1000);
     },
     diplayTime: function diplayTime() {
       var time = new Date();
@@ -64259,7 +64316,33 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [_vm._v("no Approved")]),
                     _vm._v(" "),
-                    _vm._m(2, true)
+                    _c("td", [
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              return _vm.updateUser(user.id)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-edit fa-lg green" })]
+                      ),
+                      _vm._v("\n                /\n                "),
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteUser(user.id)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-trash red fa-lg" })]
+                      )
+                    ])
                   ])
                 }),
                 0
@@ -64273,7 +64356,7 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "modal fade ",
+        staticClass: "modal fade",
         attrs: {
           id: "add",
           tabindex: "-1",
@@ -64291,7 +64374,7 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "modal-content bg-dark" }, [
-              _vm._m(3),
+              _vm._m(2),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c(
@@ -64540,7 +64623,7 @@ var render = function() {
                       1
                     ),
                     _vm._v(" "),
-                    _vm._m(4)
+                    _vm._m(3)
                   ]
                 )
               ])
@@ -64557,8 +64640,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card bg-dark" }, [
-      _c("div", { staticClass: "card-header " }, [
-        _c("h3", { staticClass: "card-title " }, [_vm._v("Panel ")]),
+      _c("div", { staticClass: "card-header" }, [
+        _c("h3", { staticClass: "card-title" }, [_vm._v("Panel")]),
         _vm._v(" "),
         _c("div", { staticClass: "card-tools" }, [
           _c(
@@ -64598,22 +64681,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("a", { attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fas fa-edit fa-lg green" })
-      ]),
-      _vm._v("\n                /\n                "),
-      _c("a", { attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fas fa-trash red fa-lg" })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header bg-success" }, [
-      _c("h5", { staticClass: "modal-title ", attrs: { id: "add" } }, [
+      _c("h5", { staticClass: "modal-title", attrs: { id: "add" } }, [
         _vm._v("Add User")
       ]),
       _vm._v(" "),
@@ -64643,7 +64712,7 @@ var staticRenderFns = [
           staticClass: "btn btn-danger",
           attrs: { type: "button", "data-dismiss": "modal" }
         },
-        [_vm._v("\n            Close\n          ")]
+        [_vm._v("\n                Close\n              ")]
       ),
       _vm._v(" "),
       _c(
@@ -79951,7 +80020,11 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.component(vform__WEBPACK_IMPORTED_MOD
 
 
 
- //sweet toast
+
+window.Swal = sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a;
+var Fire = new vue__WEBPACK_IMPORTED_MODULE_1___default.a();
+window.Fire = Fire; //shorter way window.Fire = new Vue();
+//sweet toast
 
 var Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.mixin({
   toast: true,
