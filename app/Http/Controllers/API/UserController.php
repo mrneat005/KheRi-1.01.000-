@@ -78,7 +78,37 @@ $this->validate($request,[
      */
     public function update(Request $request, $id)
     {
-        //
+        $user= User::findOrFail($id);
+        $this->validate($request,[
+            'name' => 'required|string|max:60',
+            'email' => 'required|string|max:191|unique:users,email,'.$user->id,
+            'password' => 'sometimes|string|min:6|max:60',
+            'bio' => 'string|max:191',
+        
+        ]);
+        
+        $user->update([  
+        'name'=>$request['name'],
+        'email'=>$request['email'],
+        'type'=>$request['type'],
+        'bio'=>$request['bio'],
+        'photo'=>$request['photo'],
+        'password'=>Hash::make($request['name']),]);
+
+        return ['Message'=> $user];
+        /*
+        $user = User::findOrFail($id);
+
+        $this->validate($request,[
+            'name' => 'required|string|max:60',
+            'email' => 'required|string|max:191|unique:users',$user->id,
+            'password' => 'sometimes|string|min:6|max:60',
+            'bio' => 'string|max:191',
+        
+        ]);
+         $user->update($request->all());
+*/
+      //  return ['message'=>'updated the data'];
     }
 
     /**

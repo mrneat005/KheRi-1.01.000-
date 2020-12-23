@@ -2188,16 +2188,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
     this.loadUsers();
   },
   data: function data() {
     return {
+      whichModal: false,
       time: "",
       users: {},
       form: new Form({
@@ -2216,6 +2213,7 @@ __webpack_require__.r(__webpack_exports__);
       $(add).modal("hide");
     },
     createModal: function createModal() {
+      this.whichModal = false;
       $(add).modal("show");
     },
     deleteUser: function deleteUser(id) {
@@ -2230,15 +2228,38 @@ __webpack_require__.r(__webpack_exports__);
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, delete it!"
       }).then(function (result) {
-        _this.form["delete"]('api/user/' + id).then(function () {
-          Fire.$emit("userDeleted");
-          Swal.fire("Deleted!", "Your file " + id + " has been deleted.", "success");
-        })["catch"](function () {});
+        if (result.isConfirmed) {
+          _this.form["delete"]("api/user/" + id).then(function () {
+            Fire.$emit("userDeleted");
+            Swal.fire("Deleted!", "Your file " + id + " has been deleted.", "success");
+          })["catch"](function () {});
+        }
       });
     },
-    updateUser: function updateUser(user) {
+    updateModal: function updateModal(user) {
+      this.whichModal = true;
       this.form.fill(user);
       $(add).modal("show");
+    },
+    updateUser: function updateUser() {
+      var _this2 = this;
+
+      // this.$progress.start();
+      this.$Progress.start();
+      this.form.put('api/user/' + this.form.id).then(function () {
+        _this2.$Progress.finish();
+
+        $(add).modal("hide");
+        Fire.$emit("userUpdated");
+        Toast.fire({
+          icon: "success",
+          title: "Updated " + _this2.form.id + " successfully"
+        });
+
+        _this2.form.reset();
+      })["catch"](function () {
+        _this2.$Progress.fail();
+      });
       /*Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -2258,7 +2279,7 @@ __webpack_require__.r(__webpack_exports__);
       });*/
     },
     create: function create() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.$Progress.start();
       this.form.post("api/user").then(function () {
@@ -2266,57 +2287,62 @@ __webpack_require__.r(__webpack_exports__);
         //using custom events
         Fire.$emit("userCreated");
 
-        if (_this2.form.type == "user") {
+        if (_this3.form.type == "user") {
           Toast.fire({
             icon: "success",
-            title: "User " + _this2.form.name + " created successfully"
+            title: "User " + _this3.form.name + " created successfully"
           });
         }
 
-        if (_this2.form.type == "admin") {
+        if (_this3.form.type == "admin") {
           Toast.fire({
             icon: "success",
-            title: "Admin " + _this2.form.name + " created successfully"
+            title: "Admin " + _this3.form.name + " created successfully"
           });
         }
 
-        if (_this2.form.type == "vendor") {
+        if (_this3.form.type == "vendor") {
           Toast.fire({
             icon: "success",
-            title: "Vendor " + _this2.form.name + " created successfully"
+            title: "Vendor " + _this3.form.name + " created successfully"
           });
         } else {
           Toast.fire({
             icon: "success",
-            title: "User " + _this2.form.name + " created successfully"
+            title: "User " + _this3.form.name + " created successfully"
           });
         }
 
-        _this2.$Progress.finish(); //This will close the modal
+        _this3.$Progress.finish();
+
+        _this3.form.reset(); //This will close the modal
 
 
         $(add).modal("hide");
       })["catch"](function () {
-        _this2.$Progress.fail();
+        _this3.$Progress.fail();
       });
     },
     loadUsers: function loadUsers() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.$Progress.start();
       axios.get("api/user").then(function (_ref) {
         var data = _ref.data;
-        _this3.users = data.data;
+        _this4.users = data.data;
       })["catch"](function (error) {
         // handle error
         this.$Progress.fail();
       });
       this.$Progress.finish();
       Fire.$on("userCreated", function () {
-        _this3.loadUsers();
+        _this4.loadUsers();
       });
       Fire.$on("userDeleted", function () {
-        _this3.loadUsers();
+        _this4.loadUsers();
+      });
+      Fire.$on("userUpdated", function () {
+        _this4.loadUsers();
       }); //axios.get("api/user").then(({data}) => (this.users = data.data));
       //doing data.data because it depends on how we get data formated
       //see  XHR response
@@ -64350,7 +64376,7 @@ var render = function() {
                           attrs: { href: "#" },
                           on: {
                             click: function($event) {
-                              return _vm.updateUser(user)
+                              return _vm.updateModal(user)
                             }
                           }
                         },
@@ -64402,9 +64428,39 @@ var render = function() {
           [
             _c("div", { staticClass: "modal-content bg-dark" }, [
               _c("div", { staticClass: "modal-header bg-success" }, [
-                _c("h5", { staticClass: "modal-title", attrs: { id: "add" } }, [
-                  _vm._v("Add User")
-                ]),
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.whichModal,
+                        expression: "whichModal"
+                      }
+                    ],
+                    staticClass: "modal-title",
+                    attrs: { id: "add" }
+                  },
+                  [_vm._v("Update User")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.whichModal,
+                        expression: "!whichModal"
+                      }
+                    ],
+                    staticClass: "modal-title",
+                    attrs: { id: "add" }
+                  },
+                  [_vm._v("Add User")]
+                ),
                 _vm._v(" "),
                 _c(
                   "button",
@@ -64428,7 +64484,7 @@ var render = function() {
                     on: {
                       submit: function($event) {
                         $event.preventDefault()
-                        return _vm.create($event)
+                        _vm.whichModal ? _vm.updateUser() : _vm.create()
                       }
                     }
                   },
@@ -64668,7 +64724,51 @@ var render = function() {
                       1
                     ),
                     _vm._v(" "),
-                    _vm._m(1)
+                    _c("div", { staticClass: "container" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger",
+                          attrs: { type: "button", "data-dismiss": "modal" },
+                          on: { click: _vm.closeModal }
+                        },
+                        [_vm._v("\n                Close\n              ")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: !_vm.whichModal,
+                              expression: "!whichModal"
+                            }
+                          ],
+                          staticClass: "btn btn-success",
+                          attrs: { type: "submit" }
+                        },
+                        [_vm._v("Create")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.whichModal,
+                              expression: "whichModal"
+                            }
+                          ],
+                          staticClass: "btn btn-success",
+                          attrs: { type: "submit" }
+                        },
+                        [_vm._v("Update")]
+                      )
+                    ])
                   ]
                 )
               ])
@@ -64696,27 +64796,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Modify")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-danger",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("\n                Close\n              ")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-success", attrs: { type: "submit" } },
-        [_vm._v("Create")]
-      )
     ])
   }
 ]

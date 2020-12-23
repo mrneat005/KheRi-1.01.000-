@@ -8,10 +8,7 @@
             <h3 class="card-title">Panel</h3>
 
             <div class="card-tools">
-              <button
-                class="btn btn-success"
-                @click="createModal"
-              >
+              <button class="btn btn-success" @click="createModal">
                 Add new<i class="fas fa-user-plus fw"></i>
               </button>
             </div>
@@ -37,7 +34,7 @@
                 <td>no Approved</td>
                 <!--<td>{{user.created_at | simpleDate }}</td>-->
                 <td>
-                  <a href="#" @click="updateUser(user)">
+                  <a href="#" @click="updateModal(user)">
                     <i class="fas fa-edit fa-lg green"></i>
                   </a>
                   /
@@ -67,18 +64,15 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content bg-dark">
           <div class="modal-header bg-success">
-            <h5 class="modal-title" id="add">Add User</h5>
-            <button
-              type="button"
-              class="close bg-danger"
-              @click="closeModal"
-            >
+            <h5 class="modal-title" v-show="whichModal" id="add">Update User</h5>
+            <h5 class="modal-title" v-show="!whichModal" id="add">Add User</h5>
+            <button type="button" class="close bg-danger" @click="closeModal">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <!-------------------------Form---------------------->
-            <form @submit.prevent="create">
+            <form @submit.prevent=" whichModal ? updateUser() : create()">
               <i class="fas fa-file-signature green"></i>
               <div class="form-group">
                 <input
@@ -150,10 +144,12 @@
                   type="button"
                   class="btn btn-danger"
                   data-dismiss="modal"
+                  @click="closeModal"
                 >
                   Close
                 </button>
-                <button type="submit" class="btn btn-success">Create</button>
+                <button type="submit" v-show="!whichModal" class="btn btn-success">Create</button>
+                <button type="submit" v-show="whichModal" class="btn btn-success">Update</button>
               </div>
             </form>
             <!--/Form-->
@@ -173,6 +169,7 @@ export default {
   },
   data() {
     return {
+      whichModal: false,
       time: "",
       users: {},
       form: new Form({
@@ -187,12 +184,13 @@ export default {
     };
   },
   methods: {
-    closeModal(){
-    $(add).modal("hide");
-  },   
-   createModal(){
-    $(add).modal("show");
-  },
+    closeModal() {
+      $(add).modal("hide");
+    },
+    createModal() {
+      this.whichModal = false;
+      $(add).modal("show");
+    },
     deleteUser(id) {
       Swal.fire({
         title: "Are you sure?",
@@ -203,35 +201,42 @@ export default {
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, delete it!",
       }).then((result) => {
-
-
-
-      this.form.delete('api/user/'+id)
-      .then(()=>{
+        if (result.isConfirmed){
+         this.form
+          .delete("api/user/" + id)
+           .then(() => {
             Fire.$emit("userDeleted");
-            Swal.fire(
-            "Deleted!",
-            "Your file " + id + " has been deleted.",
-            "success"
-          );
-
-      })
-      .catch(()=>{
-
+             Swal.fire(
+              "Deleted!",
+              "Your file " + id + " has been deleted.",
+              "success"
+             );
+            })
+           .catch(() => {});
+          }
+        });
+       },
+    updateModal(user){
+            this.whichModal = true;
+            this.form.fill(user);
+            $(add).modal("show");
+    },
+    updateUser() {
+     // this.$progress.start();
+this.$Progress.start();
+      this.form.put('api/user/'+this.form.id).then(()=>{
+        this.$Progress.finish();
+        $(add).modal("hide");
+         Fire.$emit("userUpdated");
+                     Toast.fire({
+              icon: "success",
+              title: "Updated " + this.form.id + " successfully",
+            });
+            this.form.reset();
+      }).catch(()=>{
+        this.$Progress.fail();
       });
-          
 
-        
-      });
-    },updateUser(user) {
-
-      this.form.fill(user);
-      $(add).modal("show");
-      
-      
-      
-      
-      
       /*Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -283,6 +288,7 @@ export default {
             });
           }
           this.$Progress.finish();
+          this.form.reset();
           //This will close the modal
           $(add).modal("hide");
         })
@@ -291,6 +297,7 @@ export default {
         });
     },
     loadUsers() {
+      
       this.$Progress.start();
       axios
         .get("api/user")
@@ -305,7 +312,10 @@ export default {
       Fire.$on("userCreated", () => {
         this.loadUsers();
       });
-            Fire.$on("userDeleted", () => {
+      Fire.$on("userDeleted", () => {
+        this.loadUsers();
+      });
+            Fire.$on("userUpdated", () => {
         this.loadUsers();
       });
       //axios.get("api/user").then(({data}) => (this.users = data.data));
