@@ -2551,7 +2551,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       this.$Progress.start();
-      this.form.post("api/user").then(function () {
+      axios.post("api/user").then(function () {
         //this.loadUsers()
         //using custom events
         Fire.$emit("userCreated");
@@ -81265,8 +81265,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\wamp64\www\kheRi\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\wamp64\www\kheRi\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\wamp64\www\KheRi\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\wamp64\www\KheRi\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
