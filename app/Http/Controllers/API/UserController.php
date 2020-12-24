@@ -113,7 +113,6 @@ $this->validate($request,[
             'email'=>$request['email'],
             'type'=>$request['type'],
             'bio'=>$request['bio'],
-            'photo'=>$request['photo'],
             'password'=>Hash::make($request['name']),
         ]);
     }
