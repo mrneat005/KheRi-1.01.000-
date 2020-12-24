@@ -104,10 +104,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </router-link>
                                 </li>
                                 <li class="nav-item">
-                                    <router-link to="/home" class="nav-link">
-                                        <i class="nav-icon fas fa-power-off blue"></i>
+                                    <router-link to="/passport-component" class="nav-link">
+                                        <i class="nav-icon fas fa-cogs orange"></i>
                                         <p>
-                                            opt 2
+                                            Passports
                                         </p>
                                     </router-link>
                                 </li>

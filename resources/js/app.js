@@ -53,6 +53,7 @@ const routes = [
     { path: '/dashboard-component', component: require('./components/Dashboard.vue').default },
     { path: '/profile-component', component: require('./components/Profile.vue').default },
     { path: '/users-component', component: require('./components/Users.vue').default },
+    { path: '/passport-component', component: require('./components/Passport.vue').default },
   ]
 
   const router = new VueRouter({
@@ -94,7 +95,20 @@ const routes = [
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component(
+  'passport-clients',
+  require('./components/passport/Clients.vue').default
+);
 
+Vue.component(
+  'passport-authorized-clients',
+  require('./components/passport/AuthorizedClients.vue').default
+);
+
+Vue.component(
+  'passport-personal-access-tokens',
+  require('./components/passport/PersonalAccessTokens.vue').default
+);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
