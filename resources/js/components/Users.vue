@@ -257,7 +257,7 @@ this.$Progress.start();
     },
     create() {
       this.$Progress.start();
-      axios
+      this.form
         .post("api/user")
         .then(() => {
           //this.loadUsers()

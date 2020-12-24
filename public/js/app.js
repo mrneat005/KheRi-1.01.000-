@@ -2551,7 +2551,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       this.$Progress.start();
-      axios.post("api/user").then(function () {
+      this.form.post("api/user").then(function () {
         //this.loadUsers()
         //using custom events
         Fire.$emit("userCreated");
