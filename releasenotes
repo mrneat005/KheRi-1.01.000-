@@ -120,3 +120,7 @@ updating user info at the backend
 enable laravel passport and making our API requsts more secure 
 -----------------------Version :1.02.01(minor)---------------------------- 
 Profile component
+
+
+-----------------------Version :1.03.000(major)---------------------------- 
+Passports
