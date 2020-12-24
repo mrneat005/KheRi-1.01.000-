@@ -9,7 +9,7 @@
 
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="adminlte.css">
+    
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -276,7 +276,7 @@
 
         <div class="content">
             <div class="title m-b-md">
-                KheRi
+                
             </div>
 
 

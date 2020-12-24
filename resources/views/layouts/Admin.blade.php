@@ -65,7 +65,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="./img/face-mask.svg" class="img-circle elevation-4 " alt="User Image">
+                        <img src="./img/av001.png" class="img-circle elevation-4 " alt="User Image">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">{{ Auth::user()->name }}</a>
