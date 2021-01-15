@@ -19,7 +19,7 @@ Route::get('/', function () {
 Route::get('/landing', function () {
     return view('landing');
 });
-
+Route::resource('profile', 'ProfileController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

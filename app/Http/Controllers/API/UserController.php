@@ -3,23 +3,14 @@
 namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\User;
 
+
 class UserController extends Controller
 {
-
-/**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-       // $this->middleware('auth');
-        $this->middleware('api');
-    }
-
+    
     /**
      * Display a listing of the resource.
      *
@@ -37,14 +28,9 @@ return User::latest()->paginate(10);
 
         
     }
-    public function profile()
-    {
-        $user=User::findOrFail(1000);
-        return $user->all();
-    }
-
+   
     public function search(){
-
+/*
         if ($search = \Request::get('q')) {
             $users = User::where(function($query) use ($search){
                 $query->where('name','LIKE',"%$search%")
@@ -55,7 +41,7 @@ return User::latest()->paginate(10);
         }
 
         return $users;
-
+*/
     } 
         public function updateProfile(Request $request)
     {

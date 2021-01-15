@@ -296,8 +296,7 @@ this.$Progress.start();
           this.$Progress.fail();
         });
     },
-    loadUsers() {
-      
+    loadUsers() { 
       this.$Progress.start();
       axios
         .get("api/user")
