@@ -2234,6 +2234,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2248,13 +2249,56 @@ __webpack_require__.r(__webpack_exports__);
       })
     };
   },
-  mounted: function mounted() {//axios.get("api/profile")
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get("profile").then(function (_ref) {
+      var data = _ref.data;
+      return _this.form.fill(data);
+    }); //axios.get("api/profile")
     //         .then(({ data }) => (this.form.fill(data)));
     //       console.log('Component mounted.')   
   },
   methods: {
-    apiFetch: function apiFetch() {
-      axios.get("profile");
+    updatePhoto: function updatePhoto(e) {
+      var _this2 = this;
+
+      // console.log("uploading...!");
+      var file = e.target.files[0];
+      var reader = new FileReader();
+      var limit = 1024 * 1024 * 2;
+
+      if (file['size'] > limit) {
+        Swal({
+          type: 'error',
+          title: 'Oops...',
+          text: 'You are uploading a large file'
+        });
+        return false;
+      }
+
+      reader.onloadend = function (file) {
+        _this2.form.photo = reader.result;
+      };
+
+      reader.readAsDataURL(file);
+    },
+    updateProfile: function updateProfile() {
+      var _this3 = this;
+
+      this.$Progress.start();
+
+      if (this.form.password == '') {
+        this.form.password = undefined;
+      }
+
+      this.form.put('profile/' + this.form.id).then(function () {
+        Fire.$emit('AfterCreate');
+
+        _this3.$Progress.finish();
+      })["catch"](function () {
+        _this3.$Progress.fail();
+      });
     }
   }
 });
@@ -66101,11 +66145,55 @@ var render = function() {
         _c("section", { staticClass: "content" }, [
           _c("div", { staticClass: "container-fluid" }, [
             _c("div", { staticClass: "row " }, [
-              _vm._m(2),
+              _c("div", { staticClass: "col-md-3" }, [
+                _c("div", { staticClass: "card card-primary card-outline" }, [
+                  _c("div", { staticClass: "card-body box-profile" }, [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("h3", { staticClass: "profile-username text-center" }, [
+                      _vm._v(_vm._s(_vm.form.name))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "text-muted text-center" }, [
+                      _vm._v(_vm._s(_vm.form.type))
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "ul",
+                      { staticClass: "list-group list-group-unbordered mb-3" },
+                      [
+                        _c("li", { staticClass: "list-group-item" }, [
+                          _c("b", [_vm._v("User Name : ")]),
+                          _vm._v(" "),
+                          _c("b", [_vm._v(_vm._s(_vm.form.name))])
+                        ]),
+                        _vm._v(" "),
+                        _c("li", { staticClass: "list-group-item" }, [
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("b", [_vm._v("Bio : ")]),
+                          _vm._v(" "),
+                          _c("b", [_vm._v(_vm._s(_vm.form.bio))])
+                        ]),
+                        _vm._v(" "),
+                        _c("li", { staticClass: "list-group-item" }, [
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("b", [_vm._v("Email : ")]),
+                          _vm._v(" "),
+                          _c("b", [_vm._v(_vm._s(_vm.form.email))])
+                        ])
+                      ]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm._m(3)
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-9" }, [
                 _c("div", { staticClass: "card" }, [
-                  _vm._m(3),
+                  _vm._m(4),
                   _vm._v(" "),
                   _c("div", { staticClass: "card-body bg-dark" }, [
                     _c("div", { staticClass: "tab-content" }, [
@@ -66258,7 +66346,7 @@ var render = function() {
                                     },
                                     attrs: {
                                       id: "inputExperience",
-                                      placeholder: "Experience"
+                                      placeholder: "Bio"
                                     },
                                     domProps: { value: _vm.form.bio },
                                     on: {
@@ -66283,7 +66371,24 @@ var render = function() {
                               )
                             ]),
                             _vm._v(" "),
-                            _vm._m(4),
+                            _c("div", { staticClass: "form-group" }, [
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "col-sm-2 control-label",
+                                  attrs: { for: "photo" }
+                                },
+                                [_vm._v("Profile Photo")]
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-sm-12" }, [
+                                _c("input", {
+                                  staticClass: "form-input",
+                                  attrs: { type: "file", name: "photo" },
+                                  on: { change: _vm.updatePhoto }
+                                })
+                              ])
+                            ]),
                             _vm._v(" "),
                             _c("div", { staticClass: "form-group" }, [
                               _c(
@@ -66355,19 +66460,15 @@ var render = function() {
                                     "button",
                                     {
                                       staticClass: "btn btn-success",
-                                      attrs: { type: "submit" }
+                                      attrs: { type: "submit" },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.updateProfile($event)
+                                        }
+                                      }
                                     },
                                     [_vm._v("Update")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-success",
-                                      attrs: { type: "submit" },
-                                      on: { click: _vm.apiFetch }
-                                    },
-                                    [_vm._v("check")]
                                   )
                                 ]
                               )
@@ -66430,107 +66531,73 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-3" }, [
-      _c("div", { staticClass: "card card-primary card-outline" }, [
-        _c("div", { staticClass: "card-body box-profile" }, [
-          _c("div", { staticClass: "text-center" }, [
-            _c("img", {
-              staticClass: "profile-user-img img-fluid img-circle",
-              attrs: { src: "img/av001.png", alt: "User profile picture" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("h3", { staticClass: "profile-username text-center" }, [
-            _vm._v("Nina Mcintire")
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "text-muted text-center" }, [
-            _vm._v("Software Engineer")
-          ]),
-          _vm._v(" "),
-          _c("ul", { staticClass: "list-group list-group-unbordered mb-3" }, [
-            _c("li", { staticClass: "list-group-item" }, [
-              _c("b", [_vm._v("Followers")]),
-              _vm._v(" "),
-              _c("a", { staticClass: "float-right" }, [_vm._v("1,322")])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "list-group-item" }, [
-              _c("b", [_vm._v("Following")]),
-              _vm._v(" "),
-              _c("a", { staticClass: "float-right" }, [_vm._v("543")])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "list-group-item" }, [
-              _c("b", [_vm._v("Friends")]),
-              _vm._v(" "),
-              _c("a", { staticClass: "float-right" }, [_vm._v("13,287")])
-            ])
-          ])
-        ])
+    return _c("div", { staticClass: "text-center" }, [
+      _c("img", {
+        staticClass: "profile-user-img img-fluid img-circle",
+        attrs: { src: "img/av001.png", alt: "User profile picture" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card card-primary" }, [
+      _c("div", { staticClass: "card-header" }, [
+        _c("h3", { staticClass: "card-title" }, [_vm._v("About Me")])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "card card-primary" }, [
-        _c("div", { staticClass: "card-header" }, [
-          _c("h3", { staticClass: "card-title" }, [_vm._v("About Me")])
+      _c("div", { staticClass: "card-body" }, [
+        _c("strong", [
+          _c("i", { staticClass: "fas fa-book mr-1" }),
+          _vm._v(" Education")
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c("strong", [
-            _c("i", { staticClass: "fas fa-book mr-1" }),
-            _vm._v(" Education")
-          ]),
+        _c("p", { staticClass: "text-muted" }, [
+          _vm._v(
+            "\n                  B.S. in Computer Science from the University of Tennessee at Knoxville\n                "
+          )
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("strong", [
+          _c("i", { staticClass: "fas fa-map-marker-alt mr-1" }),
+          _vm._v(" Location")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "text-muted" }, [_vm._v("Malibu, California")]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("strong", [
+          _c("i", { staticClass: "fas fa-pencil-alt mr-1" }),
+          _vm._v(" Skills")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "text-muted" }, [
+          _c("span", { staticClass: "tag tag-danger" }, [_vm._v("UI Design")]),
           _vm._v(" "),
-          _c("p", { staticClass: "text-muted" }, [
-            _vm._v(
-              "\n                  B.S. in Computer Science from the University of Tennessee at Knoxville\n                "
-            )
-          ]),
+          _c("span", { staticClass: "tag tag-success" }, [_vm._v("Coding")]),
           _vm._v(" "),
-          _c("hr"),
+          _c("span", { staticClass: "tag tag-info" }, [_vm._v("Javascript")]),
           _vm._v(" "),
-          _c("strong", [
-            _c("i", { staticClass: "fas fa-map-marker-alt mr-1" }),
-            _vm._v(" Location")
-          ]),
+          _c("span", { staticClass: "tag tag-warning" }, [_vm._v("PHP")]),
           _vm._v(" "),
-          _c("p", { staticClass: "text-muted" }, [
-            _vm._v("Malibu, California")
-          ]),
-          _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
-          _c("strong", [
-            _c("i", { staticClass: "fas fa-pencil-alt mr-1" }),
-            _vm._v(" Skills")
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "text-muted" }, [
-            _c("span", { staticClass: "tag tag-danger" }, [
-              _vm._v("UI Design")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "tag tag-success" }, [_vm._v("Coding")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "tag tag-info" }, [_vm._v("Javascript")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "tag tag-warning" }, [_vm._v("PHP")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "tag tag-primary" }, [_vm._v("Node.js")])
-          ]),
-          _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
-          _c("strong", [
-            _c("i", { staticClass: "far fa-file-alt mr-1" }),
-            _vm._v(" Notes")
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "text-muted" }, [
-            _vm._v(
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque."
-            )
-          ])
+          _c("span", { staticClass: "tag tag-primary" }, [_vm._v("Node.js")])
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("strong", [
+          _c("i", { staticClass: "far fa-file-alt mr-1" }),
+          _vm._v(" Notes")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "text-muted" }, [
+          _vm._v(
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque."
+          )
         ])
       ])
     ])
@@ -66562,25 +66629,6 @@ var staticRenderFns = [
             [_vm._v("Settings")]
           )
         ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c(
-        "label",
-        { staticClass: "col-sm-2 control-label", attrs: { for: "photo" } },
-        [_vm._v("Profile Photo")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-sm-12" }, [
-        _c("input", {
-          staticClass: "form-input",
-          attrs: { type: "file", name: "photo" }
-        })
       ])
     ])
   }

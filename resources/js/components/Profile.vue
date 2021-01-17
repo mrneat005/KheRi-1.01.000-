@@ -53,19 +53,21 @@
                   <img class="profile-user-img img-fluid img-circle" src="img/av001.png" alt="User profile picture">
                 </div>
 
-                <h3 class="profile-username text-center">Nina Mcintire</h3>
+                <h3 class="profile-username text-center">{{form.name}}</h3>
 
-                <p class="text-muted text-center">Software Engineer</p>
+                <p class="text-muted text-center">{{form.type}}</p>
 
                 <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
-                    <b>Followers</b> <a class="float-right">1,322</a>
+                    <b>User Name : </b> <b>{{form.name}}</b>
                   </li>
                   <li class="list-group-item">
-                    <b>Following</b> <a class="float-right">543</a>
+                                        <br>
+                    <b>Bio : </b> <b>{{form.bio}}</b>
                   </li>
                   <li class="list-group-item">
-                    <b>Friends</b> <a class="float-right">13,287</a>
+                                        <br>
+                    <b>Email : </b> <b>{{form.email}}</b>
                   </li>
                 </ul>
 
@@ -156,14 +158,14 @@
                                     <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
 
                                     <div class="col-sm-12">
-                                    <textarea  v-model="form.bio" class="form-control" id="inputExperience" placeholder="Experience" :class="{ 'is-invalid': form.errors.has('bio') }"></textarea>
+                                    <textarea  v-model="form.bio" class="form-control" id="inputExperience" placeholder="Bio" :class="{ 'is-invalid': form.errors.has('bio') }"></textarea>
                                      <has-error :form="form" field="bio"></has-error>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="photo" class="col-sm-2 control-label">Profile Photo</label>
                                     <div class="col-sm-12">
-                                        <input type="file" name="photo" class="form-input">
+                                        <input type="file" @change="updatePhoto" name="photo" class="form-input">
                                     </div>
 
                                 </div>
@@ -185,8 +187,7 @@
 
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-12">
-                                    <button type="submit" class="btn btn-success">Update</button>
-                                    <button @click="apiFetch" type="submit" class="btn btn-success">check</button>
+                                    <button type="submit" @click.prevent="updateProfile" class="btn btn-success">Update</button> 
                                     </div>
                                 </div>
                                 </form>
@@ -216,7 +217,7 @@
     export default {
         data(){
             return {
-                 form: new Form({
+              form: new Form({
         id: "",
         name: "",
         email: "",
@@ -224,10 +225,12 @@
         type: "",
         password: "",
         photo: "",
-                })
+      }),
+                 
             }
         },
         mounted() {
+          axios.get("profile").then(({ data }) => (this.form.fill(data)));
           
  //axios.get("api/profile")
    //         .then(({ data }) => (this.form.fill(data)));
@@ -235,9 +238,41 @@
         },
 
         methods:{
-          apiFetch(){
-            axios.get("profile");
-          },
+         updatePhoto(e){
+          // console.log("uploading...!");
+          let file = e.target.files[0];
+                let reader = new FileReader();
+
+                let limit = 1024 * 1024 * 2;
+                if(file['size'] > limit){
+                    Swal({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'You are uploading a large file',
+                    })
+                    return false;
+                }
+
+                reader.onloadend = (file) => {
+                    this.form.photo = reader.result;
+                }
+                reader.readAsDataURL(file);
+    
+         },
+         updateProfile(){
+           this.$Progress.start();
+                if(this.form.password == ''){
+                    this.form.password = undefined;
+                }
+                this.form.put('profile/'+this.form.id)
+                .then(()=>{
+                     Fire.$emit('AfterCreate');
+                    this.$Progress.finish();
+                })
+                .catch(() => {
+                    this.$Progress.fail();
+                });
+         },
 
     }
     
