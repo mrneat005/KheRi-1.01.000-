@@ -2300,6 +2300,11 @@ __webpack_require__.r(__webpack_exports__);
         Fire.$emit('AfterCreate');
 
         _this3.$Progress.finish();
+
+        Toast.fire({
+          icon: "success",
+          title: "Updated " + _this3.form.name + " Profile Picture successfully"
+        });
       })["catch"](function () {
         _this3.$Progress.fail();
       });

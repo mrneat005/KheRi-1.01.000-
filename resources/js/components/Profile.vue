@@ -257,6 +257,7 @@
                     this.form.photo = reader.result;
                 }
                 reader.readAsDataURL(file);
+          
     
          },
             getProfilePhoto(){
@@ -272,6 +273,10 @@
                 .then(()=>{
                      Fire.$emit('AfterCreate');
                     this.$Progress.finish();
+                          Toast.fire({
+              icon: "success",
+              title: "Updated " + this.form.name + " Profile Picture successfully",
+            });
                 })
                 .catch(() => {
                     this.$Progress.fail();

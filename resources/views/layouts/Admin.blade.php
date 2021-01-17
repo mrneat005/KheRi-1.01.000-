@@ -45,11 +45,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 
             </ul>
             <!-- Right navbar links -->
+  
             <ul class="navbar-nav ml-auto">
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
+            </ul>
+            <ul>
+                <div class="profile-header-container">   
+                    <div class="profile-header-img">
+                        <img class="img-circle" src="./img/profile/{{ Auth::user()->photo }}" />
+
+                    </div>
+                </div> 
             </ul>
         </nav>
         <!-- /.navbar -->
@@ -65,7 +74,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="./img/av001.png" class="img-circle elevation-4 " alt="User Image">
+                        <img src="./img/profile/{{ Auth::user()->photo }}" class="img-circle elevation-4 " alt="User Image">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -233,4 +242,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
   .cyan {
       color: $cyan;
   }
+
+
+
+/**
+ * Profile image component
+ */
+.profile-header-container{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.profile-header-img {
+    padding: 1px;
+}
+
+.profile-header-img > img.img-circle {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #000000;
+}
+
+
+
+/**
+ * Ranking component
+ */
+
+
+
+
+
+
 </style>
