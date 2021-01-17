@@ -2283,6 +2283,10 @@ __webpack_require__.r(__webpack_exports__);
 
       reader.readAsDataURL(file);
     },
+    getProfilePhoto: function getProfilePhoto() {
+      var photo = this.form.photo.length > 200 ? this.form.photo : "img/profile/" + this.form.photo;
+      return photo;
+    },
     updateProfile: function updateProfile() {
       var _this3 = this;
 
@@ -66137,9 +66141,14 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(0),
+          _c("div", { staticClass: "widget-user-image" }, [
+            _c("img", {
+              staticClass: "img-circle elevation-2",
+              attrs: { src: _vm.getProfilePhoto(), alt: "User Avatar" }
+            })
+          ]),
           _vm._v(" "),
-          _vm._m(1)
+          _vm._m(0)
         ]),
         _vm._v(" "),
         _c("section", { staticClass: "content" }, [
@@ -66148,7 +66157,15 @@ var render = function() {
               _c("div", { staticClass: "col-md-3" }, [
                 _c("div", { staticClass: "card card-primary card-outline" }, [
                   _c("div", { staticClass: "card-body box-profile" }, [
-                    _vm._m(2),
+                    _c("div", { staticClass: "text-center" }, [
+                      _c("img", {
+                        staticClass: "profile-user-img img-fluid img-circle",
+                        attrs: {
+                          src: _vm.getProfilePhoto(),
+                          alt: "User profile picture"
+                        }
+                      })
+                    ]),
                     _vm._v(" "),
                     _c("h3", { staticClass: "profile-username text-center" }, [
                       _vm._v(_vm._s(_vm.form.name))
@@ -66188,12 +66205,12 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._m(3)
+                _vm._m(1)
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-9" }, [
                 _c("div", { staticClass: "card" }, [
-                  _vm._m(4),
+                  _vm._m(2),
                   _vm._v(" "),
                   _c("div", { staticClass: "card-body bg-dark" }, [
                     _c("div", { staticClass: "tab-content" }, [
@@ -66399,7 +66416,7 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    "Passport (leave empty if not changing)"
+                                    "Password (leave empty if not changing)"
                                   )
                                 ]
                               ),
@@ -66426,7 +66443,7 @@ var render = function() {
                                     attrs: {
                                       type: "password",
                                       id: "password",
-                                      placeholder: "Passport"
+                                      placeholder: "Password"
                                     },
                                     domProps: { value: _vm.form.password },
                                     on: {
@@ -66492,17 +66509,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "widget-user-image" }, [
-      _c("img", {
-        staticClass: "img-circle elevation-2",
-        attrs: { src: "img/av001.png", alt: "User Avatar" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-footer bg-dark" }, [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-sm-4 border-right" }, [
@@ -66525,17 +66531,6 @@ var staticRenderFns = [
           ])
         ])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "text-center" }, [
-      _c("img", {
-        staticClass: "profile-user-img img-fluid img-circle",
-        attrs: { src: "img/av001.png", alt: "User profile picture" }
-      })
     ])
   },
   function() {

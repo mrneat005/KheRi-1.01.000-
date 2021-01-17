@@ -10,7 +10,7 @@
                 <h5 class="widget-user-desc">{{this.form.type}} &amp; {{this.form.bio}}</h5>
               </div>
               <div class="widget-user-image">
-                <img class="img-circle elevation-2" src="img/av001.png" alt="User Avatar">
+                <img class="img-circle elevation-2" :src="getProfilePhoto()" alt="User Avatar">
               </div>
               <div class="card-footer bg-dark">
                 <div class="row">
@@ -50,7 +50,7 @@
             <div class="card card-primary card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle" src="img/av001.png" alt="User profile picture">
+                  <img class="profile-user-img img-fluid img-circle" :src="getProfilePhoto()" alt="User profile picture">
                 </div>
 
                 <h3 class="profile-username text-center">{{form.name}}</h3>
@@ -171,14 +171,14 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="password" class="col-sm-12 control-label">Passport (leave empty if not changing)</label>
+                                    <label for="password" class="col-sm-12 control-label">Password (leave empty if not changing)</label>
 
                                     <div class="col-sm-12">
                                     <input type="password"
                                         v-model="form.password"
                                         class="form-control"
                                         id="password"
-                                        placeholder="Passport"
+                                        placeholder="Password"
                                         :class="{ 'is-invalid': form.errors.has('password') }"
                                     >
                                      <has-error :form="form" field="password"></has-error>
@@ -259,6 +259,10 @@
                 reader.readAsDataURL(file);
     
          },
+            getProfilePhoto(){
+                let photo = (this.form.photo.length > 200) ? this.form.photo : "img/profile/"+ this.form.photo ;
+                return photo;
+            },
          updateProfile(){
            this.$Progress.start();
                 if(this.form.password == ''){
