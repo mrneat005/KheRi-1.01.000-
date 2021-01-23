@@ -10,9 +10,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">see{{ __('Login') }}</div>
+                <div class="card-header bg-success">{{ __('Login') }}</div>
 
-                <div class="card-body">
+                <div class="card-body bg-dark">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 

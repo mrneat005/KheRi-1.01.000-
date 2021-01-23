@@ -95,6 +95,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </p>
                             </router-link>
                         </li>
+                        
                         <li class="nav-item has-treeview menu-open">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-cog indigo"></i>
@@ -112,6 +113,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         </p>
                                     </router-link>
                                 </li>
+                                @can('isAdmin')
                                 <li class="nav-item">
                                     <router-link to="/passport-component" class="nav-link">
                                         <i class="nav-icon fas fa-cogs orange"></i>
@@ -120,9 +122,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         </p>
                                     </router-link>
                                 </li>
+                                @endcan
 
                             </ul>
-
+                            
 
                         <li class="nav-item">
                             <router-link to="./profile-component" class="nav-link">
@@ -205,6 +208,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- jQuery -->
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    @auth
+<script>
+   // window.user = @json(auth()->user())
+</script>
+@endauth
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

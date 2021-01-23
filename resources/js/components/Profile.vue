@@ -211,6 +211,7 @@
                 
             </div>
         </div>
+       
     </div>
 </template>
 <script>
@@ -275,7 +276,7 @@
                     this.$Progress.finish();
                           Toast.fire({
               icon: "success",
-              title: "Updated " + this.form.name + " Profile Picture successfully",
+              title: "Updated " + this.form.name + " Information successfully",
             });
                 })
                 .catch(() => {

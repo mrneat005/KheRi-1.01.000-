@@ -23,7 +23,7 @@
                 <th>Name</th>
                 <th>type</th>
                 <th>status</th>
-                <th>Modify</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
@@ -31,7 +31,7 @@
                 <td>{{ user.id }}</td>
                 <td>{{ user.name | upperCaseFirst }}</td>
                 <td>{{ user.type | lowerCaseAll }}</td>
-                <td>no Approved</td>
+                <td>Status</td>
                 <!--<td>{{user.created_at | simpleDate }}</td>-->
                 <td>
                   <a href="#" @click="updateModal(user)">
@@ -121,7 +121,7 @@
                   <option value="">Select User Role</option>
                   <option value="admin">admin</option>
                   <option value="user">user</option>
-                  <option value="author">vendor</option>
+                  <option value="vendor">vendor</option>
                 </select>
                 <has-error :form="form" field="type"></has-error>
               </div>
@@ -296,7 +296,14 @@ this.$Progress.start();
           this.$Progress.fail();
         });
     },
+    getProfilePhoto(){
+                let photo = (this.form.photo.length > 200) ? this.form.photo : "img/profile/"+ this.form.photo ;
+                return photo;
+            },
     loadUsers() { 
+
+
+if(true){
       this.$Progress.start();
       axios
         .get("api/user")
@@ -317,6 +324,7 @@ this.$Progress.start();
             Fire.$on("userUpdated", () => {
         this.loadUsers();
       });
+    }
       //axios.get("api/user").then(({data}) => (this.users = data.data));
       //doing data.data because it depends on how we get data formated
       //see  XHR response
@@ -334,4 +342,9 @@ this.$Progress.start();
 };
 </script>
 <style>
+.profile-header-img > img.img-circle {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #000000;
+}
 </style>
