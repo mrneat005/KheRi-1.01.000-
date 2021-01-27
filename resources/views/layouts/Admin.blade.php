@@ -62,13 +62,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
         </nav>
         <!-- /.navbar -->
-
+<Navbar-component></Navbar-component>
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-2">
             <!-- Brand Logo -->
             <!-- Brand Logo -->
             <img src="./img/logo1.PNG" alt="AdminLTE Logo" class="img-thumbnail img-circle" style="opacity: .4">
-
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
@@ -80,7 +79,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <a href="#" class="d-block">{{ Auth::user()->name }}</a>
                     </div>
                 </div>
-
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
@@ -95,7 +93,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </p>
                             </router-link>
                         </li>
-                        
+                       
                         <li class="nav-item has-treeview menu-open">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-cog indigo"></i>
@@ -104,6 +102,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <i class="right fas fa-angle-left "></i>
                                 </p>
                             </a>
+                            @can('isAdminOrVendor')
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <router-link to="/users-component" class="nav-link">
@@ -113,7 +112,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         </p>
                                     </router-link>
                                 </li>
-                                @can('isAdmin')
+                                
                                 <li class="nav-item">
                                     <router-link to="/passport-component" class="nav-link">
                                         <i class="nav-icon fas fa-cogs orange"></i>
@@ -123,7 +122,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </router-link>
                                 </li>
                                 @endcan
-
                             </ul>
                             
 
