@@ -48,8 +48,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   
             <ul class="navbar-nav ml-auto">
                 <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    <input class="form-control mr-sm-2" type="search" v-model="search" @keyup.prevent="searchit" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" @click.prevent="searchit">Search</button>
                 </form>
             </ul>
             <ul>
@@ -62,7 +62,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
         </nav>
         <!-- /.navbar -->
-<Navbar-component></Navbar-component>
+
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-2">
             <!-- Brand Logo -->
@@ -93,7 +93,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </p>
                             </router-link>
                         </li>
-                       
+                        @can('isAdminOrVendor')
                         <li class="nav-item has-treeview menu-open">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-cog indigo"></i>
@@ -102,7 +102,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <i class="right fas fa-angle-left "></i>
                                 </p>
                             </a>
-                            @can('isAdminOrVendor')
+                            
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <router-link to="/users-component" class="nav-link">
@@ -122,33 +122,71 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </router-link>
                                 </li>
                                 @endcan
+
+
+
+
+
+
+
+
                             </ul>
-                            
+                          <!--Info-->
 
-                        <li class="nav-item">
-                            <router-link to="./profile-component" class="nav-link">
-                                <i class="nav-icon fas fa-user" style="color: blueviolet"></i>
-                                <p>
-                                    Profile
-                                </p>
-                            </router-link>
-                        </li>
+@can('isAdminOrVendor')
+<li class="nav-item has-treeview menu-open">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-cog indigo"></i>
+        <p>
+            Info
+            <i class="right fas fa-angle-left "></i>
+        </p>
+    </a>
+    
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <router-link to="/sections-component" class="nav-link">
+                <i class="nav-icon fas fa-users cyan"></i>
+                <p>
+                    Sections
+                </p>
+            </router-link>
+        </li>
+        
+        <li class="nav-item">
+            <router-link to="/passport-component" class="nav-link">
+                <i class="nav-icon fas fa-cogs orange"></i>
+                <p>
+                    Passports
+                </p>
+            </router-link>
+        </li>
+        @endcan
+<!--/Info-->  
 
 
-                        <li class="nav-item ">
-                            <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();
-               document.getElementById('logout-form').submit();">
-                                <i class="nav-icon fas fa-power-off" style="color:red"></i>
-                                <p>
-                                    Logout
-                                </p>
-                            </a>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                {{ csrf_field() }}
-                            </form>
-                        </li>
+
+
                     </ul>
+                    
+
+
+                    <li class="nav-item ">
+                        <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();
+           document.getElementById('logout-form').submit();">
+                            <i class="nav-icon fas fa-power-off" style="color:red"></i>
+                            <p>
+                                Logout
+                            </p>
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </li>
+
+
                 </nav>
                 <!-- /.sidebar-menu -->
             </div>

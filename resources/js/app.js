@@ -52,6 +52,13 @@ Vue.use(VueProgressBar, {
 })
 Vue.use(VueRouter)
 
+
+//pagination Component
+Vue.component('pagination', require('laravel-vue-pagination'));
+
+
+
+
 //routes
 const routes = [
     { path: '/example-component', component: require('./components/ExampleComponent.vue').default },
@@ -59,6 +66,9 @@ const routes = [
     { path: '/profile-component', component: require('./components/Profile.vue').default },
     { path: '/users-component', component: require('./components/Users.vue').default },
     { path: '/passport-component', component: require('./components/Passport.vue').default },
+    { path: '/sections-component', component: require('./components/info/sections.vue').default },
+    { path: '/catagory-component', component: require('./components/info/catagory.vue').default },
+    { path: '/products-component', component: require('./components/info/products.vue').default },
     {
       path: "/side",
       name: "admin",
@@ -135,6 +145,9 @@ Vue.component('sidebar-component', require('./components/Home.vue').default);
 Vue.component('products-component', require('./components/products.vue').default);
 Vue.component('side-component', require('./components/sidebarcomponent.vue').default);
 Vue.component('overview-component', require('./components/Overview.vue').default);
+//
+Vue.component('sections-component', require('./components/info/sections.vue').default);
+//
 
 Vue.component(
   'passport-clients',
@@ -159,5 +172,16 @@ Vue.component(
 const app = new Vue({
     el: '#app',
     router,
+    data:{
+      search:'',
+    },
+    methods: {
+      searchit: _.debounce(()=>{
+         
+         Fire.$emit('search');
+      },1000),
+
+
+    },
     
 });

@@ -21,7 +21,7 @@ class UserController extends Controller
         //
         //return ['message'=>'I have your data and i am index'];
 
-return User::latest()->paginate(10);
+return User::latest()->paginate(5);
 //return User::all()->paginate(10);
 
 
@@ -30,18 +30,18 @@ return User::latest()->paginate(10);
     }
    
     public function search(){
-/*
+
         if ($search = \Request::get('q')) {
             $users = User::where(function($query) use ($search){
                 $query->where('name','LIKE',"%$search%")
                         ->orWhere('email','LIKE',"%$search%");
-            })->paginate(20);
+            })->paginate(5);
         }else{
             $users = User::latest()->paginate(5);
         }
 
         return $users;
-*/
+
     } 
         public function updateProfile(Request $request)
     {
