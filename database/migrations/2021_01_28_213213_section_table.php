@@ -17,7 +17,7 @@ class SectionTable extends Migration
         Schema::create('sections', function (Blueprint $table) {
         $table->increments('id');
         $table->string('name');
-        $table->int('status');
+        $table->integer('status');
         $table->timestamps();
         $table->string('photo')->default('profile.png');
         });

@@ -21,31 +21,30 @@
               <tr class="bg-success">
                 <th>ID</th>
                 <th>Name</th>
-                <th>type</th>
-                <th>status</th>
                 <th>Status</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="user in users.data" :key="user.id">
-                <td>{{ user.id }}</td>
-                <td>{{ user.name | upperCaseFirst }}</td>
-                <td>{{ user.type | lowerCaseAll }}</td>
-                <td>Status</td>
+              <tr v-for="catagory in catagories.data" :key="catagory.id">
+                               <td>{{ catagory.id }}</td>
+                <td>{{ catagory.name  }}</td>
+                <td>{{ catagory.parent_id  }}</td>
+                <td>{{ catagory.catagory_id  }}</td>
+            
                 <!--<td>{{user.created_at | simpleDate }}</td>-->
                 <td>
-                  <a href="#" @click="updateModal(user)">
+                  <a href="#" @click="updateModal(catagory)">
                     <i class="fas fa-edit fa-lg green"></i>
                   </a>
                   /
-                  <a href="#" @click="deleteUser(user.id)">
+                  <a href="#" @click="deleteUser(catagory.id)">
                     <i class="fas fa-trash red fa-lg"> </i>
                   </a>
                 </td>
               </tr>
             </tbody>
            
-<pagination :data="users" @pagination-change-page="getResults"></pagination>
+<pagination :data="catagories" @pagination-change-page="getResults"></pagination>
             
           </table>
         </div>
@@ -88,60 +87,163 @@
                 />
                 <has-error :form="form" field="name"></has-error>
               </div>
-              <i class="fas fa-envelope blue"></i>
-              <div class="form-group">
-                <input
-                  v-model="form.email"
-                  type="email"
-                  name="email"
-                  placeholder="Email Address"
-                  class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('email') }"
-                />
-                <has-error :form="form" field="email"></has-error>
-              </div>
-              <i class="fas fa-book orange"></i>
+
+<!--Element-->
+<i class="fas fa-book orange"></i>
               <div class="form-group">
                 <textarea
-                  v-model="form.bio"
-                  name="bio"
-                  id="bio"
-                  placeholder="Short bio for user (Optional)"
+                  v-model="form.discription"
+                  name="discription"
+                  id="discription"
+                  placeholder="Short discription for catagory (Optional)"
                   class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('bio') }"
+                  :class="{ 'is-invalid': form.errors.has('discription') }"
                 ></textarea>
-                <has-error :form="form" field="bio"></has-error>
+                <has-error :form="form" field="discription"></has-error>
               </div>
+<!--/Element-->
+
+
+<!--Element-->
+<i class="fas fa-file-signature green"></i>
+              <div class="form-group">
+                <input
+                  v-model="form.url"
+                  type="text"
+                  name="url"
+                  class="form-control"
+                  placeholder="url"
+                  :class="{ 'is-invalid': form.errors.has('url')}"
+                />
+                <has-error :form="form" field="url"></has-error>
+              </div>
+<!--/Element-->
+
+<!--Element-->
+<i class="fas fa-file-signature green"></i>
+              <div class="form-group">
+                <input
+                  v-model="form.discount"
+                  type="number"
+                  name="discount"
+                  class="form-control"
+                  placeholder="discount"
+                  :class="{ 'is-invalid': form.errors.has('discount') }"
+                />
+                <has-error :form="form" field="discount"></has-error>
+              </div>
+<!--/Element-->
+
+
+
+
+<!--Element-->
+<i class="fas fa-file-signature green"></i>
+              <div class="form-group">
+                <input
+                  v-model="form.meta_keyword"
+                  type="text"
+                  name="meta_keyword"
+                  class="form-control"
+                  placeholder="meta_keyword"
+                  :class="{ 'is-invalid': form.errors.has('meta_keyword') }"
+                />
+                <has-error :form="form" field="meta_keyword"></has-error>
+              </div>
+<!--/Element-->
+
+
+<!--Element-->
+<i class="fas fa-file-signature green"></i>
+              <div class="form-group">
+                <input
+                  v-model="form.meta_discription"
+                  type="text"
+                  name="meta_discription"
+                  class="form-control"
+                  placeholder="meta_discription"
+                  :class="{ 'is-invalid': form.errors.has('meta_discription') }"
+                />
+                <has-error :form="form" field="meta_discription"></has-error>
+              </div>
+<!--/Element-->
+
+
+<!--Element-->
+<i class="fas fa-file-signature green"></i>
+              <div class="form-group">
+                <input
+                  v-model="form.meta_title"
+                  type="text"
+                  name="meta_title"
+                  class="form-control"
+                  placeholder="meta_title"
+                  :class="{ 'is-invalid': form.errors.has('meta_title') }"
+                />
+                <has-error :form="form" field="meta_title"></has-error>
+              </div>
+<!--/Element-->
+
+
               <i class="fas fa-list yellow"></i>
               <div class="form-group">
                 <select
                   name="type"
-                  v-model="form.type"
+                  v-model="form.status"
                   id="type"
                   class="form-control"
                   :class="{ 'is-invalid': form.errors.has('type') }"
                 >
-                  <option value="">Select User Role</option>
-                  <option value="admin">admin</option>
-                  <option value="user">user</option>
-                  <option value="vendor">vendor</option>
+                  <option value="0">Select Section Status</option>
+                  <option value="active">active</option>
+                  <option value="inActive">inActive</option>
+                 
                 </select>
                 <has-error :form="form" field="type"></has-error>
               </div>
-              <i class="fas fa-lock red"></i>
-              <div class="form-group inline">
-                <input
-                  v-model="form.password"
-                  type="password"
-                  name="password"
-                  id="password"
-                  class="form-control"
-                  placeholder="Password"
-                  :class="{ 'is-invalid': form.errors.has('password') }"
-                />
 
-                <has-error :form="form" field="password"></has-error>
+
+
+
+
+
+              
+              <i class="fas fa-list yellow"></i>
+              <div class="form-group">
+                <select
+                  name="type"
+                  v-model="form.section_id"
+                  id="type"
+                  
+                  class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('section_id') }"
+                >
+                  <option value="0">Select Section</option>
+                  <option  id="section.id"  v-for="section in sections.data" :key="section.id" :value="section.id">{{section.name}}</option>
+                  
+                 
+                </select>
+                <has-error :form="form" field="type"></has-error>
               </div>
+              
+<i class="fas fa-list yellow"></i>
+              <div class="form-group">
+                <select
+                  name="type"
+                  v-model="form.parent_id"
+                  id="type"
+                  class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('parent_id') }"
+                >
+                  <option value="0">Select Parent</option>
+                  <option  v-for="catagory in catagories.data" :key="catagory.id" :value="catagory.id" >
+                    <element >{{catagory.name}}</element></option>
+                </select>
+                <has-error :form="form" field="type"></has-error>
+              </div>
+
+
+
               <div class="container">
                 <button
                   type="button"
@@ -161,7 +263,6 @@
       </div>
     </div>
   </div>
-
   <!--/Table-->
 </template>
 
@@ -174,14 +275,18 @@ export default {
     return {
       whichModal: false,
       time: "",
-      users: {},
+      catagories: {},
+      sections: {},
       form: new Form({
         id: "",
         name: "",
-        email: "",
+        parent_id: "",
+        section_id: "",
+        url: "",
+        discription: "",
+        status: "",
         created_at: "",
-        type: "",
-        password: "",
+        updated_at: "",
         photo: "",
       }),
     };
@@ -217,12 +322,12 @@ export default {
       }).then((result) => {
         if (result.isConfirmed){
          this.form
-          .delete("api/user/" + id)
+          .delete("catagory/" + id)
            .then(() => {
             Fire.$emit("userDeleted");
              Swal.fire(
               "Deleted!",
-              "Your file " + id + " has been deleted.",
+              "Section " + id + " has been deleted.",
               "success"
              );
             })
@@ -235,16 +340,29 @@ export default {
             this.form.fill(user);
             $(add).modal("show");
     },
+        fetch(){
+           //console.log(this.form.section_id);
+            axios
+        .get("catagoriesMatched/"+this.form.section_id)
+        .then(({ data }) => {
+         // this.sections = data;
+        })
+        .catch(function (error) {
+          // handle error
+          //this.$Progress.fail();
+        });
+
+    },
     updateUser() {
      // this.$progress.start();
 this.$Progress.start();
-      this.form.put('api/user/'+this.form.id).then(()=>{
+      this.form.put('catagory/'+this.form.id).then(()=>{
         this.$Progress.finish();
         $(add).modal("hide");
          Fire.$emit("userUpdated");
                      Toast.fire({
               icon: "success",
-              title: "Updated " + this.form.id + " successfully",
+              title: "Updated Section " + this.form.id + " successfully",
             });
             this.form.reset();
       }).catch(()=>{
@@ -270,37 +388,32 @@ this.$Progress.start();
       });*/
     },
     create() {
+        
+        if (this.form.status==="active") {
+            this.form.status=1;
+            
+        } 
+        else if(this.form.status==="inActive") {
+            this.form.status=0;
+        }else {
+            this.form.status=0;
+        }
+        //console.log(this.form.status);
       this.$Progress.start();
       this.form
-        .post("api/user")
+        .post("catagory")
         .then(() => {
           //this.loadUsers()
           //using custom events
 
           Fire.$emit("userCreated");
-          if (this.form.type == "user") {
+          
             Toast.fire({
               icon: "success",
-              title: "User " + this.form.name + " created successfully",
+              title: "Catagory" + this.form.name + " created successfully",
             });
-          }
-          if (this.form.type == "admin") {
-            Toast.fire({
-              icon: "success",
-              title: "Admin " + this.form.name + " created successfully",
-            });
-          }
-          if (this.form.type == "vendor") {
-            Toast.fire({
-              icon: "success",
-              title: "Vendor " + this.form.name + " created successfully",
-            });
-          } else {
-            Toast.fire({
-              icon: "success",
-              title: "User " + this.form.name + " created successfully",
-            });
-          }
+          
+          
           this.$Progress.finish();
           this.form.reset();
           //This will close the modal
@@ -316,13 +429,23 @@ this.$Progress.start();
             },
     loadUsers() { 
 
+       axios
+        .get("section")
+        .then(({ data }) => {
+          this.sections = data;
+        })
+        .catch(function (error) {
+          // handle error
+          this.$Progress.fail();
+        });
+
 
 if(true){
       this.$Progress.start();
       axios
-        .get("api/user")
+        .get("catagory")
         .then(({ data }) => {
-          this.users = data;
+          this.catagories = data;
         })
         .catch(function (error) {
           // handle error
@@ -341,9 +464,11 @@ if(true){
       Fire.$on('search', () => {
        //axios.get("api/user");
              let query = this.$parent.search;
-                axios.get('api/findUser?q=' + query)
+                axios.get('findCatagory?q=' + query)
+
+
                 .then((data) => {
-                    this.users = data.data
+                    this.catagories = data.data
                 })
                 .catch(() => {
 

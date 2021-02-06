@@ -21,31 +21,29 @@
               <tr class="bg-success">
                 <th>ID</th>
                 <th>Name</th>
-                <th>type</th>
-                <th>status</th>
-                <th>Status</th>
+                
               </tr>
             </thead>
             <tbody>
-              <tr v-for="user in users.data" :key="user.id">
-                <td>{{ user.id }}</td>
-                <td>{{ user.name | upperCaseFirst }}</td>
-                <td>{{ user.type | lowerCaseAll }}</td>
-                <td>Status</td>
+              <tr v-for="product in products.data" :key="product.id">
+                <td>{{ product.id }}</td>
+                <td>{{ product.name  }}</td>
+               
+            
                 <!--<td>{{user.created_at | simpleDate }}</td>-->
                 <td>
-                  <a href="#" @click="updateModal(user)">
+                  <a href="#" @click="updateModal(product)">
                     <i class="fas fa-edit fa-lg green"></i>
                   </a>
                   /
-                  <a href="#" @click="deleteUser(user.id)">
+                  <a href="#" @click="deleteUser(product.id)">
                     <i class="fas fa-trash red fa-lg"> </i>
                   </a>
                 </td>
               </tr>
             </tbody>
            
-<pagination :data="users" @pagination-change-page="getResults"></pagination>
+<pagination :data="sections" @pagination-change-page="getResults"></pagination>
             
           </table>
         </div>
@@ -88,60 +86,48 @@
                 />
                 <has-error :form="form" field="name"></has-error>
               </div>
-              <i class="fas fa-envelope blue"></i>
-              <div class="form-group">
-                <input
-                  v-model="form.email"
-                  type="email"
-                  name="email"
-                  placeholder="Email Address"
-                  class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('email') }"
-                />
-                <has-error :form="form" field="email"></has-error>
-              </div>
-              <i class="fas fa-book orange"></i>
-              <div class="form-group">
-                <textarea
-                  v-model="form.bio"
-                  name="bio"
-                  id="bio"
-                  placeholder="Short bio for user (Optional)"
-                  class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('bio') }"
-                ></textarea>
-                <has-error :form="form" field="bio"></has-error>
-              </div>
-              <i class="fas fa-list yellow"></i>
+
+
+      <i class="fas fa-list yellow"></i>
               <div class="form-group">
                 <select
                   name="type"
-                  v-model="form.type"
+                  v-model="form.section_id"
                   id="type"
+                  
                   class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('type') }"
+                  :class="{ 'is-invalid': form.errors.has('section_id') }"
                 >
-                  <option value="">Select User Role</option>
-                  <option value="admin">admin</option>
-                  <option value="user">user</option>
-                  <option value="vendor">vendor</option>
+                  <option value="0">Select Section</option>
+                  <option  id="section.id"  v-for="section in sections.data" :key="section.id" :value="section.id">{{section.name}}</option>
+                  
+                 
                 </select>
                 <has-error :form="form" field="type"></has-error>
               </div>
-              <i class="fas fa-lock red"></i>
-              <div class="form-group inline">
-                <input
-                  v-model="form.password"
-                  type="password"
-                  name="password"
-                  id="password"
+              
+<i class="fas fa-list yellow"></i>
+              <div class="form-group">
+                <select
+                  name="type"
+                  v-model="form.catagory_id"
+                  id="type"
                   class="form-control"
-                  placeholder="Password"
-                  :class="{ 'is-invalid': form.errors.has('password') }"
-                />
-
-                <has-error :form="form" field="password"></has-error>
+                  :class="{ 'is-invalid': form.errors.has('parent_id') }"
+                >
+                  <option value="0">Select Catagory</option>
+                  <option  v-for="catagory in catagories.data" :key="catagory.id" :value="catagory.id" >
+                    <element >{{catagory.name}}</element></option>
+                </select>
+                <has-error :form="form" field="type"></has-error>
               </div>
+
+
+
+
+              
+           
+              
               <div class="container">
                 <button
                   type="button"
@@ -174,15 +160,36 @@ export default {
     return {
       whichModal: false,
       time: "",
-      users: {},
+      sections: {},
+      catagories: {},
+      products: {},
       form: new Form({
-        id: "",
-        name: "",
-        email: "",
+       
+
+        id:"",
+        catagory_id:"",
+        section_id:"",
+        name:"",
+        code:"",
+        color:"",
+        price:"",
+        discount:"",
+        weight:"",
+        main_photo:"",
+        side_photo:"",
+        front_photo:"",
+        size:"",
+        stock:"",
+        discription:"",
+        url:"",
+        is_featured:"",
+        meta_title:"",
+        meta_discription:"",
+        meta_keyword:"",
+        status:"",
         created_at: "",
-        type: "",
-        password: "",
-        photo: "",
+        updated_at: "",
+        
       }),
     };
   },
@@ -217,12 +224,12 @@ export default {
       }).then((result) => {
         if (result.isConfirmed){
          this.form
-          .delete("api/user/" + id)
+          .delete("section/" + id)
            .then(() => {
             Fire.$emit("userDeleted");
              Swal.fire(
               "Deleted!",
-              "Your file " + id + " has been deleted.",
+              "Section " + id + " has been deleted.",
               "success"
              );
             })
@@ -238,13 +245,13 @@ export default {
     updateUser() {
      // this.$progress.start();
 this.$Progress.start();
-      this.form.put('api/user/'+this.form.id).then(()=>{
+      this.form.put('section/'+this.form.id).then(()=>{
         this.$Progress.finish();
         $(add).modal("hide");
          Fire.$emit("userUpdated");
                      Toast.fire({
               icon: "success",
-              title: "Updated " + this.form.id + " successfully",
+              title: "Updated Section " + this.form.id + " successfully",
             });
             this.form.reset();
       }).catch(()=>{
@@ -270,37 +277,32 @@ this.$Progress.start();
       });*/
     },
     create() {
+        
+        if (this.form.status==="active") {
+            this.form.status=1;
+            
+        } 
+        else if(this.form.status==="inActive") {
+            this.form.status=0;
+        }else {
+            this.form.status=0;
+        }
+        //console.log(this.form.status);
       this.$Progress.start();
       this.form
-        .post("api/user")
+        .post("section")
         .then(() => {
           //this.loadUsers()
           //using custom events
 
           Fire.$emit("userCreated");
-          if (this.form.type == "user") {
+          
             Toast.fire({
               icon: "success",
-              title: "User " + this.form.name + " created successfully",
+              title: "Section" + this.form.name + " created successfully",
             });
-          }
-          if (this.form.type == "admin") {
-            Toast.fire({
-              icon: "success",
-              title: "Admin " + this.form.name + " created successfully",
-            });
-          }
-          if (this.form.type == "vendor") {
-            Toast.fire({
-              icon: "success",
-              title: "Vendor " + this.form.name + " created successfully",
-            });
-          } else {
-            Toast.fire({
-              icon: "success",
-              title: "User " + this.form.name + " created successfully",
-            });
-          }
+          
+          
           this.$Progress.finish();
           this.form.reset();
           //This will close the modal
@@ -314,15 +316,37 @@ this.$Progress.start();
                 let photo = (this.form.photo.length > 200) ? this.form.photo : "img/profile/"+ this.form.photo ;
                 return photo;
             },
-    loadUsers() { 
+    loadUsers() {
+      
+      
+
+             axios
+        .get("section")
+        .then(({ data }) => {
+          this.sections = data;
+        })
+        .catch(function (error) {
+          // handle error
+          this.$Progress.fail();
+        });
+
+               axios
+        .get("catagory")
+        .then(({ data }) => {
+          this.catagories = data;
+        })
+        .catch(function (error) {
+          // handle error
+          this.$Progress.fail();
+        });
 
 
 if(true){
       this.$Progress.start();
       axios
-        .get("api/user")
+        .get("product")
         .then(({ data }) => {
-          this.users = data;
+          this.products = data;
         })
         .catch(function (error) {
           // handle error
@@ -341,9 +365,11 @@ if(true){
       Fire.$on('search', () => {
        //axios.get("api/user");
              let query = this.$parent.search;
-                axios.get('api/findUser?q=' + query)
+                axios.get('findSection?q=' + query)
+
+
                 .then((data) => {
-                    this.users = data.data
+                    this.sections = data.data
                 })
                 .catch(() => {
 

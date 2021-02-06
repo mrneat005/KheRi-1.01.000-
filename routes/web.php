@@ -19,7 +19,14 @@ Route::get('/', function () {
 Route::get('/landing', function () {
     return view('landing');
 });
+Route::get('/catagoriesMatched', 'catagoriesController@catagoriesMatched');
+
 Route::resource('profile', 'ProfileController');
+Route::resource('section', 'sectionsController');
+Route::resource('catagory', 'catagoriesController');
+Route::resource('product', 'ProductsController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('findSection', 'sectionsController@search');
+Route::get('findCatagory', 'catagoriesController@search');

@@ -87,7 +87,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                with font-awesome or any other icon font library -->
                         <li class="nav-item">
                             <router-link to="/dashboard-component" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt" style="color: chartreuse"></i>
+                                <i class="nav-icon fas fa-tachometer-alt" style="color: white"></i>
                                 <p>
                                     Dashboard
                                 </p>
@@ -96,7 +96,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         @can('isAdminOrVendor')
                         <li class="nav-item has-treeview menu-open">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-cog indigo"></i>
+                                <i class="nav-icon fas fa-cog white"></i>
                                 <p>
                                     Management
                                     <i class="right fas fa-angle-left "></i>
@@ -106,7 +106,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <router-link to="/users-component" class="nav-link">
-                                        <i class="nav-icon fas fa-users cyan"></i>
+                                        <i class="nav-icon fas fa-users white"></i>
                                         <p>
                                             Users
                                         </p>
@@ -115,9 +115,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 
                                 <li class="nav-item">
                                     <router-link to="/passport-component" class="nav-link">
-                                        <i class="nav-icon fas fa-cogs orange"></i>
+                                        <i class="nav-icon fas fa-cogs white"></i>
                                         <p>
                                             Passports
+                                        </p>
+                                    </router-link>
+                                </li>
+
+                                <li class="nav-item">
+                                    <router-link to="/profile-component" class="nav-link">
+                                        <i class="nav-icon fas fa-address-card white"></i>
+                                        <p>
+                                            Profile
                                         </p>
                                     </router-link>
                                 </li>
@@ -136,7 +145,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 @can('isAdminOrVendor')
 <li class="nav-item has-treeview menu-open">
     <a href="#" class="nav-link">
-        <i class="nav-icon fas fa-cog indigo"></i>
+        <i class="nav-icon fas fa-cog white"></i>
         <p>
             Info
             <i class="right fas fa-angle-left "></i>
@@ -146,7 +155,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <ul class="nav nav-treeview">
         <li class="nav-item">
             <router-link to="/sections-component" class="nav-link">
-                <i class="nav-icon fas fa-users cyan"></i>
+                
+                <i class="fas fa-puzzle-piece white"></i>
                 <p>
                     Sections
                 </p>
@@ -154,10 +164,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </li>
         
         <li class="nav-item">
-            <router-link to="/passport-component" class="nav-link">
-                <i class="nav-icon fas fa-cogs orange"></i>
+            <router-link to="/catagory-component" class="nav-link">
+                
+                <i class="fas fa-angle-double-down white"></i>
                 <p>
-                    Passports
+                    Catagories
+                </p>
+            </router-link>
+        </li>
+
+        <li class="nav-item">
+            <router-link to="/products-component" class="nav-link">
+                <i class="nav-icon fas fa-cogs white"></i>
+                <p>
+                    Products
                 </p>
             </router-link>
         </li>
