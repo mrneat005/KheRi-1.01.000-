@@ -1932,16 +1932,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -3282,32 +3272,35 @@ __webpack_require__.r(__webpack_exports__);
       $(add).modal("show");
     },
     fetch: function fetch() {
-      //console.log(this.form.section_id);
-      axios.get("catagoriesMatched/" + this.form.section_id).then(function (_ref) {// this.sections = data;
+      var _this3 = this;
 
+      //console.log(this.form.section_id);
+      axios.get("returning/" + this.form.section_id).then(function (_ref) {
         var data = _ref.data;
-      })["catch"](function (error) {// handle error
-        //this.$Progress.fail();
+        _this3.catagories = data;
+      })["catch"](function (error) {
+        // handle error
+        this.$Progress.fail();
       });
     },
     updateUser: function updateUser() {
-      var _this3 = this;
+      var _this4 = this;
 
       // this.$progress.start();
       this.$Progress.start();
       this.form.put('catagory/' + this.form.id).then(function () {
-        _this3.$Progress.finish();
+        _this4.$Progress.finish();
 
         $(add).modal("hide");
         Fire.$emit("userUpdated");
         Toast.fire({
           icon: "success",
-          title: "Updated Section " + _this3.form.id + " successfully"
+          title: "Updated Section " + _this4.form.id + " successfully"
         });
 
-        _this3.form.reset();
+        _this4.form.reset();
       })["catch"](function () {
-        _this3.$Progress.fail();
+        _this4.$Progress.fail();
       });
       /*Swal.fire({
         title: "Are you sure?",
@@ -3328,7 +3321,7 @@ __webpack_require__.r(__webpack_exports__);
       });*/
     },
     create: function create() {
-      var _this4 = this;
+      var _this5 = this;
 
       if (this.form.status === "active") {
         this.form.status = 1;
@@ -3346,17 +3339,17 @@ __webpack_require__.r(__webpack_exports__);
         Fire.$emit("userCreated");
         Toast.fire({
           icon: "success",
-          title: "Catagory" + _this4.form.name + " created successfully"
+          title: "Catagory" + _this5.form.name + " created successfully"
         });
 
-        _this4.$Progress.finish();
+        _this5.$Progress.finish();
 
-        _this4.form.reset(); //This will close the modal
+        _this5.form.reset(); //This will close the modal
 
 
         $(add).modal("hide");
       })["catch"](function () {
-        _this4.$Progress.fail();
+        _this5.$Progress.fail();
       });
     },
     getProfilePhoto: function getProfilePhoto() {
@@ -3364,11 +3357,11 @@ __webpack_require__.r(__webpack_exports__);
       return photo;
     },
     loadUsers: function loadUsers() {
-      var _this5 = this;
+      var _this6 = this;
 
       axios.get("section").then(function (_ref2) {
         var data = _ref2.data;
-        _this5.sections = data;
+        _this6.sections = data;
       })["catch"](function (error) {
         // handle error
         this.$Progress.fail();
@@ -3378,26 +3371,26 @@ __webpack_require__.r(__webpack_exports__);
         this.$Progress.start();
         axios.get("catagory").then(function (_ref3) {
           var data = _ref3.data;
-          _this5.catagories = data;
+          _this6.catagories = data;
         })["catch"](function (error) {
           // handle error
           this.$Progress.fail();
         });
         this.$Progress.finish();
         Fire.$on("userCreated", function () {
-          _this5.loadUsers();
+          _this6.loadUsers();
         });
         Fire.$on("userDeleted", function () {
-          _this5.loadUsers();
+          _this6.loadUsers();
         });
         Fire.$on("userUpdated", function () {
-          _this5.loadUsers();
+          _this6.loadUsers();
         });
         Fire.$on('search', function () {
           //axios.get("api/user");
-          var query = _this5.$parent.search;
+          var query = _this6.$parent.search;
           axios.get('findCatagory?q=' + query).then(function (data) {
-            _this5.catagories = data.data;
+            _this6.catagories = data.data;
           })["catch"](function () {});
         });
       } //axios.get("api/user").then(({data}) => (this.users = data.data));
@@ -3581,6 +3574,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
     this.loadUsers();
@@ -3589,33 +3596,15 @@ __webpack_require__.r(__webpack_exports__);
     return {
       whichModal: false,
       time: "",
-      sections: {},
-      catagories: {},
-      products: {},
+      users: {},
       form: new Form({
         id: "",
-        catagory_id: "",
-        section_id: "",
         name: "",
-        code: "",
-        color: "",
-        price: "",
-        discount: "",
-        weight: "",
-        main_photo: "",
-        side_photo: "",
-        front_photo: "",
-        size: "",
-        stock: "",
-        discription: "",
-        url: "",
-        is_featured: "",
-        meta_title: "",
-        meta_discription: "",
-        meta_keyword: "",
-        status: "",
+        email: "",
         created_at: "",
-        updated_at: ""
+        type: "",
+        password: "",
+        photo: ""
       })
     };
   },
@@ -3653,9 +3642,9 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: "Yes, delete it!"
       }).then(function (result) {
         if (result.isConfirmed) {
-          _this2.form["delete"]("section/" + id).then(function () {
+          _this2.form["delete"]("api/user/" + id).then(function () {
             Fire.$emit("userDeleted");
-            Swal.fire("Deleted!", "Section " + id + " has been deleted.", "success");
+            Swal.fire("Deleted!", "Your file " + id + " has been deleted.", "success");
           })["catch"](function () {});
         }
       });
@@ -3670,14 +3659,14 @@ __webpack_require__.r(__webpack_exports__);
 
       // this.$progress.start();
       this.$Progress.start();
-      this.form.put('section/' + this.form.id).then(function () {
+      this.form.put('api/user/' + this.form.id).then(function () {
         _this3.$Progress.finish();
 
         $(add).modal("hide");
         Fire.$emit("userUpdated");
         Toast.fire({
           icon: "success",
-          title: "Updated Section " + _this3.form.id + " successfully"
+          title: "Updated " + _this3.form.id + " successfully"
         });
 
         _this3.form.reset();
@@ -3705,24 +3694,37 @@ __webpack_require__.r(__webpack_exports__);
     create: function create() {
       var _this4 = this;
 
-      if (this.form.status === "active") {
-        this.form.status = 1;
-      } else if (this.form.status === "inActive") {
-        this.form.status = 0;
-      } else {
-        this.form.status = 0;
-      } //console.log(this.form.status);
-
-
       this.$Progress.start();
-      this.form.post("section").then(function () {
+      this.form.post("api/user").then(function () {
         //this.loadUsers()
         //using custom events
         Fire.$emit("userCreated");
-        Toast.fire({
-          icon: "success",
-          title: "Section" + _this4.form.name + " created successfully"
-        });
+
+        if (_this4.form.type == "user") {
+          Toast.fire({
+            icon: "success",
+            title: "User " + _this4.form.name + " created successfully"
+          });
+        }
+
+        if (_this4.form.type == "admin") {
+          Toast.fire({
+            icon: "success",
+            title: "Admin " + _this4.form.name + " created successfully"
+          });
+        }
+
+        if (_this4.form.type == "vendor") {
+          Toast.fire({
+            icon: "success",
+            title: "Vendor " + _this4.form.name + " created successfully"
+          });
+        } else {
+          Toast.fire({
+            icon: "success",
+            title: "User " + _this4.form.name + " created successfully"
+          });
+        }
 
         _this4.$Progress.finish();
 
@@ -3741,26 +3743,11 @@ __webpack_require__.r(__webpack_exports__);
     loadUsers: function loadUsers() {
       var _this5 = this;
 
-      axios.get("section").then(function (_ref) {
-        var data = _ref.data;
-        _this5.sections = data;
-      })["catch"](function (error) {
-        // handle error
-        this.$Progress.fail();
-      });
-      axios.get("catagory").then(function (_ref2) {
-        var data = _ref2.data;
-        _this5.catagories = data;
-      })["catch"](function (error) {
-        // handle error
-        this.$Progress.fail();
-      });
-
       if (true) {
         this.$Progress.start();
-        axios.get("product").then(function (_ref3) {
-          var data = _ref3.data;
-          _this5.products = data;
+        axios.get("product").then(function (_ref) {
+          var data = _ref.data;
+          _this5.users = data;
         })["catch"](function (error) {
           // handle error
           this.$Progress.fail();
@@ -3778,8 +3765,8 @@ __webpack_require__.r(__webpack_exports__);
         Fire.$on('search', function () {
           //axios.get("api/user");
           var query = _this5.$parent.search;
-          axios.get('findSection?q=' + query).then(function (data) {
-            _this5.sections = data.data;
+          axios.get('api/findUser?q=' + query).then(function (data) {
+            _this5.users = data.data;
           })["catch"](function () {});
         });
       } //axios.get("api/user").then(({data}) => (this.users = data.data));
@@ -4979,80 +4966,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -9557,7 +9470,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.profile-header-img > img.img-circle {\n    width: 50px;\n    height: 50px;\n    border: 2px solid #000000;\n}\n", ""]);
+exports.push([module.i, "\n.profile-header-img > img.img-circle {\r\n    width: 50px;\r\n    height: 50px;\r\n    border: 2px solid #000000;\n}\r\n", ""]);
 
 // exports
 
@@ -68530,29 +68443,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-8" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _vm._v("Dashboard Component")
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "card-body" },
-            [
-              _vm._v(
-                "\n                    I'm an example component.\n                    "
-              ),
-              _c("Navbar-component")
-            ],
-            1
-          )
-        ])
-      ])
-    ])
-  ])
+  return _c("div", { staticClass: "container" })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -70682,23 +70573,29 @@ var render = function() {
                             },
                             attrs: { name: "type", id: "type" },
                             on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.$set(
-                                  _vm.form,
-                                  "section_id",
-                                  $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
-                                )
-                              }
+                              change: [
+                                function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.form,
+                                    "section_id",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                },
+                                function($event) {
+                                  return _vm.fetch()
+                                }
+                              ]
                             }
                           },
                           [
@@ -70920,11 +70817,19 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "tbody",
-                _vm._l(_vm.products.data, function(product) {
-                  return _c("tr", { key: product.id }, [
-                    _c("td", [_vm._v(_vm._s(product.id))]),
+                _vm._l(_vm.users.data, function(user) {
+                  return _c("tr", { key: user.id }, [
+                    _c("td", [_vm._v(_vm._s(user.id))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(product.name))]),
+                    _c("td", [
+                      _vm._v(_vm._s(_vm._f("upperCaseFirst")(user.name)))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(_vm._s(_vm._f("lowerCaseAll")(user.type)))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Status")]),
                     _vm._v(" "),
                     _c("td", [
                       _c(
@@ -70933,7 +70838,7 @@ var render = function() {
                           attrs: { href: "#" },
                           on: {
                             click: function($event) {
-                              return _vm.updateModal(product)
+                              return _vm.updateModal(user)
                             }
                           }
                         },
@@ -70946,7 +70851,7 @@ var render = function() {
                           attrs: { href: "#" },
                           on: {
                             click: function($event) {
-                              return _vm.deleteUser(product.id)
+                              return _vm.deleteUser(user.id)
                             }
                           }
                         },
@@ -70959,7 +70864,7 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("pagination", {
-                attrs: { data: _vm.sections },
+                attrs: { data: _vm.users },
                 on: { "pagination-change-page": _vm.getResults }
               })
             ],
@@ -71092,70 +70997,81 @@ var render = function() {
                       1
                     ),
                     _vm._v(" "),
-                    _c("i", { staticClass: "fas fa-list yellow" }),
+                    _c("i", { staticClass: "fas fa-envelope blue" }),
                     _vm._v(" "),
                     _c(
                       "div",
                       { staticClass: "form-group" },
                       [
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.section_id,
-                                expression: "form.section_id"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            class: {
-                              "is-invalid": _vm.form.errors.has("section_id")
-                            },
-                            attrs: { name: "type", id: "type" },
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.$set(
-                                  _vm.form,
-                                  "section_id",
-                                  $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
-                                )
-                              }
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.email,
+                              expression: "form.email"
                             }
-                          },
-                          [
-                            _c("option", { attrs: { value: "0" } }, [
-                              _vm._v("Select Section")
-                            ]),
-                            _vm._v(" "),
-                            _vm._l(_vm.sections.data, function(section) {
-                              return _c(
-                                "option",
-                                {
-                                  key: section.id,
-                                  attrs: { id: "section.id" },
-                                  domProps: { value: section.id }
-                                },
-                                [_vm._v(_vm._s(section.name))]
-                              )
-                            })
                           ],
-                          2
-                        ),
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.form.errors.has("email") },
+                          attrs: {
+                            type: "email",
+                            name: "email",
+                            placeholder: "Email Address"
+                          },
+                          domProps: { value: _vm.form.email },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "email", $event.target.value)
+                            }
+                          }
+                        }),
                         _vm._v(" "),
                         _c("has-error", {
-                          attrs: { form: _vm.form, field: "type" }
+                          attrs: { form: _vm.form, field: "email" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("i", { staticClass: "fas fa-book orange" }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.bio,
+                              expression: "form.bio"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.form.errors.has("bio") },
+                          attrs: {
+                            name: "bio",
+                            id: "bio",
+                            placeholder: "Short bio for user (Optional)"
+                          },
+                          domProps: { value: _vm.form.bio },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "bio", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "bio" }
                         })
                       ],
                       1
@@ -71174,13 +71090,13 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.form.catagory_id,
-                                expression: "form.catagory_id"
+                                value: _vm.form.type,
+                                expression: "form.type"
                               }
                             ],
                             staticClass: "form-control",
                             class: {
-                              "is-invalid": _vm.form.errors.has("parent_id")
+                              "is-invalid": _vm.form.errors.has("type")
                             },
                             attrs: { name: "type", id: "type" },
                             on: {
@@ -71195,7 +71111,7 @@ var render = function() {
                                   })
                                 _vm.$set(
                                   _vm.form,
-                                  "catagory_id",
+                                  "type",
                                   $event.target.multiple
                                     ? $$selectedVal
                                     : $$selectedVal[0]
@@ -71204,26 +71120,73 @@ var render = function() {
                             }
                           },
                           [
-                            _c("option", { attrs: { value: "0" } }, [
-                              _vm._v("Select Catagory")
+                            _c("option", { attrs: { value: "" } }, [
+                              _vm._v("Select User Role")
                             ]),
                             _vm._v(" "),
-                            _vm._l(_vm.catagories.data, function(catagory) {
-                              return _c(
-                                "option",
-                                {
-                                  key: catagory.id,
-                                  domProps: { value: catagory.id }
-                                },
-                                [_c("element", [_vm._v(_vm._s(catagory.name))])]
-                              )
-                            })
-                          ],
-                          2
+                            _c("option", { attrs: { value: "admin" } }, [
+                              _vm._v("admin")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "user" } }, [
+                              _vm._v("user")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "vendor" } }, [
+                              _vm._v("vendor")
+                            ])
+                          ]
                         ),
                         _vm._v(" "),
                         _c("has-error", {
                           attrs: { form: _vm.form, field: "type" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("i", { staticClass: "fas fa-lock red" }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group inline" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.password,
+                              expression: "form.password"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.form.errors.has("password")
+                          },
+                          attrs: {
+                            type: "password",
+                            name: "password",
+                            id: "password",
+                            placeholder: "Password"
+                          },
+                          domProps: { value: _vm.form.password },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "password",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "password" }
                         })
                       ],
                       1
@@ -71293,7 +71256,13 @@ var staticRenderFns = [
       _c("tr", { staticClass: "bg-success" }, [
         _c("th", [_vm._v("ID")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Name")])
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("type")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("status")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Status")])
       ])
     ])
   }
@@ -72869,136 +72838,11 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "page-wrapper default-theme sidebar-bg bg1 toggled" },
-    [
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-sm btn-dark",
-          attrs: { id: "show-sidebar", href: "#" },
-          on: { click: _vm.closeMenu }
-        },
-        [_c("i", { staticClass: "fas fa-bars fa-2x" })]
-      ),
-      _vm._v(" "),
-      _c("nav", { staticClass: "sidebar-wrapper", attrs: { id: "sidebar" } }, [
-        _c("div", { staticClass: "sidebar-content" }, [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-sm btn-dark",
-              attrs: { id: "show-sidebar", href: "#" },
-              on: { click: _vm.closeMenu }
-            },
-            [_c("i", { staticClass: "fas fa-times-circle fa-2x" })]
-          ),
-          _vm._v(" "),
-          _vm._m(0),
-          _vm._v(" "),
-          _c("div", { staticClass: " sidebar-item sidebar-menu" }, [
-            _c("ul", [
-              _vm._m(1),
-              _vm._v(" "),
-              _c(
-                "li",
-                { staticClass: "sidebar-component" },
-                [
-                  _c("router-link", { attrs: { to: "/side/overview" } }, [
-                    _c("i", { staticClass: "fa fa-tachometer-alt" }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "menu-text" }, [
-                      _vm._v("Overview")
-                    ])
-                  ])
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "li",
-                { staticClass: "sidebar-component" },
-                [
-                  _c("router-link", { attrs: { to: "/side/profile" } }, [
-                    _c("i", { staticClass: "fa fa-tachometer-alt" }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "menu-text" }, [
-                      _vm._v("Profile")
-                    ])
-                  ])
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "li",
-                { staticClass: "sidebar-component" },
-                [
-                  _c("router-link", { attrs: { to: "/side/products" } }, [
-                    _c("i", { staticClass: "fa fa-tachometer-alt" }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "menu-text" }, [
-                      _vm._v("Products")
-                    ])
-                  ])
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "li",
-                { staticClass: "sidebar-component" },
-                [
-                  _c("router-link", { attrs: { to: "/side/orders" } }, [
-                    _c("i", { staticClass: "fa fa-tachometer-alt" }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "menu-text" }, [_vm._v("Orders")])
-                  ])
-                ],
-                1
-              )
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("router-view")
-    ],
+    [_c("router-view")],
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "sidebar-item sidebar-search" }, [
-      _c("div", [
-        _c("div", { staticClass: "input-group" }, [
-          _c("input", {
-            staticClass: "form-control search-menu",
-            attrs: { type: "text", placeholder: "Search..." }
-          }),
-          _vm._v(" "),
-          _c("div", { staticClass: "input-group-append" }, [
-            _c("span", { staticClass: "input-group-text" }, [
-              _c("i", {
-                staticClass: "fa fa-search",
-                attrs: { "aria-hidden": "true" }
-              })
-            ])
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "header-menu" }, [
-      _c("span", [_vm._v("General")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -90046,8 +89890,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\wamp64\www\KheRi\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\wamp64\www\KheRi\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\wamp64\www\KheRi\KheRi-1.01.000-\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\wamp64\www\KheRi\KheRi-1.01.000-\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

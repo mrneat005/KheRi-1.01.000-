@@ -20,7 +20,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Bootstrap CSS -->
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini align-self-end ">
     <div class="wrapper" id="app">
 
         <!-- Navbar -->
@@ -31,27 +31,55 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="/home" class="nav-link bg-success">Home</a>
+                    <a href="/home" class="nav-link  btn btn-outline-primary rounded-pill">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="/home" class="nav-link bg-success">Home</a>
+                    <a href="/home" class="nav-link  btn btn-outline-primary rounded-pill">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="/home" class="nav-link bg-success">Home</a>
+                    <a href="/home" class="nav-link btn btn-outline-primary rounded-pill">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="/home" class="nav-link bg-success">Home</a>
+                    <a href="/home" class="nav-link  btn btn-outline-primary rounded-pill">Home</a>
                 </li>
                 
             </ul>
             <!-- Right navbar links -->
   
+
+            <!--DropdownLogout-->
             <ul class="navbar-nav ml-auto">
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" v-model="search" @keyup.prevent="searchit" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" @click.prevent="searchit">Search</button>
-                </form>
+                <!-- Authentication Links -->
+                @guest
+                    <li class="nav-item">
+                        <a class=" btn btn-outline-primary rounded-pill nav-link " href="{{ route('login') }}">{{ __('Login')}}</a>
+                    </li>
+                    @if (Route::has('register'))
+                        <li class="nav-item">
+                            <a class="  btn btn btn-outline-success rounded-pill nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        </li>
+                    @endif
+                @else
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->name }} <span class="caret"></span>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item bg-danger" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                @endguest
             </ul>
+            <!--DropdownLogout-->
             <ul>
                 <div class="profile-header-container">   
                     <div class="profile-header-img">
@@ -62,7 +90,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
         </nav>
         <!-- /.navbar -->
-
+<div class="header bg-dark d-flex flex-row-reverse justify-content-center">
+    <ul class="navbar-nav ml-auto">
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control me-2 rounded-pill" type="search" v-model="search" @keyup.prevent="searchit" placeholder="Search" aria-label="Search">
+            <button class="btn  btn btn-outline-warning rounded-pill my-2 my-sm-0" type="submit" @click.prevent="searchit">Search</button>
+        </form>
+    </ul>
+</div>
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-2">
             <!-- Brand Logo -->
@@ -85,8 +120,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                        <li class="nav-item">
-                            <router-link to="/dashboard-component" class="nav-link">
+                      
+            
+
+               
+               <li class="nav-item">
+                            <router-link to="/side/overview" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt" style="color: white"></i>
                                 <p>
                                     Dashboard

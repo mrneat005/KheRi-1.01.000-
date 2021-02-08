@@ -214,7 +214,7 @@
                   name="type"
                   v-model="form.section_id"
                   id="type"
-                  
+                  @change="fetch()"
                   class="form-control"
                   :class="{ 'is-invalid': form.errors.has('section_id') }"
                 >
@@ -343,13 +343,13 @@ export default {
         fetch(){
            //console.log(this.form.section_id);
             axios
-        .get("catagoriesMatched/"+this.form.section_id)
+        .get("returning/"+this.form.section_id)
         .then(({ data }) => {
-         // this.sections = data;
+         this.catagories = data;
         })
         .catch(function (error) {
           // handle error
-          //this.$Progress.fail();
+          this.$Progress.fail();
         });
 
     },

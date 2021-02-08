@@ -203,6 +203,7 @@ export default {
     },
     createModal() {
       this.whichModal = false;
+   
       $(add).modal("show");
     },
     deleteUser(id) {
@@ -270,6 +271,7 @@ this.$Progress.start();
       });*/
     },
     create() {
+
       this.$Progress.start();
       this.form
         .post("api/user")

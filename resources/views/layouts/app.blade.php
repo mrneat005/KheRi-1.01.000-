@@ -22,17 +22,11 @@
 </head>
 <body>
     <div id="app">
-        
-        
         <nav class="navbar navbar-expand-md navbar-dark navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     
                 </a>
-
-
-
-           
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
@@ -76,11 +70,11 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class=" btn btn-primary nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class=" btn btn-outline-primary rounded-pill nav-link " href="{{ route('login') }}">{{ __('Login')}}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="  btn btn-success nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="  btn btn btn-outline-success rounded-pill nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
@@ -102,14 +96,10 @@
                                 </div>
                             </li>
                         @endguest
-
-
                         <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
+                            <input class="form-control me-2 rounded-pill" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-warning rounded-pill" type="submit">Search</button>
                           </form>
-
-
                     </ul>
                 </div>
             </div>

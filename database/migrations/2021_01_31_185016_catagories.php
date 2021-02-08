@@ -20,13 +20,13 @@ class Catagories extends Migration
             $table->integer('section_id')->default(0);
             $table->string('name');
             $table->string('photo')->default('profile.png');
-            $table->text('discription');
-            $table->string('url');
+            $table->text('discription')->nullable();
+            $table->string('url')->nullable();
             $table->float('discount')->default(0);
-            $table->string('meta_title');
-            $table->string('meta_discription');
-            $table->string('meta_keyword');
-            $table->string('status');
+            $table->string('meta_title')->nullable();
+            $table->string('meta_discription')->nullable();
+            $table->string('meta_keyword')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
             });
     }

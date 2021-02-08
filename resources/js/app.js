@@ -69,6 +69,7 @@ const routes = [
     { path: '/sections-component', component: require('./components/info/sections.vue').default },
     { path: '/catagory-component', component: require('./components/info/catagory.vue').default },
     { path: '/products-component', component: require('./components/info/products.vue').default },
+
     {
       path: "/side",
       name: "admin",

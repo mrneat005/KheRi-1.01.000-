@@ -30,3 +30,4 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('findSection', 'sectionsController@search');
 Route::get('findCatagory', 'catagoriesController@search');
+Route::get('returning', 'catagoriesController@returning');

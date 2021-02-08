@@ -135,7 +135,9 @@ class catagoriesController extends Controller
     }
 
 
-
+    public function returning(Request $request){
+        return 123;
+    }
     public function search(){
 
         if ($search = \Request::get('q')) {

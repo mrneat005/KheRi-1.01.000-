@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\sections;
+use App\Products;
+use App\Catagories;
+use App\User;
 
 class sectionsController extends Controller
 {
