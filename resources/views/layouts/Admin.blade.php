@@ -140,50 +140,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </p>
                             </router-link>
                         </li>
-
-
-
-                        <li class="nav-item has-treeview menu-open">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-cog white"></i>
-                                <p>
-                                    Management
-                                    <i class="right fas fa-angle-left "></i>
-                                </p>
-                            </a>
-                            
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <router-link to="/users-component" class="nav-link">
-                                        <i class="nav-icon fas fa-users white"></i>
-                                        <p>
-                                            Users
-                                        </p>
-                                    </router-link>
-                                </li>
-                                
-                                <li class="nav-item">
-                                    <router-link to="/passport-component" class="nav-link">
-                                        <i class="nav-icon fas fa-cogs white"></i>
-                                        <p>
-                                            Passports
-                                        </p>
-                                    </router-link>
-                                </li>
-
-                                <li class="nav-item">
-                                    <router-link to="/profile-component" class="nav-link">
-                                        <i class="nav-icon fas fa-address-card white"></i>
-                                        <p>
-                                            Profile
-                                        </p>
-                                    </router-link>
-                                </li>
-                                
-
-
-
-
                         @can('isAdminOrVendor')
                         <li class="nav-item has-treeview menu-open">
                             <a href="#" class="nav-link">
