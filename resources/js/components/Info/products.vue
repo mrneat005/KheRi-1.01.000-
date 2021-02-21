@@ -8,9 +8,11 @@
             <h3 class="card-title">Panel</h3>
 
             <div class="card-tools">
-              <button class="btn btn-success" @click="createModal">
-                Add new<i class="fas fa-user-plus fw"></i>
-              </button>
+              <router-link to="/addproduct-component" class="nav-link">
+                <button class="btn btn-success">
+                  Add new<i class="fas fa-user-plus fw"> </i>
+                </button>
+              </router-link>
             </div>
           </div>
         </div>
@@ -27,26 +29,28 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="user in users.data" :key="user.id">
-                <td>{{ user.id }}</td>
-                <td>{{ user.name | upperCaseFirst }}</td>
-                <td>{{ user.type | lowerCaseAll }}</td>
+              <tr v-for="product in products.data" :key="product.id">
+                <td>{{ product.id }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.type }}</td>
                 <td>Status</td>
                 <!--<td>{{user.created_at | simpleDate }}</td>-->
                 <td>
-                  <a href="#" @click="updateModal(user)">
+                  <a href="#" @click="updateModal(product)">
                     <i class="fas fa-edit fa-lg green"></i>
                   </a>
                   /
-                  <a href="#" @click="deleteUser(user.id)">
+                  <a href="#" @click="deleteUser(product.id)">
                     <i class="fas fa-trash red fa-lg"> </i>
                   </a>
                 </td>
               </tr>
             </tbody>
-           
-<pagination :data="users" @pagination-change-page="getResults"></pagination>
-            
+
+            <pagination
+              :data="products"
+              @pagination-change-page="getResults"
+            ></pagination>
           </table>
         </div>
         <!-- /.card-body -->
@@ -75,7 +79,7 @@
           </div>
           <div class="modal-body">
             <!-------------------------Form---------------------->
-            <form @submit.prevent=" whichModal ? updateUser() : create()">
+            <form @submit.prevent="whichModal ? updateUser() : create()">
               <i class="fas fa-file-signature green"></i>
               <div class="form-group">
                 <input
@@ -88,60 +92,229 @@
                 />
                 <has-error :form="form" field="name"></has-error>
               </div>
-              <i class="fas fa-envelope blue"></i>
-              <div class="form-group">
-                <input
-                  v-model="form.email"
-                  type="email"
-                  name="email"
-                  placeholder="Email Address"
-                  class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('email') }"
-                />
-                <has-error :form="form" field="email"></has-error>
-              </div>
+
+              <!--Element-->
               <i class="fas fa-book orange"></i>
               <div class="form-group">
                 <textarea
-                  v-model="form.bio"
-                  name="bio"
-                  id="bio"
-                  placeholder="Short bio for user (Optional)"
+                  v-model="form.code"
+                  name="code"
+                  id="code"
+                  placeholder="code"
                   class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('bio') }"
+                  :class="{ 'is-invalid': form.errors.has('code') }"
                 ></textarea>
-                <has-error :form="form" field="bio"></has-error>
+                <has-error :form="form" field="code"></has-error>
               </div>
+              <!--/Element-->
+
+              <!--Element-->
+              <i class="fas fa-book orange"></i>
+              <div class="form-group">
+                <textarea
+                  v-model="form.color"
+                  name="color"
+                  id="color"
+                  placeholder="Color"
+                  class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('color') }"
+                ></textarea>
+                <has-error :form="form" field="color"></has-error>
+              </div>
+              <!--/Element-->
+
+              <!--Element-->
+              <i class="fas fa-book orange"></i>
+              <div class="form-group">
+                <textarea
+                  v-model="form.price"
+                  name="price"
+                  id="price"
+                  placeholder="Price "
+                  class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('price') }"
+                ></textarea>
+                <has-error :form="form" field="price"></has-error>
+              </div>
+              <!--/Element-->
+
+              <!--Element-->
+              <i class="fas fa-book orange"></i>
+              <div class="form-group">
+                <textarea
+                  v-model="form.weight"
+                  name="weight"
+                  id="weight"
+                  placeholder="weight"
+                  class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('weight') }"
+                ></textarea>
+                <has-error :form="form" field="weight"></has-error>
+              </div>
+              <!--/Element-->
+
+              <!--Element-->
+              <i class="fas fa-book orange"></i>
+              <div class="form-group">
+                <textarea
+                  v-model="form.discription"
+                  name="discription"
+                  id="discription"
+                  placeholder="Short discription for catagory (Optional)"
+                  class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('discription') }"
+                ></textarea>
+                <has-error :form="form" field="discription"></has-error>
+              </div>
+              <!--/Element-->
+
+              <!--Element-->
+              <i class="fas fa-file-signature green"></i>
+              <div class="form-group">
+                <input
+                  v-model="form.url"
+                  type="text"
+                  name="url"
+                  class="form-control"
+                  placeholder="url"
+                  :class="{ 'is-invalid': form.errors.has('url') }"
+                />
+                <has-error :form="form" field="url"></has-error>
+              </div>
+              <!--/Element-->
+
+              <!--Element-->
+              <i class="fas fa-file-signature green"></i>
+              <div class="form-group">
+                <input
+                  v-model="form.discount"
+                  type="number"
+                  name="discount"
+                  class="form-control"
+                  placeholder="discount"
+                  :class="{ 'is-invalid': form.errors.has('discount') }"
+                />
+                <has-error :form="form" field="discount"></has-error>
+              </div>
+              <!--/Element-->
+
+              <!--Element-->
+              <i class="fas fa-file-signature green"></i>
+              <div class="form-group">
+                <input
+                  v-model="form.meta_keyword"
+                  type="text"
+                  name="meta_keyword"
+                  class="form-control"
+                  placeholder="meta_keyword"
+                  :class="{ 'is-invalid': form.errors.has('meta_keyword') }"
+                />
+                <has-error :form="form" field="meta_keyword"></has-error>
+              </div>
+              <!--/Element-->
+
+              <!--Element-->
+              <i class="fas fa-file-signature green"></i>
+              <div class="form-group">
+                <input
+                  v-model="form.meta_discription"
+                  type="text"
+                  name="meta_discription"
+                  class="form-control"
+                  placeholder="meta_discription"
+                  :class="{ 'is-invalid': form.errors.has('meta_discription') }"
+                />
+                <has-error :form="form" field="meta_discription"></has-error>
+              </div>
+              <!--/Element-->
+
+              <!--Element-->
+              <i class="fas fa-file-signature green"></i>
+              <div class="form-group">
+                <input
+                  v-model="form.meta_title"
+                  type="text"
+                  name="meta_title"
+                  class="form-control"
+                  placeholder="meta_title"
+                  :class="{ 'is-invalid': form.errors.has('meta_title') }"
+                />
+                <has-error :form="form" field="meta_title"></has-error>
+              </div>
+              <!--/Element-->
+
+              <div class="form-group">
+                <label for="photo" class="col-sm-2 control-label">Main Photo</label>
+                <div class="col-sm-12">
+                  <input
+                    type="file"
+                    @change="updatePhotoMain"
+                    name="photo"
+                    class="form-input"
+                  />
+                </div>
+              </div>
+
               <i class="fas fa-list yellow"></i>
               <div class="form-group">
                 <select
                   name="type"
-                  v-model="form.type"
+                  v-model="form.section_id"
                   id="type"
+                  @change="fetch()"
                   class="form-control"
-                  :class="{ 'is-invalid': form.errors.has('type') }"
+                  :class="{ 'is-invalid': form.errors.has('section_id') }"
                 >
-                  <option value="">Select User Role</option>
-                  <option value="admin">admin</option>
-                  <option value="user">user</option>
-                  <option value="vendor">vendor</option>
+                  <option value="0">Select Section</option>
+                  <option
+                    id="section.id"
+                    v-for="section in sections.data"
+                    :key="section.id"
+                    :value="section.id"
+                  >
+                    {{ section.name }}
+                  </option>
                 </select>
                 <has-error :form="form" field="type"></has-error>
               </div>
-              <i class="fas fa-lock red"></i>
-              <div class="form-group inline">
-                <input
-                  v-model="form.password"
-                  type="password"
-                  name="password"
-                  id="password"
-                  class="form-control"
-                  placeholder="Password"
-                  :class="{ 'is-invalid': form.errors.has('password') }"
-                />
 
-                <has-error :form="form" field="password"></has-error>
+              <i class="fas fa-list yellow"></i>
+              <div class="form-group">
+                <select
+                  name="type"
+                  v-model="form.parent_id"
+                  id="type"
+                  class="form-control"
+                  :class="{ 'is-invalid': form.errors.has('parent_id') }"
+                >
+                  <option value="0">Select Catagory</option>
+                  <option
+                    v-for="catagory in catagories.data"
+                    :key="catagory.id"
+                    :value="catagory.id"
+                  >
+                    <element>{{ catagory.name }}</element>
+                  </option>
+                </select>
+                <has-error :form="form" field="type"></has-error>
               </div>
+              <!--
+          <div class="form-group">
+            <label for="photo" class="col-sm-2 control-label">Side Photo</label>
+            <div class="col-sm-12">
+              <input type="file" @change="updatePhotoSide" name="photo" class="form-input" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="photo" class="col-sm-2 control-label">Front Photo</label>
+            <div class="col-sm-12">
+              <input type="file" @change="updatePhotoFront" name="photo" class="form-input" />
+            </div>
+          </div>
+
+-->
+
               <div class="container">
                 <button
                   type="button"
@@ -151,8 +324,12 @@
                 >
                   Close
                 </button>
-                <button type="submit" v-show="!whichModal" class="btn btn-success">Create</button>
-                <button type="submit" v-show="whichModal" class="btn btn-success">Update</button>
+                <button type="submit" v-show="!whichModal" class="btn btn-success">
+                  Create
+                </button>
+                <button type="submit" v-show="whichModal" class="btn btn-success">
+                  Update
+                </button>
               </div>
             </form>
             <!--/Form-->
@@ -174,36 +351,115 @@ export default {
     return {
       whichModal: false,
       time: "",
-      users: {},
+      sections: {},
+      catagories: {},
+      products: {},
       form: new Form({
         id: "",
         name: "",
-        email: "",
+        catagory_id: "",
+        section_id: "",
+        code: "",
+        color: "",
+        price: "",
+        discount: "",
+        weight: "",
+        main_photo: "",
+        side_photo: "",
+        front_photo: "",
+        size: "",
+        stock: "",
+        url: "",
+        discription: "",
+        isFeatured: "",
+        meta_title: "",
+        meta_discription: "",
+        meta_keyword: "",
         created_at: "",
-        type: "",
-        password: "",
-        photo: "",
+        updated_at: "",
       }),
     };
   },
   methods: {
-    created(){
-            Fire.$on('search', () => {
+    updatePhotoMain(e) {
+      // console.log("uploading...!");
+      let file = e.target.files[0];
+      let reader = new FileReader();
+
+      let limit = 1024 * 1024 * 2;
+      if (file["size"] > limit) {
+        Swal({
+          type: "error",
+          title: "Oops...",
+          text: "You are uploading a large file",
+        });
+        return false;
+      }
+
+      reader.onloadend = (file) => {
+        this.form.main_photo = reader.result;
+      };
+      reader.readAsDataURL(file);
+    },
+
+    updatePhotoSide(e) {
+      // console.log("uploading...!");
+      let file = e.target.files[0];
+      let reader = new FileReader();
+
+      let limit = 1024 * 1024 * 2;
+      if (file["size"] > limit) {
+        Swal({
+          type: "error",
+          title: "Oops...",
+          text: "You are uploading a large file",
+        });
+        return false;
+      }
+
+      reader.onloadend = (file) => {
+        this.form.side_photo = reader.result;
+      };
+      reader.readAsDataURL(file);
+    },
+
+    updatePhotoFront(e) {
+      // console.log("uploading...!");
+      let file = e.target.files[0];
+      let reader = new FileReader();
+
+      let limit = 1024 * 1024 * 2;
+      if (file["size"] > limit) {
+        Swal({
+          type: "error",
+          title: "Oops...",
+          text: "You are uploading a large file",
+        });
+        return false;
+      }
+
+      reader.onloadend = (file) => {
+        this.form.front_photo = reader.result;
+      };
+      reader.readAsDataURL(file);
+    },
+
+    created() {
+      Fire.$on("search", () => {
         console.log("Executed");
       });
     },
     getResults(page = 1) {
-			axios.get('api/user?page=' + page)
-				.then(response => {
-					this.users = response.data;
-				});
-		},
+      axios.get("api/user?page=" + page).then((response) => {
+        this.users = response.data;
+      });
+    },
     closeModal() {
       $(add).modal("hide");
     },
     createModal() {
       this.whichModal = false;
-   
+
       $(add).modal("show");
     },
     deleteUser(id) {
@@ -216,41 +472,40 @@ export default {
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, delete it!",
       }).then((result) => {
-        if (result.isConfirmed){
-         this.form
-          .delete("api/user/" + id)
-           .then(() => {
-            Fire.$emit("userDeleted");
-             Swal.fire(
-              "Deleted!",
-              "Your file " + id + " has been deleted.",
-              "success"
-             );
+        if (result.isConfirmed) {
+          this.form
+            .delete("api/user/" + id)
+            .then(() => {
+              Fire.$emit("userDeleted");
+              Swal.fire("Deleted!", "Your file " + id + " has been deleted.", "success");
             })
-           .catch(() => {});
-          }
-        });
-       },
-    updateModal(user){
-            this.whichModal = true;
-            this.form.fill(user);
-            $(add).modal("show");
+            .catch(() => {});
+        }
+      });
+    },
+    updateModal(user) {
+      this.whichModal = true;
+      this.form.fill(user);
+      $(add).modal("show");
     },
     updateUser() {
-     // this.$progress.start();
-this.$Progress.start();
-      this.form.put('api/user/'+this.form.id).then(()=>{
-        this.$Progress.finish();
-        $(add).modal("hide");
-         Fire.$emit("userUpdated");
-                     Toast.fire({
-              icon: "success",
-              title: "Updated " + this.form.id + " successfully",
-            });
-            this.form.reset();
-      }).catch(()=>{
-        this.$Progress.fail();
-      });
+      // this.$progress.start();
+      this.$Progress.start();
+      this.form
+        .put("product/" + this.form.id)
+        .then(() => {
+          this.$Progress.finish();
+          $(add).modal("hide");
+          Fire.$emit("userUpdated");
+          Toast.fire({
+            icon: "success",
+            title: "Updated " + this.form.id + " successfully",
+          });
+          this.form.reset();
+        })
+        .catch(() => {
+          this.$Progress.fail();
+        });
 
       /*Swal.fire({
         title: "Are you sure?",
@@ -271,10 +526,9 @@ this.$Progress.start();
       });*/
     },
     create() {
-
       this.$Progress.start();
       this.form
-        .post("api/user")
+        .post("product")
         .then(() => {
           //this.loadUsers()
           //using custom events
@@ -312,46 +566,63 @@ this.$Progress.start();
           this.$Progress.fail();
         });
     },
-    getProfilePhoto(){
-                let photo = (this.form.photo.length > 200) ? this.form.photo : "img/profile/"+ this.form.photo ;
-                return photo;
-            },
-    loadUsers() { 
-
-
-if(true){
-      this.$Progress.start();
+    getProfilePhoto() {
+      let photo =
+        this.form.photo.length > 200 ? this.form.photo : "img/profile/" + this.form.photo;
+      return photo;
+    },
+    loadUsers() {
       axios
-        .get("product")
+        .get("section")
         .then(({ data }) => {
-          this.users = data;
+          this.sections = data;
         })
         .catch(function (error) {
           // handle error
           this.$Progress.fail();
         });
-      this.$Progress.finish();
-      Fire.$on("userCreated", () => {
-        this.loadUsers();
-      });
-      Fire.$on("userDeleted", () => {
-        this.loadUsers();
-      });
-            Fire.$on("userUpdated", () => {
-        this.loadUsers();
-      });
-      Fire.$on('search', () => {
-       //axios.get("api/user");
-             let query = this.$parent.search;
-                axios.get('api/findUser?q=' + query)
-                .then((data) => {
-                    this.users = data.data
-                })
-                .catch(() => {
+      axios
+        .get("section")
+        .then(({ data }) => {
+          this.catagories = data;
+        })
+        .catch(function (error) {
+          // handle error
+          this.$Progress.fail();
+        });
 
-                });
-      });
-    }
+      if (true) {
+        this.$Progress.start();
+        axios
+          .get("product")
+          .then(({ data }) => {
+            this.products = data;
+          })
+          .catch(function (error) {
+            // handle error
+            this.$Progress.fail();
+          });
+        this.$Progress.finish();
+        Fire.$on("userCreated", () => {
+          this.loadUsers();
+        });
+        Fire.$on("userDeleted", () => {
+          this.loadUsers();
+        });
+        Fire.$on("userUpdated", () => {
+          this.loadUsers();
+        });
+        Fire.$on("search", () => {
+          //axios.get("api/user");
+          let query = this.$parent.search;
+          axios
+            .get("api/findUser?q=" + query)
+            .then((data) => {
+              this.users = data.data;
+            })
+            .catch(() => {});
+        });
+      }
       //axios.get("api/user").then(({data}) => (this.users = data.data));
       //doing data.data because it depends on how we get data formated
       //see  XHR response
@@ -370,8 +641,9 @@ if(true){
 </script>
 <style>
 .profile-header-img > img.img-circle {
-    width: 50px;
-    height: 50px;
-    border: 2px solid #000000;
+  width: 50px;
+  height: 50px;
+  border: 2px solid #000000;
 }
 </style>
+  

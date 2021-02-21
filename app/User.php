@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace KheRi;
 
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable,HasApiTokens;
+    public $incrementing = false;
 
     /**
      * The attributes that are mass assignable.

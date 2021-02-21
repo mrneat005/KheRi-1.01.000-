@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace KheRi\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\User;
+use KheRi\User;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller

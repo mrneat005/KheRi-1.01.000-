@@ -16,8 +16,8 @@ class Products extends Migration
         //
         Schema::create('products', function (Blueprint $table) {
          $table->increments('id');
-            $table->integer('catagory_id');
-            $table->integer('section_id');
+            $table->integer('catagory_id')->default(0);
+            $table->integer('section_id')->default(0);
              $table->string('name');
              $table->string('code')->nullable();
              $table->string('color')->nullable();

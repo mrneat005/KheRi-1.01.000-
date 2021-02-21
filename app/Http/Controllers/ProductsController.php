@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace KheRi\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\sections;
-use App\Products;
-use App\Catagories;
-use App\User;
+use KheRi\sections;
+use KheRi\Products;
+use KheRi\Catagories;
+use KheRi\User;
 
 class ProductsController extends Controller
 {
@@ -30,6 +30,7 @@ class ProductsController extends Controller
     public function create()
     {
         //
+        return 123;
     }
 
     /**
@@ -41,8 +42,34 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         //
-    }
 
+        $this->validate($request,[
+            'name' => 'required|string|max:60',
+
+        ]);
+           return Products::create([
+            'name'=>$request['name'],
+            'catagory_id'=>$request['catagory_id'],
+            'section_id'=>$request['section_id'],
+            'main_photo'=>$request['main_photo'],
+            'side_photo'=>$request['side_photo'],
+            'code'=>$request['code'],
+            'color'=>$request['color'],
+            'price'=>$request['price'],
+            'discount'=>$request['discount'],
+            'weight'=>$request['weight'],
+            'size'=>$request['size'],
+            'stock'=>$request['stock'],
+            'url'=>$request['url'],
+            'is_featured'=>$request['is_featured'],
+            'meta_title'=>$request['meta_title'],
+            'meta_discription'=>$request['meta_discription'],
+            'mete_keyword'=>$request['meta_keyword'],
+            'status'=>$request['status'],
+        ]);
+
+
+    }
     /**
      * Display the specified resource.
      *
@@ -52,6 +79,8 @@ class ProductsController extends Controller
     public function show($id)
     {
         //
+        $product= Products::findOrFail($id); 
+        return $product;
     }
 
     /**
@@ -75,6 +104,69 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request,[
+        ]);
+
+        $product= Products::findOrFail($id);
+        $mainPhoto = $product->main_photo;
+        if ($request->main_photo != $mainPhoto) {
+            $name = time().'.' . explode('/', explode(':', substr($request->main_photo, 0, strpos($request->main_photo, ';')))[1])[1];
+            \Image::make($request->main_photo)->save(public_path('img/products/').$name);
+            $request->merge(['main_photo' => $name]);
+           // $request->name = $name;
+           //it will take new value
+           $request->merge(['main_photo' => $name]);
+
+
+           $mainProductPhoto = public_path('img/products/').$mainPhoto;
+           if(file_exists($mainProductPhoto)){
+               @unlink($mainProductPhoto);
+             }
+
+        if(!empty($request->password)){
+            $request->merge(['password' => Hash::make($request['password'])]);
+        }
+        
+    }
+    $sidePhoto = $product->side_photo;
+        if ($request->side_photo != $sidePhoto) {
+            $name = time().'.' . explode('/', explode(':', substr($request->side_photo, 0, strpos($request->side_photo, ';')))[1])[1];
+            \Image::make($request->side_photo)->save(public_path('img/products/').$name);
+            $request->merge(['side_photo' => $name]);
+           // $request->name = $name;
+           //it will take new value
+           $request->merge(['side_photo' => $name]);
+
+
+           $sideProductPhoto = public_path('img/products/').$sidePhoto;
+           if(file_exists($sideProductPhoto)){
+               @unlink($sideProductPhoto);
+             }
+            }
+
+
+
+            $frontPhoto = $product->front_photo;
+            if ($request->front_photo != $frontPhoto) {
+                $name = time().'.' . explode('/', explode(':', substr($request->front_photo, 0, strpos($request->front_photo, ';')))[1])[1];
+                \Image::make($request->side_photo)->save(public_path('img/products/').$name);
+                $request->merge(['frontphoto' => $name]);
+               // $request->name = $name;
+               //it will take new value
+               $request->merge(['front_photo' => $name]);
+    
+    
+               $frontProductPhoto = public_path('img/products/').$frontPhoto;
+               if(file_exists($frontProductPhoto)){
+                   @unlink($frontProductPhoto);
+                 }
+                }
+
+
+
+            $product->update($request->all());
+
+
     }
 
     /**

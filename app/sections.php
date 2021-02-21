@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace KheRi;
 
 use Illuminate\Database\Eloquent\Model;
 

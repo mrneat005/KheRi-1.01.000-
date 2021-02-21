@@ -69,6 +69,9 @@ const routes = [
     { path: '/sections-component', component: require('./components/info/sections.vue').default },
     { path: '/catagory-component', component: require('./components/info/catagory.vue').default },
     { path: '/products-component', component: require('./components/info/products.vue').default },
+    { path: '/addproduct-component', component: require('./components/ProductsComponent/AddProduct.vue').default },
+    { path: '/displayProducts-component', component: require('./components/info/productsDisplay.vue').default },
+    { path: '/displayproduct-component', component: require('./components/ProductsComponent/DisplayProductComponent.vue').default },
 
     {
       path: "/side",

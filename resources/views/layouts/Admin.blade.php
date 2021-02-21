@@ -132,6 +132,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </p>
                             </router-link>
                         </li>
+                        <li class="nav-item">
+                            <router-link to="/displayProducts-component" class="nav-link">
+                                <i class="nav-icon fas fa-cogs white"></i>
+                                <p>
+                                    DisplayProducts
+                                </p>
+                            </router-link>
+                        </li>
                         @can('isAdminOrVendor')
                         <li class="nav-item has-treeview menu-open">
                             <a href="#" class="nav-link">
@@ -220,6 +228,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </p>
             </router-link>
         </li>
+
+         @can('isVendor')
+
+        <li class="nav-item">
+            <router-link to="/addproduct-component" class="nav-link">
+                <i class="nav-icon fas fa-cogs white"></i>
+                <p>
+                    AddProduct
+                </p>
+            </router-link>
+        </li>
+        <li class="nav-item">
+            <router-link to="/displayproduct-component" class="nav-link">
+                <i class="nav-icon fas fa-cogs white"></i>
+                <p>
+                    DisplayProduct
+                </p>
+            </router-link>
+        </li>
+         @endcan
         @endcan
 <!--/Info-->  
 

@@ -26,11 +26,11 @@
             </thead>
             <tbody>
               <tr v-for="catagory in catagories.data" :key="catagory.id">
-                               <td>{{ catagory.id }}</td>
-                <td>{{ catagory.name  }}</td>
-                <td>{{ catagory.parent_id  }}</td>
-                <td>{{ catagory.catagory_id  }}</td>
-            
+                <td>{{ catagory.id }}</td>
+                <td>{{ catagory.name }}</td>
+                <td>{{ catagory.parent_id }}</td>
+                <td>{{ catagory.catagory_id }}</td>
+
                 <!--<td>{{user.created_at | simpleDate }}</td>-->
                 <td>
                   <a href="#" @click="updateModal(catagory)">
@@ -43,9 +43,11 @@
                 </td>
               </tr>
             </tbody>
-           
-<pagination :data="catagories" @pagination-change-page="getResults"></pagination>
-            
+
+            <pagination
+              :data="catagories"
+              @pagination-change-page="getResults"
+            ></pagination>
           </table>
         </div>
         <!-- /.card-body -->
@@ -74,7 +76,7 @@
           </div>
           <div class="modal-body">
             <!-------------------------Form---------------------->
-            <form @submit.prevent=" whichModal ? updateUser() : create()">
+            <form @submit.prevent="whichModal ? updateUser() : create()">
               <i class="fas fa-file-signature green"></i>
               <div class="form-group">
                 <input
@@ -88,8 +90,8 @@
                 <has-error :form="form" field="name"></has-error>
               </div>
 
-<!--Element-->
-<i class="fas fa-book orange"></i>
+              <!--Element-->
+              <i class="fas fa-book orange"></i>
               <div class="form-group">
                 <textarea
                   v-model="form.discription"
@@ -101,11 +103,10 @@
                 ></textarea>
                 <has-error :form="form" field="discription"></has-error>
               </div>
-<!--/Element-->
+              <!--/Element-->
 
-
-<!--Element-->
-<i class="fas fa-file-signature green"></i>
+              <!--Element-->
+              <i class="fas fa-file-signature green"></i>
               <div class="form-group">
                 <input
                   v-model="form.url"
@@ -113,14 +114,14 @@
                   name="url"
                   class="form-control"
                   placeholder="url"
-                  :class="{ 'is-invalid': form.errors.has('url')}"
+                  :class="{ 'is-invalid': form.errors.has('url') }"
                 />
                 <has-error :form="form" field="url"></has-error>
               </div>
-<!--/Element-->
+              <!--/Element-->
 
-<!--Element-->
-<i class="fas fa-file-signature green"></i>
+              <!--Element-->
+              <i class="fas fa-file-signature green"></i>
               <div class="form-group">
                 <input
                   v-model="form.discount"
@@ -132,13 +133,10 @@
                 />
                 <has-error :form="form" field="discount"></has-error>
               </div>
-<!--/Element-->
+              <!--/Element-->
 
-
-
-
-<!--Element-->
-<i class="fas fa-file-signature green"></i>
+              <!--Element-->
+              <i class="fas fa-file-signature green"></i>
               <div class="form-group">
                 <input
                   v-model="form.meta_keyword"
@@ -150,11 +148,10 @@
                 />
                 <has-error :form="form" field="meta_keyword"></has-error>
               </div>
-<!--/Element-->
+              <!--/Element-->
 
-
-<!--Element-->
-<i class="fas fa-file-signature green"></i>
+              <!--Element-->
+              <i class="fas fa-file-signature green"></i>
               <div class="form-group">
                 <input
                   v-model="form.meta_discription"
@@ -166,11 +163,10 @@
                 />
                 <has-error :form="form" field="meta_discription"></has-error>
               </div>
-<!--/Element-->
+              <!--/Element-->
 
-
-<!--Element-->
-<i class="fas fa-file-signature green"></i>
+              <!--Element-->
+              <i class="fas fa-file-signature green"></i>
               <div class="form-group">
                 <input
                   v-model="form.meta_title"
@@ -182,8 +178,7 @@
                 />
                 <has-error :form="form" field="meta_title"></has-error>
               </div>
-<!--/Element-->
-
+              <!--/Element-->
 
               <i class="fas fa-list yellow"></i>
               <div class="form-group">
@@ -197,17 +192,10 @@
                   <option value="0">Select Section Status</option>
                   <option value="active">active</option>
                   <option value="inActive">inActive</option>
-                 
                 </select>
                 <has-error :form="form" field="type"></has-error>
               </div>
 
-
-
-
-
-
-              
               <i class="fas fa-list yellow"></i>
               <div class="form-group">
                 <select
@@ -219,14 +207,19 @@
                   :class="{ 'is-invalid': form.errors.has('section_id') }"
                 >
                   <option value="0">Select Section</option>
-                  <option  id="section.id"  v-for="section in sections.data" :key="section.id" :value="section.id">{{section.name}}</option>
-                  
-                 
+                  <option
+                    id="section.id"
+                    v-for="section in sections.data"
+                    :key="section.id"
+                    :value="section.id"
+                  >
+                    {{ section.name }}
+                  </option>
                 </select>
                 <has-error :form="form" field="type"></has-error>
               </div>
-              
-<i class="fas fa-list yellow"></i>
+
+              <i class="fas fa-list yellow"></i>
               <div class="form-group">
                 <select
                   name="type"
@@ -236,13 +229,16 @@
                   :class="{ 'is-invalid': form.errors.has('parent_id') }"
                 >
                   <option value="0">Select Parent</option>
-                  <option  v-for="catagory in catagories.data" :key="catagory.id" :value="catagory.id" >
-                    <element >{{catagory.name}}</element></option>
+                  <option
+                    v-for="catagory in catagories.data"
+                    :key="catagory.id"
+                    :value="catagory.id"
+                  >
+                    <element>{{ catagory.name }}</element>
+                  </option>
                 </select>
                 <has-error :form="form" field="type"></has-error>
               </div>
-
-
 
               <div class="container">
                 <button
@@ -253,8 +249,12 @@
                 >
                   Close
                 </button>
-                <button type="submit" v-show="!whichModal" class="btn btn-success">Create</button>
-                <button type="submit" v-show="whichModal" class="btn btn-success">Update</button>
+                <button type="submit" v-show="!whichModal" class="btn btn-success">
+                  Create
+                </button>
+                <button type="submit" v-show="whichModal" class="btn btn-success">
+                  Update
+                </button>
               </div>
             </form>
             <!--/Form-->
@@ -292,17 +292,16 @@ export default {
     };
   },
   methods: {
-    created(){
-            Fire.$on('search', () => {
+    created() {
+      Fire.$on("search", () => {
         console.log("Executed");
       });
     },
     getResults(page = 1) {
-			axios.get('api/user?page=' + page)
-				.then(response => {
-					this.users = response.data;
-				});
-		},
+      axios.get("api/user?page=" + page).then((response) => {
+        this.users = response.data;
+      });
+    },
     closeModal() {
       $(add).modal("hide");
     },
@@ -320,54 +319,52 @@ export default {
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, delete it!",
       }).then((result) => {
-        if (result.isConfirmed){
-         this.form
-          .delete("catagory/" + id)
-           .then(() => {
-            Fire.$emit("userDeleted");
-             Swal.fire(
-              "Deleted!",
-              "Section " + id + " has been deleted.",
-              "success"
-             );
+        if (result.isConfirmed) {
+          this.form
+            .delete("catagory/" + id)
+            .then(() => {
+              Fire.$emit("userDeleted");
+              Swal.fire("Deleted!", "Section " + id + " has been deleted.", "success");
             })
-           .catch(() => {});
-          }
-        });
-       },
-    updateModal(user){
-            this.whichModal = true;
-            this.form.fill(user);
-            $(add).modal("show");
+            .catch(() => {});
+        }
+      });
     },
-        fetch(){
-           //console.log(this.form.section_id);
-            axios
-        .get("returning/"+this.form.section_id)
+    updateModal(user) {
+      this.whichModal = true;
+      this.form.fill(user);
+      $(add).modal("show");
+    },
+    fetch() {
+      //console.log(this.form.section_id);
+      axios
+        .get("returning/" + this.form.section_id)
         .then(({ data }) => {
-         this.catagories = data;
+          this.catagories = data;
         })
         .catch(function (error) {
           // handle error
           this.$Progress.fail();
         });
-
     },
     updateUser() {
-     // this.$progress.start();
-this.$Progress.start();
-      this.form.put('catagory/'+this.form.id).then(()=>{
-        this.$Progress.finish();
-        $(add).modal("hide");
-         Fire.$emit("userUpdated");
-                     Toast.fire({
-              icon: "success",
-              title: "Updated Section " + this.form.id + " successfully",
-            });
-            this.form.reset();
-      }).catch(()=>{
-        this.$Progress.fail();
-      });
+      // this.$progress.start();
+      this.$Progress.start();
+      this.form
+        .put("catagory/" + this.form.id)
+        .then(() => {
+          this.$Progress.finish();
+          $(add).modal("hide");
+          Fire.$emit("userUpdated");
+          Toast.fire({
+            icon: "success",
+            title: "Updated Section " + this.form.id + " successfully",
+          });
+          this.form.reset();
+        })
+        .catch(() => {
+          this.$Progress.fail();
+        });
 
       /*Swal.fire({
         title: "Are you sure?",
@@ -388,17 +385,14 @@ this.$Progress.start();
       });*/
     },
     create() {
-        
-        if (this.form.status==="active") {
-            this.form.status=1;
-            
-        } 
-        else if(this.form.status==="inActive") {
-            this.form.status=0;
-        }else {
-            this.form.status=0;
-        }
-        //console.log(this.form.status);
+      if (this.form.status === "active") {
+        this.form.status = 1;
+      } else if (this.form.status === "inActive") {
+        this.form.status = 0;
+      } else {
+        this.form.status = 0;
+      }
+      //console.log(this.form.status);
       this.$Progress.start();
       this.form
         .post("catagory")
@@ -407,13 +401,12 @@ this.$Progress.start();
           //using custom events
 
           Fire.$emit("userCreated");
-          
-            Toast.fire({
-              icon: "success",
-              title: "Catagory" + this.form.name + " created successfully",
-            });
-          
-          
+
+          Toast.fire({
+            icon: "success",
+            title: "Catagory" + this.form.name + " created successfully",
+          });
+
           this.$Progress.finish();
           this.form.reset();
           //This will close the modal
@@ -423,13 +416,13 @@ this.$Progress.start();
           this.$Progress.fail();
         });
     },
-    getProfilePhoto(){
-                let photo = (this.form.photo.length > 200) ? this.form.photo : "img/profile/"+ this.form.photo ;
-                return photo;
-            },
-    loadUsers() { 
-
-       axios
+    getProfilePhoto() {
+      let photo =
+        this.form.photo.length > 200 ? this.form.photo : "img/profile/" + this.form.photo;
+      return photo;
+    },
+    loadUsers() {
+      axios
         .get("section")
         .then(({ data }) => {
           this.sections = data;
@@ -439,42 +432,39 @@ this.$Progress.start();
           this.$Progress.fail();
         });
 
-
-if(true){
-      this.$Progress.start();
-      axios
-        .get("catagory")
-        .then(({ data }) => {
-          this.catagories = data;
-        })
-        .catch(function (error) {
-          // handle error
-          this.$Progress.fail();
+      if (true) {
+        this.$Progress.start();
+        axios
+          .get("catagory")
+          .then(({ data }) => {
+            this.catagories = data;
+          })
+          .catch(function (error) {
+            // handle error
+            this.$Progress.fail();
+          });
+        this.$Progress.finish();
+        Fire.$on("userCreated", () => {
+          this.loadUsers();
         });
-      this.$Progress.finish();
-      Fire.$on("userCreated", () => {
-        this.loadUsers();
-      });
-      Fire.$on("userDeleted", () => {
-        this.loadUsers();
-      });
-            Fire.$on("userUpdated", () => {
-        this.loadUsers();
-      });
-      Fire.$on('search', () => {
-       //axios.get("api/user");
-             let query = this.$parent.search;
-                axios.get('findCatagory?q=' + query)
+        Fire.$on("userDeleted", () => {
+          this.loadUsers();
+        });
+        Fire.$on("userUpdated", () => {
+          this.loadUsers();
+        });
+        Fire.$on("search", () => {
+          //axios.get("api/user");
+          let query = this.$parent.search;
+          axios
+            .get("findCatagory?q=" + query)
 
-
-                .then((data) => {
-                    this.catagories = data.data
-                })
-                .catch(() => {
-
-                });
-      });
-    }
+            .then((data) => {
+              this.catagories = data.data;
+            })
+            .catch(() => {});
+        });
+      }
       //axios.get("api/user").then(({data}) => (this.users = data.data));
       //doing data.data because it depends on how we get data formated
       //see  XHR response
@@ -493,8 +483,8 @@ if(true){
 </script>
 <style>
 .profile-header-img > img.img-circle {
-    width: 50px;
-    height: 50px;
-    border: 2px solid #000000;
+  width: 50px;
+  height: 50px;
+  border: 2px solid #000000;
 }
 </style>

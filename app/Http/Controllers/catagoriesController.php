@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace KheRi\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Catagories;
+use KheRi\Catagories;
 
 class catagoriesController extends Controller
 {

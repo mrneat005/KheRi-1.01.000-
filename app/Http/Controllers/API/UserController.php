@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace KheRi\Http\Controllers\API;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
-use App\User;
+use KheRi\Http\Controllers\Controller;
+use KheRi\User;
 
 
 class UserController extends Controller
@@ -75,6 +75,12 @@ return User::latest()->paginate(5);
         if(!empty($request->password)){
             $request->merge(['password' => Hash::make($request['password'])]);
         }
+        else
+        {
+            $id = $request['id'];
+            $user= User::findOrFail($id);
+            $request->merge(['password' => Hash::make($user['password'])]);
+        }
 
 
         $user->update($request->all());
@@ -90,8 +96,8 @@ return User::latest()->paginate(5);
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+public function store(Request $request)
+{
 //Server validation
 //we can also use axios and classes custon for this
 $this->validate($request,[
@@ -102,6 +108,18 @@ $this->validate($request,[
 
 ]);
 
+if(!empty($request->password)){
+    $request->merge(['password' => Hash::make($request['password'])]);
+}
+else
+{
+    $id = $request['id'];
+    $user= User::findOrFail($id);
+    $request->merge(['password' => Hash::make($user['password'])]);
+}
+
+
+
 
         //
         //return ['message'=>'I have your data and i am store'];
@@ -110,7 +128,7 @@ $this->validate($request,[
             'email'=>$request['email'],
             'type'=>$request['type'],
             'bio'=>$request['bio'],
-            'password'=>Hash::make($request['name']),
+            'password'=>$request['password'],
         ]);
     }
 
@@ -142,6 +160,17 @@ $this->validate($request,[
             'bio' => 'string|max:191',
         
         ]);
+        
+        if(!empty($request->password)){
+            $request->merge(['password' => Hash::make($request['password'])]);
+        }
+        else
+        {
+            $id = $request['id'];
+            $user= User::findOrFail($id);
+            $request->merge(['password' => Hash::make($user['password'])]);
+        }
+        
         
         $user->update([  
         'name'=>$request['name'],

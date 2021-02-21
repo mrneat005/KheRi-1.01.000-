@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace KheRi\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\sections;
-use App\Products;
-use App\Catagories;
-use App\User;
+use KheRi\sections;
+use KheRi\Products;
+use KheRi\Catagories;
+use KheRi\User;
 
 class sectionsController extends Controller
 {
