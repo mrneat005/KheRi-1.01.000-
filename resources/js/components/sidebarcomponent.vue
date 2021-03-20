@@ -1,7 +1,7 @@
 <template>
 <div class="page-wrapper default-theme sidebar-bg bg1 toggled">
 
-<router-view></router-view>
+shshshsh
 
         
     </div>

@@ -28,6 +28,9 @@ Route::resource('product', 'ProductsController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/about', 'HomeController@about')->name('about');
 Route::get('findSection', 'sectionsController@search');
 Route::get('findCatagory', 'catagoriesController@search');
 Route::get('returning', 'catagoriesController@returning');
+
+

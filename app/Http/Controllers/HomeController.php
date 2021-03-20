@@ -27,4 +27,10 @@ class HomeController extends Controller
         //return Auth::user();
         return view('home');
     }
+
+    public function about()
+    {
+        //return Auth::user();
+        return 123;
+    }
 }

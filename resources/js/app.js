@@ -67,6 +67,8 @@ const routes = [
     { path: '/users-component', component: require('./components/Users.vue').default },
     { path: '/passport-component', component: require('./components/Passport.vue').default },
     { path: '/sections-component', component: require('./components/info/sections.vue').default },
+    { path: '/about-component', component: require('./components/landing/about.vue').default },
+    { path: '/welcome-component', component: require('./components/landing/welcome.vue').default },
     { path: '/catagory-component', component: require('./components/info/catagory.vue').default },
     { path: '/products-component', component: require('./components/info/products.vue').default },
     { path: '/addproduct-component', component: require('./components/ProductsComponent/AddProduct.vue').default },
@@ -144,8 +146,6 @@ const routes = [
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 Vue.component('navbar-component', require('./components/Navbar.vue').default);
-Vue.component('hero-component', require('./components/hero.vue').default);
-Vue.component('sidebar-component', require('./components/Home.vue').default);
 Vue.component('products-component', require('./components/products.vue').default);
 Vue.component('side-component', require('./components/sidebarcomponent.vue').default);
 Vue.component('overview-component', require('./components/Overview.vue').default);

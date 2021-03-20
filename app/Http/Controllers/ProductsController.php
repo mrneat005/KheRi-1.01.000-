@@ -178,5 +178,11 @@ class ProductsController extends Controller
     public function destroy($id)
     {
         //
+                //
+                //finding user id  
+       $product= Products::findOrFail($id);
+       //now deleting this user
+      $product->delete();
+
     }
 }

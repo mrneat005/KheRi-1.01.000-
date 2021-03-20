@@ -474,7 +474,7 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           this.form
-            .delete("api/user/" + id)
+            .delete("product/" + id)
             .then(() => {
               Fire.$emit("userDeleted");
               Swal.fire("Deleted!", "Your file " + id + " has been deleted.", "success");

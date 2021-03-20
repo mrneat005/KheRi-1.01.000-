@@ -22,93 +22,109 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark navbar-laravel">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    
-                </a>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
-                      </a>
-                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                      </ul>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                    </li>
-                  </ul>
-
-                </div>
-
-
-
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class=" btn btn-outline-primary rounded-pill nav-link " href="{{ route('login') }}">{{ __('Login')}}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="  btn btn btn-outline-success rounded-pill nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                        <form class="d-flex">
-                            <input class="form-control me-2 rounded-pill" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-warning rounded-pill" type="submit">Search</button>
-                          </form>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
+<router-view></router-view>
         <main class="py-4">
             @yield('content')
             @yield('welcome')
+            @yield('about')
         </main>
+        
+        
     </div>
+
+    <script>
+
+    </script>
 </body>
 </html>
+<style>
+  body {
+  overflow-x: hidden; }
+
+.navbar .nav-link {
+  font-size: 14px;
+  text-transform: uppercase;
+  padding-left: 1em !important;
+  padding-right: 1em !important; }
+
+.navbar .nav-item.active {
+  border-left: #444 3px solid; }
+
+.carousel-item {
+  height: 450px; }
+
+.carousel-image-1 {
+  background: url("../img/w002.jpeg");
+  background-size: cover; }
+
+.carousel-image-2 {
+  background: url("../img/w003.jpeg");
+  background-size: cover; }
+
+.carousel-image-3 {
+  background: url("../img/w004.jpeg");
+  background-size: cover; }
+
+.fa {
+  font-size: 55px; }
+
+#home-heading {
+  position: relative;
+  min-height: 200px;
+  background: url("../img/display4.jpg");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  text-align: center;
+  color: #fff; }
+
+.dark-overlay {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.7);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+
+#video-play {
+  position: relative;
+  min-height: 200px;
+  background: url("../img/display4.jpg");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: 0 -300px;
+  text-align: center;
+  color: #fff; }
+  #video-play a {
+    color: #fff; }
+
+footer#main-footer {
+  background: #000;
+  color: #fff; }
+
+#page-header {
+  height: 200px;
+  background: url("../img/image1.jpg");
+  background-position: 0 -360px;
+  background-attachment: fixed;
+  color: #fff;
+  border-bottom: 1px #eee solid;
+  padding-top: 50px; }
+
+#about img {
+  margin-top: -100px; }
+
+#faq .card {
+  border: #444; }
+  #faq .card a {
+    color: #fff;
+    text-decoration: none; }
+
+#faq .card-body, #faq .card-header {
+  background: #333; }
+
+.about-img{
+  margin-top: -50px; 
+}
+
+
+</style>
