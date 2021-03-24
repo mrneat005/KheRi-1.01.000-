@@ -41,12 +41,42 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       // return 123;
 
-        $this->validate($request,[
-            'name' => 'required|string|max:60',
+       $this->validate($request,[
+        'name' => 'required|string|max:60',
+        'main_photo' => 'required',
+        'color' => 'required|string|max:191',
+        'price' => 'int|required',
+        'weight' => 'required',
+        'section_id' => 'required',
+        'catagory_id' => 'required',
 
-        ]);
+    ]);
+
+        $mainPhoto = $request->main_photo;
+
+        $name = time().'.' . explode('/', explode(':', substr($request->main_photo, 0, strpos($request->main_photo, ';')))[1])[1];
+            \Image::make($request->main_photo)->save(public_path('img/products/').$name);
+            $request->merge(['main_photo' => $name]);
+           // $request->name = $name;
+           //it will take new value
+           $request->merge(['main_photo' => $name]);
+
+
+
+           $mainProductPhoto = public_path('img/products/').$mainPhoto;
+           if(file_exists($mainProductPhoto)){
+               @unlink($mainProductPhoto);
+             }
+
+        if(!empty($request->password)){
+            $request->merge(['password' => Hash::make($request['password'])]);
+        }
+
+        
+
+
            return Products::create([
             'name'=>$request['name'],
             'catagory_id'=>$request['catagory_id'],
@@ -55,6 +85,7 @@ class ProductsController extends Controller
             'side_photo'=>$request['side_photo'],
             'code'=>$request['code'],
             'color'=>$request['color'],
+            'discription'=>$request['discription'],
             'price'=>$request['price'],
             'discount'=>$request['discount'],
             'weight'=>$request['weight'],
@@ -80,6 +111,7 @@ class ProductsController extends Controller
     {
         //
         $product= Products::findOrFail($id); 
+        
         return $product;
     }
 

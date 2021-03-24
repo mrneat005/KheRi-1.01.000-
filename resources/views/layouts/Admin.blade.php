@@ -24,24 +24,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="wrapper" id="app">
 
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light bg-dark">
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light bg-dark sticky-top">
             <!-- Left navbar links -->
-            <ul class="navbar-nav">
+            <ul class="navbar-nav content-justify-right">
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+                    <a class="nav-link" data-widget="pushmenu" href="#"><i style="color:grey;" class="fas fa-bars fa-2x"></i></a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="/home" class="nav-link  btn btn-outline-primary rounded-pill">Home</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="/home" class="nav-link  btn btn-outline-primary rounded-pill">Home</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="/home" class="nav-link btn btn-outline-primary rounded-pill">Home</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="/home" class="nav-link  btn btn-outline-primary rounded-pill">Home</a>
-                </li>
+              
+               
                 
             </ul>
             <!-- Right navbar links -->
@@ -49,6 +39,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <!--DropdownLogout-->
             <ul class="navbar-nav ml-auto">
+                
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="/home" class="nav-link  rounded-pill"><i style="color:grey;" class="fas fa-home fa-2x"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                
+                    <router-link to="/cartView-component" class="nav-link">
+                        <i style="color:grey;" class="fas fa-cart-plus fa-2x"></i>
+                    </router-link>
+
+
+
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="/home" class="nav-link  rounded-pill"><i style="color:grey;" class="fas fa-sms fa-2x"></i></a>
+                </li>
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item">
@@ -99,16 +105,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </ul>
 </div>
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-2">
+        <aside class="main-sidebar sidebar-dark-primary elevation-2 sticky-top">
             <!-- Brand Logo -->
             <!-- Brand Logo -->
-            <img src="./img/logo1.PNG" alt="AdminLTE Logo" class="img-thumbnail img-circle" style="opacity: .4">
+       <!--     <img src="./img/logo1.PNG" alt="AdminLTE Logo" class="img-thumbnail img-circle" style="opacity: .4">-->
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="./img/profile/{{ Auth::user()->photo }}" class="img-circle elevation-4 " alt="User Image">
+                        <img src="./img/profile/{{ Auth::user()->photo }}" class="img-circle img-fluid" alt="User Image">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -125,13 +131,73 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                
                <li class="nav-item">
-                            <router-link to="/side/overview" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt" style="color: white"></i>
+                            <router-link to="/dashboard-component" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt" style="color: grey;"></i>
                                 <p>
                                     Dashboard
                                 </p>
                             </router-link>
                         </li>
+
+<!---->
+
+
+<li class="nav-item">
+    <router-link to="/about-component" class="nav-link">
+        <i class="nav-icon fas fa-tachometer-alt" style="color: grey;"></i>
+        <p>
+            About
+        </p>
+    </router-link>
+</li>
+
+
+<li class="nav-item">
+    <router-link to="/Services-component" class="nav-link">
+    
+        <i class=" nav-icon fas fa-concierge-bell" style="color: grey;"></i>
+        <p>
+            Services
+        </p>
+    </router-link>
+</li>
+
+
+<li class="nav-item">
+    <router-link to="/blog-component" class="nav-link">
+        <i class="nav-icon fas fa-tachometer-alt" style="color: grey;"></i>
+        <p>
+            Blog
+        </p>
+    </router-link>
+</li>
+
+<li class="nav-item">
+  <a href="/chatify" class="nav-link"><i class="nav-icon fas fa-tachometer-alt" style="color: grey;"></i>
+    <p>
+        chat
+    </p></a>
+</li>
+
+
+<li class="nav-item">
+    <router-link to="/contacts-component" class="nav-link">
+        <i class=" nav-icon fas fa-id-card-alt" style="color: grey;"></i>
+        <p>
+            Contact
+        </p>
+    </router-link>
+</li>
+
+
+<!---->
+
+
+
+
+
+
+
                         <li class="nav-item">
                             <router-link to="/displayProducts-component" class="nav-link">
                                 <i class="nav-icon fas fa-cogs white"></i>

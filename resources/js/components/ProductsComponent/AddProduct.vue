@@ -332,6 +332,7 @@ export default {
           this.$Progress.fail();
         });
     },
+     //check.....................................................................................
     createProduct() {
      this.form
         .post("product")
@@ -354,6 +355,7 @@ export default {
         });
     },
   },
+  //check....................................................................................
   data() {
     return {
       whichModal: false,

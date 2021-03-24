@@ -62,51 +62,29 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 //routes
 const routes = [
     { path: '/example-component', component: require('./components/ExampleComponent.vue').default },
+    { path: '/blog-component', component: require('./components/blog.vue').default },
+    { path: '/about-component', component: require('./components/about.vue').default },
+    { path: '/cartView-component', component: require('./components/cartView.vue').default },
+    { path: '/services-component', component: require('./components/services.vue').default },
+    { path: '/contacts-component', component: require('./components/contacts.vue').default },
     { path: '/dashboard-component', component: require('./components/Dashboard.vue').default },
     { path: '/profile-component', component: require('./components/Profile.vue').default },
     { path: '/users-component', component: require('./components/Users.vue').default },
     { path: '/passport-component', component: require('./components/Passport.vue').default },
     { path: '/sections-component', component: require('./components/info/sections.vue').default },
-    { path: '/about-component', component: require('./components/landing/about.vue').default },
-    { path: '/welcome-component', component: require('./components/landing/welcome.vue').default },
     { path: '/catagory-component', component: require('./components/info/catagory.vue').default },
     { path: '/products-component', component: require('./components/info/products.vue').default },
     { path: '/addproduct-component', component: require('./components/ProductsComponent/AddProduct.vue').default },
     { path: '/displayProducts-component', component: require('./components/info/productsDisplay.vue').default },
     { path: '/displayproduct-component', component: require('./components/ProductsComponent/DisplayProductComponent.vue').default },
 
-    {
-      path: "/side",
-      name: "admin",
-      component: require('./components/sidebarcomponent.vue').default,
-      children:[
-        {
-          path: "overview",
-          name: "overview",
-          component: require('./components/Overview.vue').default,
-        },
-        {
-          path: "products",
-          name: "products",
-          component: require('./components/ProductsNew.vue').default,
-        },
-        {
-          path: "profile",
-          name: "profile",
-          component: require('./components/ProfileNew.vue').default,
-        },
-        {
-          path: "orders",
-          name: "orders",
-          component: require('./components/OrdersNew.vue').default,
-        }
-      ]
-    },
+   
   ]
 
   const router = new VueRouter({
     routes // short for `routes: routes`
-    ,mode:'history'
+    ,
+    //mode:'history'
   })
 //this will take the text and capatalize its first letter
   Vue.filter('upperCaseFirst',function name(text) {
@@ -147,7 +125,6 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 Vue.component('navbar-component', require('./components/Navbar.vue').default);
 Vue.component('products-component', require('./components/products.vue').default);
-Vue.component('side-component', require('./components/sidebarcomponent.vue').default);
 Vue.component('overview-component', require('./components/Overview.vue').default);
 //
 Vue.component('sections-component', require('./components/info/sections.vue').default);

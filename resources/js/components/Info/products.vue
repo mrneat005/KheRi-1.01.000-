@@ -242,7 +242,7 @@
                 <has-error :form="form" field="meta_title"></has-error>
               </div>
               <!--/Element-->
-
+<!--Working code-->
               <div class="form-group">
                 <label for="photo" class="col-sm-2 control-label">Main Photo</label>
                 <div class="col-sm-12">
@@ -644,6 +644,47 @@ export default {
   width: 50px;
   height: 50px;
   border: 2px solid #000000;
+}
+body {
+    background: #eee
+}
+
+.ratings i {
+    font-size: 16px;
+    color: red
+}
+
+.strike-text {
+    color: red;
+    text-decoration: line-through
+}
+
+.product-image {
+    width: 100%
+}
+
+.dot {
+    height: 7px;
+    width: 7px;
+    margin-left: 6px;
+    margin-right: 6px;
+    margin-top: 3px;
+    background-color: blue;
+    border-radius: 50%;
+    display: inline-block
+}
+
+.spec-1 {
+    color: #938787;
+    font-size: 15px
+}
+
+h5 {
+    font-weight: 400
+}
+
+.para {
+    font-size: 16px
 }
 </style>
   

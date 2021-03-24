@@ -25,6 +25,7 @@ Route::resource('profile', 'ProfileController');
 Route::resource('section', 'sectionsController');
 Route::resource('catagory', 'catagoriesController');
 Route::resource('product', 'ProductsController');
+Route::resource('cart', 'cartController')->middleware('auth');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
