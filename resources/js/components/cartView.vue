@@ -23,23 +23,23 @@
 							</td>
 							<td data-th="Price">$1.99</td>
 							<td data-th="Quantity">
-								<input type="number" class="form-control text-center" value="1">
+								<input type="number"  v-model="cartItem.quantity"  class="form-control text-center" >
 							</td>
 							<td data-th="Subtotal" class="text-center">1.99</td>
 							<td class="actions" data-th="">
-                     <a href="#" @click="updateCart()">
+                     <a href="#" @click="updateToCart(cartItem.id)">
                      <i class="fas fa-edit fa-lg green"></i>
                      </a>
                   /
                      <a href="#" @click="deleteItem(cartItem.id)">
                      <i class="fas fa-trash red fa-lg"> </i>
-                    </a>								
+                    </a>
 							</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="visible-xs">
-							<td class="text-center"><strong>Total 1.99</strong></td>
+							<td class="text-center"><strong>Total </strong></td>
 						</tr>
 						<tr>
 							<td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
@@ -80,6 +80,7 @@
       cart: {},
       form: new Form({
         id: "",
+        qty:"",
         name: "",
         email: "",
         created_at: "",
@@ -151,7 +152,28 @@ getProductPhoto(e) {
            .catch(() => {});
           Fire.$emit("cartItemDeleted");
         });
+        this.reRender();
         
+       },
+            reRender(){
+              console.log('done');
+        this.$forceUpdate()
+     },
+
+
+
+    updateToCart(id) {
+      
+    this.form
+          .put("cart/"+ id)
+           .then(() => {
+             Swal.fire(
+              "Cart!",
+              "Your Item " + id + " has been added to the cart.",
+              "success"
+             );
+            })
+           .catch(() => {});
        },
 
   },

@@ -49,6 +49,7 @@ return $items;
     public function store(Request $request)
     {
         //
+        return 123222;
     }
 
     /**
@@ -60,39 +61,20 @@ return $items;
     public function show($id)
     {
         //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-        return 123;
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
         
-       
-// finding targeted product
+
+
+
+
+
+        // finding targeted product
         $product= Products::findOrFail($id);
 
         $rowId = uniqid($product->id); // generate a unique() Product ID
         $user = Auth::user();
         $userID = $user->id; // the user ID to bind the cart contents
 
-       
+        
 
 // add the product to cart
 \Cart::session($userID)->add(array(
@@ -120,6 +102,41 @@ return $items;
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+        return 123;
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        return $request->qty;
+        $user = Auth::user();
+        $userID = $user->id;
+        $items = \Cart::getContent();
+        \Cart::session($userID)->update($id,[
+            'quantity' => array(
+                'relative' => false,
+                'value' => $request->qty
+            ),
+           // 'price' => 98.67
+        ]);
+
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -133,5 +150,6 @@ return $items;
         $user = Auth::user();
         $userID = $user->id; // the user ID to bind the cart contents
         \Cart::session($userID)->remove($id);
+        
     }
 }

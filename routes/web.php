@@ -19,12 +19,12 @@ Route::get('/', function () {
 Route::get('/landing', function () {
     return view('landing');
 });
-Route::get('/catagoriesMatched', 'catagoriesController@catagoriesMatched');
+Route::get('/catagoriesMatched', 'catagoriesController@catagoriesMatched')->middleware('auth');
 
-Route::resource('profile', 'ProfileController');
-Route::resource('section', 'sectionsController');
-Route::resource('catagory', 'catagoriesController');
-Route::resource('product', 'ProductsController');
+Route::resource('profile', 'ProfileController')->middleware('auth');
+Route::resource('section', 'sectionsController')->middleware('auth');
+Route::resource('catagory', 'catagoriesController')->middleware('auth');
+Route::resource('product', 'ProductsController')->middleware('auth');
 Route::resource('cart', 'cartController')->middleware('auth');
 Auth::routes();
 

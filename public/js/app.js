@@ -4829,6 +4829,7 @@ __webpack_require__.r(__webpack_exports__);
       cart: {},
       form: new Form({
         id: "",
+        qty: "",
         name: "",
         email: "",
         created_at: "",
@@ -4891,6 +4892,16 @@ __webpack_require__.r(__webpack_exports__);
 
         Fire.$emit("cartItemDeleted");
       });
+      this.reRender();
+    },
+    reRender: function reRender() {
+      console.log('done');
+      this.$forceUpdate();
+    },
+    updateToCart: function updateToCart(id) {
+      this.form.put("cart/" + id).then(function () {
+        Swal.fire("Cart!", "Your Item " + id + " has been added to the cart.", "success");
+      })["catch"](function () {});
     }
   }
 });
@@ -6278,9 +6289,8 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     addToCart: function addToCart(id) {
       console.log(id);
-      this.form.put("cart/" + id).then(function () {
-        Fire.$emit("userDeleted");
-        Swal.fire("Deleted!", "Your file " + id + " has been deleted.", "success");
+      this.form.get("cart/" + id).then(function () {
+        Swal.fire("Cart!", "Your Item " + id + " has been added to the cart.", "success");
       })["catch"](function () {});
     },
     getProductPhoto: function getProductPhoto(e) {
@@ -75770,7 +75780,29 @@ var render = function() {
               _vm._v(" "),
               _c("td", { attrs: { "data-th": "Price" } }, [_vm._v("$1.99")]),
               _vm._v(" "),
-              _vm._m(1, true),
+              _c("td", { attrs: { "data-th": "Quantity" } }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: cartItem.quantity,
+                      expression: "cartItem.quantity"
+                    }
+                  ],
+                  staticClass: "form-control text-center",
+                  attrs: { type: "number" },
+                  domProps: { value: cartItem.quantity },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(cartItem, "quantity", $event.target.value)
+                    }
+                  }
+                })
+              ]),
               _vm._v(" "),
               _c(
                 "td",
@@ -75788,7 +75820,7 @@ var render = function() {
                     attrs: { href: "#" },
                     on: {
                       click: function($event) {
-                        return _vm.updateCart()
+                        return _vm.updateToCart(cartItem.id)
                       }
                     }
                   },
@@ -75813,7 +75845,7 @@ var render = function() {
           0
         ),
         _vm._v(" "),
-        _vm._m(2)
+        _vm._m(1)
       ]
     )
   ])
@@ -75845,21 +75877,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", { attrs: { "data-th": "Quantity" } }, [
-      _c("input", {
-        staticClass: "form-control text-center",
-        attrs: { type: "number", value: "1" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("tfoot", [
       _c("tr", { staticClass: "visible-xs" }, [
         _c("td", { staticClass: "text-center" }, [
-          _c("strong", [_vm._v("Total 1.99")])
+          _c("strong", [_vm._v("Total ")])
         ])
       ]),
       _vm._v(" "),

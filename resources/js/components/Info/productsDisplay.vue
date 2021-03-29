@@ -110,12 +110,11 @@ export default {
     addToCart(id) {
       console.log(id);
     this.form
-          .put("cart/" + id)
+          .get("cart/"+ id)
            .then(() => {
-            Fire.$emit("userDeleted");
              Swal.fire(
-              "Deleted!",
-              "Your file " + id + " has been deleted.",
+              "Cart!",
+              "Your Item " + id + " has been added to the cart.",
               "success"
              );
             })

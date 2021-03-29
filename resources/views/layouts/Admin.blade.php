@@ -46,7 +46,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <li class="nav-item d-none d-sm-inline-block">
                 
                     <router-link to="/cartView-component" class="nav-link">
-                        <i style="color:grey;" class="fas fa-cart-plus fa-2x"></i>
+                       
+                        <i style="color:grey;" class="fas fa-cart-plus fa-2x">
+                        
+                            <span class="badge bg-success" style="width: 2rem; height: 2rem;">{{Cart::session(auth()->id())->getContent()->count()}}</span>
+                            </i>
                     </router-link>
 
 
