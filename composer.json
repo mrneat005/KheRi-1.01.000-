@@ -16,6 +16,7 @@
         "laravel/passport": "^7.5",
         "laravel/tinker": "^1.0",
         "munafio/chatify": "^1.0",
+        "stripe/stripe-php": "^7.76",
         "webpatser/laravel-uuid": "^3.0"
     },
     "require-dev": {

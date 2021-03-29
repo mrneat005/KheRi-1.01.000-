@@ -5,47 +5,26 @@
      
 
     <div class="container">
-      <div class="py-5 text-center">
-        <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+      
         <h2>Checkout form</h2>
         <p class="lead">Below is an example form built entirely with Bootstrap's form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
-      </div>
+ 
 
       <div class="row">
         <div class="col-md-4 order-md-2 mb-4">
           <h4 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-muted">Your cart</span>
-            <span class="badge badge-secondary badge-pill">3</span>
+            <span class="badge badge-secondary badge-pill">{{this.cart.count}}</span>
           </h4>
-          <ul class="list-group mb-3">
+          <ul v-for="cartItem in cart.data" :key="cartItem.id" class="list-group mb-3">
             <li class="list-group-item d-flex justify-content-between lh-condensed">
               <div>
-                <h6 class="my-0">Product name</h6>
-                <small class="text-muted">Brief description</small>
+                <h6 class="my-0">{{cartItem.name}}</h6>
+                <small class="text-muted">{{cartItem.discription}}</small>
               </div>
-              <span class="text-muted">$12</span>
+              <span class="text-muted">{{cartItem.price}}</span>
             </li>
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                <h6 class="my-0">Second product</h6>
-                <small class="text-muted">Brief description</small>
-              </div>
-              <span class="text-muted">$8</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                <h6 class="my-0">Third item</h6>
-                <small class="text-muted">Brief description</small>
-              </div>
-              <span class="text-muted">$5</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between bg-light">
-              <div class="text-success">
-                <h6 class="my-0">Promo code</h6>
-                <small>EXAMPLECODE</small>
-              </div>
-              <span class="text-success">-$5</span>
-            </li>
+           
             <li class="list-group-item d-flex justify-content-between">
               <span>Total (USD)</span>
               <strong>$20</strong>
@@ -205,6 +184,7 @@
               </div>
             </div>
             <hr class="mb-4">
+            
             <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
           </form>
         </div>
@@ -222,14 +202,133 @@
    
 </template>
 
+
+
 <script>
     export default {
         mounted() {
-            console.log('Component mounted.')
-        }
-    }
+           Vue.loadScript("https://js.stripe.com/v3/")
 
-window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')
+
+            this.loadCart();
+
+            this.form
+          .get("cart")
+           .then((data) => {
+       
+                this.cart = data;
+
+            })
+           .catch(() => {});
+        },
+
+  data() {
+    return {
+      whichModal: false,
+      time: "",
+      cart: {},
+      form: new Form({
+        id: "",
+        qty:"",
+        name: "",
+        email: "",
+        created_at: "",
+        type: "",
+        password: "",
+        main_photo: "",
+      }),
+    };
+  },
+  methods: {
+      loadCart() { 
+if(true){
+      this.$Progress.start();
+      axios
+        .get("cart")
+        .then(({ data }) => {
+          this.cart = data;
+        })
+        .catch(function (error) {
+          // handle error
+          this.$Progress.fail();
+        });
+      this.$Progress.finish();
+      Fire.$on("cartItemDeleted", () => {
+        this.loadCart();
+      });
+            Fire.$on("cartItemUpdated", () => {
+        this.loadCart();
+      });
+      
+      
+    }
+      //axios.get("api/user").then(({data}) => (this.users = data.data));
+      //doing data.data because it depends on how we get data formated
+      //see  XHR response
+      //performence
+      //setInterval(() => this.loadUsers(), 15000);
+      //refreshs data after every 15 seconds
+      //setInterval(()=>this.displayTime(),1000);
+    },
+getProductPhoto(e) {
+      console.log(e);
+
+      let photo =
+        this.form.main_photo.length > 200 ? this.form.main_photo : "img/products/" + e;
+      return photo;
+    },
+    deleteItem(id) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        
+         this.form
+          .delete("cart/" + id)
+           .then(() => {
+            Fire.$emit("Cart Item");
+             Swal.fire(
+              "Deleted!",
+              "Your Cart Item " + id + " has been deleted.",
+              "success"
+             );
+            })
+           .catch(() => {});
+          Fire.$emit("cartItemDeleted");
+        });
+        this.reRender();
+        
+       },
+            reRender(){
+              console.log('done');
+        this.$forceUpdate()
+     },
+
+
+
+    updateToCart(id) {
+      
+    this.form
+          .put("cart/"+ id)
+           .then(() => {
+             Swal.fire(
+              "Cart!",
+              "Your Item " + id + " has been added to the cart.",
+              "success"
+             );
+            })
+           .catch(() => {});
+       },
+
+  },
+
+    }
+    window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')
 (function() {
         'use strict';
 
@@ -250,6 +349,9 @@ window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim
         }, false);
       })();
 </script>
+
+
+
 
 
 
