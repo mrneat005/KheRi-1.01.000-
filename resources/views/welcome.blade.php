@@ -161,12 +161,12 @@
        </div>
        <div class="col-md-4 mb-4 text-center">
          <i class="fa fa-cloud mb-2"></i>
-         <h3>Sending Data</h3>
+         <h3>Selling Craft</h3>
          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, maxime.</p>
        </div>
        <div class="col-md-4 mb-4 text-center">
          <i class="fa fa-cart-plus mb-2"></i>
-         <h3>Making Money</h3>
+         <h3>Shop</h3>
          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, maxime.</p>
        </div>
      </div>

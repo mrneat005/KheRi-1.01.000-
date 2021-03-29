@@ -63,7 +63,9 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 const routes = [
     { path: '/example-component', component: require('./components/ExampleComponent.vue').default },
     { path: '/blog-component', component: require('./components/blog.vue').default },
-    { path: '/about-component', component: require('./components/about.vue').default },
+    { path: '/requests-component', component: require('./components/Requests.vue').default },
+    { path: '/checkout-component', component: require('./components/checkout.vue').default },
+    { path: '/becomeSeller-component', component: require('./components/becomeSeller.vue').default },
     { path: '/cartView-component', component: require('./components/cartView.vue').default },
     { path: '/services-component', component: require('./components/services.vue').default },
     { path: '/contacts-component', component: require('./components/contacts.vue').default },

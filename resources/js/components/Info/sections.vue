@@ -65,8 +65,8 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content bg-dark">
           <div class="modal-header bg-success">
-            <h5 class="modal-title" v-show="whichModal" id="add">Update User</h5>
-            <h5 class="modal-title" v-show="!whichModal" id="add">Add User</h5>
+            <h5 class="modal-title" v-show="whichModal" id="add">Update Sections</h5>
+            <h5 class="modal-title" v-show="!whichModal" id="add">Add Sections</h5>
             <button type="button" class="close bg-danger" @click="closeModal">
               <span aria-hidden="true">&times;</span>
             </button>
